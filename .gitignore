@@ -37,3 +37,8 @@ node_modules/
 dist/
 build/
 node/
+
+### なにかわからないやつ ### 
+.metadata/
+Servers
+TestKamata.java
