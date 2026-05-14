@@ -7,10 +7,10 @@
 ./mvnw generate-resources
 ```
 eclipseを使っていて、javaが見つからない場合、
-以下のコマンドを実行してください。
-{}の中には各々のjavaのpathを入れてください
+以下のコマンドを実行してから上記のコマンドを実行してください。
+各々のjavaのpathを入れてください
 ```shell
-export JAVA_HOME="｛/c/pleiades/2025-12/java/21｝"
+export JAVA_HOME="/c/pleiades/2025-12/java/21"
 export PATH="$JAVA_HOME/bin:$PATH"
 ```
 # フォルダ構成
