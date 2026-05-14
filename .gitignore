@@ -31,3 +31,13 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Node.js ###
+node_modules/
+dist/
+build/
+node/
+
+### なにかわからないやつ ### 
+.metadata/
+Servers
