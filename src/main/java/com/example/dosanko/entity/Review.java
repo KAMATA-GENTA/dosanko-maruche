@@ -8,7 +8,7 @@ import lombok.Data;
  * reviewsテーブルと対応するエンティティクラス
  */
 @Data
-public class Reviews {
+public class Review {
 
 	private int reviewId; // レビューID (PK)
 	private int productId; // 商品ID (FK)

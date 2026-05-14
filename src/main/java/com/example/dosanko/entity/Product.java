@@ -6,7 +6,7 @@ import lombok.Data;
  * productsテーブルと対応するエンティティクラス
  */
 @Data
-public class Products {
+public class Product {
 
 	private int productId; // 商品ID (PK)
 	private String productName; // 商品名
