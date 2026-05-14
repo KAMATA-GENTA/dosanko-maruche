@@ -14,5 +14,6 @@ public class Product {
 	private int price; // 価格
 	private int categoryId; // カテゴリID (FK)
 	private String imageUrl; // 画像のURLやファイルパス
+	private int regionId; // 地域ID (FK)
 
 }
