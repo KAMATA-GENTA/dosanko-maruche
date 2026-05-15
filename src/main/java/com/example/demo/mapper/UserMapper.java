@@ -1,5 +1,15 @@
 package com.example.demo.mapper;
 
-public class UserMapper {
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.example.demo.entity.User;
+
+@Mapper
+public interface UserMapper {
+
+	/** 全商品を取得する */
+	List<User> findAll();
 
 }
