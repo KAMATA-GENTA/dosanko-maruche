@@ -1,0 +1,70 @@
+INSERT INTO users (
+    username,
+    email,
+    password_hash
+)
+VALUES
+(
+    'tanaka',
+    'tanaka@example.com',
+    'password123'
+),
+(
+    'sato',
+    'sato@example.com',
+    'password456'
+);
+
+INSERT INTO products (
+    region_id,
+    category_id,
+    product_name,
+    price,
+    description,
+    image_url
+)
+VALUES
+(
+    1,
+    3,
+    '札幌味噌ラーメン',
+    1200,
+    '濃厚味噌スープが特徴の札幌ラーメン',
+    '/images/sapporo_ramen.jpg'
+),
+(
+    2,
+    1,
+    '小樽海鮮丼セット',
+    2500,
+    '新鮮な海鮮を楽しめる人気セット',
+    '/images/otaru_kaisen.jpg'
+),
+(
+    3,
+    2,
+    '函館チーズケーキ',
+    1800,
+    '北海道産ミルク使用の濃厚チーズケーキ',
+    '/images/hakodate_cake.jpg'
+);
+
+INSERT INTO reviews (
+    product_id,
+    user_id,
+    rating,
+    comment
+)
+VALUES
+(
+    1,
+    1,
+    5,
+    'とても美味しかったです！'
+),
+(
+    2,
+    2,
+    4,
+    '海鮮が新鮮でした！'
+);
