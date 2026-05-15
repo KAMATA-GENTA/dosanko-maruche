@@ -1,11 +1,12 @@
 # どさん娘　マルシェ
-## ページプレビュー
+## Overview
 
-# Getting Started
-プロジェクトルートで以下のコマンドを実行してください
+## Getting Started
+### javaが見えているか確認する
 ```shell
-./mvnw generate-resources
+java --version
 ```
+見えていない場合
 eclipseを使っていて、javaが見つからない場合、
 以下のコマンドを実行してから上記のコマンドを実行してください。
 各々のjavaのpathを入れてください
@@ -13,11 +14,17 @@ eclipseを使っていて、javaが見つからない場合、
 export JAVA_HOME="/c/pleiades/2025-12/java/21"
 export PATH="$JAVA_HOME/bin:$PATH"
 ```
-# フォルダ構成
-# DBスキーマ
-# テーブル定義
+### installする
+プロジェクトルートで以下のコマンドを実行してください
+```shell
+./mvnw generate-resources
+```
 
-## users（ユーザー）
+### フォルダ構成
+### DBスキーマ
+### テーブル定義
+
+### users（ユーザー）
 
 |論理名|物理名|型|制約|説明|
 |---|---|---|---|---|
@@ -28,7 +35,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 
 ---
 
-## products（商品）
+### products（商品）
 
 |論理名|物理名|型|制約|説明|
 |---|---|---|---|---|
@@ -42,7 +49,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 
 ---
 
-## reviews（レビュー）
+### reviews（レビュー）
 
 |論理名|物理名|型|制約|説明|
 |---|---|---|---|---|
@@ -55,7 +62,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 
 ---
 
-## cart_items（カート）
+### cart_items（カート）
 
 |論理名|物理名|型|制約|説明|
 |---|---|---|---|---|
@@ -66,7 +73,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 
 ---
 
-## orders（注文）
+### orders（注文）
 
 |論理名|物理名|型|制約|説明|
 |---|---|---|---|---|
@@ -78,7 +85,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 
 ---
 
-## order_details（注文詳細）
+### order_details（注文詳細）
 
 |論理名|物理名|型|制約|説明|
 |---|---|---|---|---|
@@ -90,7 +97,7 @@ export PATH="$JAVA_HOME/bin:$PATH"
 
 ---
 
-## テーブル関係
+### テーブル関係
 
 |親テーブル|子テーブル|関係|意味|
 |---|---|---|---|
