@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+  UserMapper.xml
+  対応インターフェース: com.example.demo.mapper.UserMapper
+-->
+<mapper namespace="com.example.demo.mapper.UserMapper">
+
+  <!-- ════════════════════════════════════════════════════
+       ResultMap: User（Region を LEFT JOIN で結合）
+       ════════════════════════════════════════════════════ -->
+  <resultMap id="UserWithRegionResultMap" type="com.example.demo.model.User">
+    <id     property="userId"    column="user_id" />
+    <result property="username"  column="username" />
+    <result property="email"     column="email" />
+    <result property="createdAt" column="created_at" />
+    <!-- Region の association（null でも安全） -->
+    <association property="region"
+                 javaType="com.example.demo.model.Region"
+                 columnPrefix="r_">
+      <id     property="regionId"   column="region_id" />
+      <result property="regionName" column="region_name" />
+    </association>
+  </resultMap>
+
+  <!-- ════════════════════════════════════════════════════
+       ユーザー取得（メールアドレスで検索）
+       ログイン認証・重複チェックで使用
+       ════════════════════════════════════════════════════ -->
+  <select id="findByEmail" parameterType="string"
+          resultMap="UserWithRegionResultMap">
+    SELECT
+        u.user_id,
+        u.username,
+        u.email,
+        u.password_hash,
+        u.created_at,
+        r.region_id   AS r_region_id,
+        r.region_name AS r_region_name
+    FROM
+        users u
+        LEFT JOIN regions r ON u.my_region_id = r.region_id
+    WHERE
+        u.email = #{email}
+    LIMIT 1
+  </select>
+
+  <!-- ════════════════════════════════════════════════════
+       ユーザー取得（user_id で検索）
+       ════════════════════════════════════════════════════ -->
+  <select id="findById" parameterType="long"
+          resultMap="UserWithRegionResultMap">
+    SELECT
+        u.user_id,
+        u.username,
+        u.email,
+        u.password_hash,
+        u.created_at,
+        r.region_id   AS r_region_id,
+        r.region_name AS r_region_name
+    FROM
+        users u
+        LEFT JOIN regions r ON u.my_region_id = r.region_id
+    WHERE
+        u.user_id = #{userId}
+  </select>
+
+  <!-- ════════════════════════════════════════════════════
+       メールアドレス存在チェック（重複登録防止）
+       ════════════════════════════════════════════════════ -->
+  <select id="existsByEmail" parameterType="string" resultType="boolean">
+    SELECT EXISTS (
+        SELECT 1
+        FROM users
+        WHERE email = #{email}
+    )
+  </select>
+
+  <!-- ════════════════════════════════════════════════════
+       ユーザー新規登録
+       ════════════════════════════════════════════════════ -->
+  <insert id="insert" parameterType="com.example.dosanko.model.User"
+          useGeneratedKeys="true" keyProperty="userId">
+    INSERT INTO users (
+        username,
+        email,
+        password_hash,
+        my_region_id,
+        created_at
+    ) VALUES (
+        #{username},
+        #{email},
+        #{passwordHash},
+        #{myRegionId},
+        NOW()
+    )
+  </insert>
+
+  <!-- ════════════════════════════════════════════════════
+       購入履歴一覧取得
+       【設計方針】
+         - orders テーブルから注文ごとの集計行を1行で取得する。
+         - order_details を GROUP BY＋SUM でまとめ、商品名は STRING_AGG で列挙。
+         - N+1 問題を避けるため、商品詳細まで一括 JOIN する。
+         - 送料無料フラグ（is_free_shipping）は orders テーブルに持つ想定。
+         - 最新注文が先頭に来るよう ordered_at DESC でソート。
+       ════════════════════════════════════════════════════ -->
+  <select id="findOrderHistoriesByUserId"
+          parameterType="long"
+          resultType="com.example.dosanko.dto.OrderHistoryDto">
+    SELECT
+        o.order_id                              AS orderId,
+        o.ordered_at                            AS orderedAt,
+        /*
+         * order_details 側に unit_price × quantity の明細があるため
+         * orders テーブルに total_amount カラムがない場合は SUM で集計。
+         * orders に total_amount カラムがある場合は o.total_amount を使用。
+         */
+        SUM(od.unit_price * od.quantity)        AS totalAmount,
+        o.is_free_shipping                      AS freeShipping
+    FROM
+        orders o
+        -- 注文明細を結合（1注文:N明細）
+        INNER JOIN order_details od
+            ON o.order_id = od.order_id
+        -- 商品マスタを結合（明細:1商品）※ここでは集計のみ使用
+        INNER JOIN products p
+            ON od.product_id = p.product_id
+    WHERE
+        o.user_id = #{userId}
+    GROUP BY
+        o.order_id,
+        o.ordered_at,
+        o.is_free_shipping
+    ORDER BY
+        o.ordered_at DESC
+  </select>
+
+</mapper>
