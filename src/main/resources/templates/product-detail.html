@@ -1,0 +1,55 @@
+<h1 th:text="${product.productName}"></h1>
+
+<img th:src="${product.imageUrl}">
+
+<p>価格: <span th:text="${product.price}"></span>円</p>
+<p>送料: 1000円</p>
+
+<p th:text="${product.description}"></p>
+
+<!-- ⭐ 平均星表示 -->
+<div>
+	<span th:each="i : ${#numbers.sequence(1,5)}">
+		<span th:text="${i <= averageRating ? '★' : '☆'}"></span>
+	</span>
+	(<span th:text="${averageRating}"></span>)
+</div>
+
+<a href="#review-section">レビューはこちら</a>
+
+<!-- カート追加 -->
+<form th:action="@{/product/{id}/cart(id=${product.productId})}" method="post">
+	<input type="number" name="quantity" value="1" min="1">
+	<button type="submit">カートに追加</button>
+</form>
+
+<hr>
+
+<h2 id="review-section">レビュー</h2>
+
+<div th:each="review : ${reviews}">
+	<div>
+		<span th:each="i : ${#numbers.sequence(1,5)}">
+			<span th:text="${i <= review.rating ? '★' : '☆'}"></span>
+		</span>
+	</div>
+	<p th:text="${review.comment}"></p>
+</div>
+
+<hr>
+
+<h3>レビュー投稿</h3>
+
+<form th:action="@{/product/{id}/review(id=${product.productId})}" method="post" th:object="${reviewForm}">
+	<select th:field="*{rating}">
+		<option value="1">★1</option>
+		<option value="2">★2</option>
+		<option value="3">★3</option>
+		<option value="4">★4</option>
+		<option value="5">★5</option>
+	</select>
+
+	<textarea th:field="*{comment}"></textarea>
+
+	<button type="submit">投稿</button>
+</form>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.ReviewMapper">
+
+    <!-- 平均評価取得 -->
+    <select id="findAverageRating"
+            parameterType="int"
+            resultType="double">
+
+        SELECT COALESCE(AVG(rating),0)
+        FROM reviews
+        WHERE product_id = #{productId}
+
+    </select>
+
+    <!-- レビュー一覧取得 -->
+    <select id="findByProduct"
+            parameterType="int"
+            resultType="com.example.demo.entity.Review">
+
+        SELECT
+            id,
+            product_id,
+            user_id,
+            rating,
+            comment,
+            created_at
+        FROM reviews
+        WHERE product_id = #{productId}
+        ORDER BY created_at DESC
+
+    </select>
+
+    <!-- レビュー投稿 -->
+    <insert id="insert"
+            parameterType="com.example.demo.entity.Review">
+
+        INSERT INTO reviews(
+            product_id,
+            user_id,
+            rating,
+            comment,
+            created_at
+        )
+        VALUES(
+            #{productId},
+            #{userId},
+            #{rating},
+            #{comment},
+            NOW()
+        )
+
+    </insert>
+
+</mapper>
