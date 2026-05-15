@@ -43,11 +43,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.mybatis.spring.boot</groupId>-->
-<!--			<artifactId>mybatis-spring-boot-starter</artifactId>-->
-<!--			<version>4.0.1</version>-->
-<!--		</dependency>-->
+		<!--		<dependency>-->
+		<!--			<groupId>org.mybatis.spring.boot</groupId>-->
+		<!--			<artifactId>mybatis-spring-boot-starter</artifactId>-->
+		<!--			<version>4.0.1</version>-->
+		<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -88,93 +88,94 @@
 		</dependency>
 		<!-- 追加 -->
 		<dependency>
-    		<groupId>org.postgresql</groupId>
-    		<artifactId>postgresql</artifactId>
-    		<scope>runtime</scope>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
 		</dependency>
+	</dependencies>
+
+	<build>
+	<plugins>
+	<plugin>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-thymeleaf-test</artifactId>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-validation-test</artifactId>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-webmvc-test</artifactId>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.mybatis.spring.boot</groupId>
+		<artifactId>mybatis-spring-boot-starter-test</artifactId>
+		<version>4.0.1</version>
+		<scope>test</scope>
+	</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-thymeleaf-test</artifactId>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-validation-test</artifactId>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-webmvc-test</artifactId>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.mybatis.spring.boot</groupId>
-				<artifactId>mybatis-spring-boot-starter-test</artifactId>
-				<version>4.0.1</version>
-				<scope>test</scope>
-			</dependency>
-		</dependencies>
-	
-		<build>
-			<plugins>
-				<plugin>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-maven-plugin</artifactId>
-					<configuration>
-						<excludes>
-							<exclude>
-								<groupId>org.projectlombok</groupId>
-								<artifactId>lombok</artifactId>
-							</exclude>
-						</excludes>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<executions>
-						<execution>
-							<id>default-compile</id>
-							<phase>compile</phase>
-							<goals>
-								<goal>compile</goal>
-							</goals>
-							<configuration>
-								<annotationProcessorPaths>
-									<path>
-										<groupId>org.projectlombok</groupId>
-										<artifactId>lombok</artifactId>
-									</path>
-								</annotationProcessorPaths>
-							</configuration>
-						</execution>
-						<execution>
-							<id>default-testCompile</id>
-							<phase>test-compile</phase>
-							<goals>
-								<goal>testCompile</goal>
-							</goals>
-							<configuration>
-								<annotationProcessorPaths>
-									<path>
-										<groupId>org.projectlombok</groupId>
-										<artifactId>lombok</artifactId>
-									</path>
-								</annotationProcessorPaths>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-	
-				<plugin>
-					<groupId>com.github.eirslett</groupId>
-					<artifactId>frontend-maven-plugin</artifactId>
-					<version>2.0.0</version>
-					<executions>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>default-compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<annotationProcessorPaths>
+								<path>
+									<groupId>org.projectlombok</groupId>
+									<artifactId>lombok</artifactId>
+								</path>
+							</annotationProcessorPaths>
+						</configuration>
+					</execution>
+					<execution>
+						<id>default-testCompile</id>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+						<configuration>
+							<annotationProcessorPaths>
+								<path>
+									<groupId>org.projectlombok</groupId>
+									<artifactId>lombok</artifactId>
+								</path>
+							</annotationProcessorPaths>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>2.0.0</version>
+				<executions>
 					<execution>
 						<id>install node and npm</id>
 						<goals>
@@ -203,13 +204,13 @@
 						<phase>generate-resources</phase>
 					</execution>
 				</executions>
-					<configuration>
-						<nodeVersion>v24.12.0</nodeVersion>
-						<workingDirectory>frontend</workingDirectory>
-					</configuration>
-	
-				</plugin>
-			</plugins>
-		</build>
-	
-	</project>
+				<configuration>
+					<nodeVersion>v24.12.0</nodeVersion>
+					<workingDirectory>frontend</workingDirectory>
+				</configuration>
+
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
