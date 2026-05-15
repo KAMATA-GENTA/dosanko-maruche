@@ -40,7 +40,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
-
+		<!-- PostgreSQL -->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>4.0.1</version>
+		</dependency>
 		<!-- PostgreSQL -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -56,6 +61,7 @@
 		</dependency>
 
 		<!-- DevTools -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
