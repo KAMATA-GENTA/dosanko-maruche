@@ -8,8 +8,7 @@
   "source": "src/index.html",
   "scripts": {
     "start": "parcel",
-    "build": "tailwindcss -i ./input.css -o ../src/main/resources/static/css/output.css",
-    "watch": "tailwindcss -i ./input.css -o ../src/main/resources/static/css/output.css --watch"
+    "build": "tailwindcss -i ./input.css -o ../src/main/resources/static/css/output.css"
   },
   "browserslist": "last 2 versions",
   "targets": {

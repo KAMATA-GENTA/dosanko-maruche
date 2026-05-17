@@ -1,2 +1,5 @@
 @import "tailwindcss" source('../src/main/resources/templates/**/*.{html,js,css}');
-@plugin "daisyui";
+@plugin "daisyui"{
+    themes: valentine --default;
+}
+
