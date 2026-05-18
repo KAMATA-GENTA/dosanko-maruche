@@ -19,6 +19,7 @@ public interface CartMapper {
 			@Param("quantity") int quantity);
 
 
+
 	// 数量更新
 	void updateQuantity(@Param("cartId") int cartId,
 			@Param("quantity") int quantity);
