@@ -38,16 +38,25 @@ public class ProductController {
 	// 商品詳細表示
 	@GetMapping("/{productId}")
 	public String showProductDetail(@PathVariable int productId,
+			@RequestParam(name = "sort", defaultValue = "new") String sort,
+			@RequestParam(name = "rating", required = false) Integer rating,
 			Model model) {
 
 		Product product = productService.findById(productId);
 		Double averageRating = reviewService.getAverageRating(productId);
-		List<Review> reviews = reviewService.findByProduct(productId);
+
+		String selectedSort = reviewService.normalizeSort(sort);
+		Integer selectedRating = reviewService.normalizeRating(rating);
+		List<Review> reviews = reviewService.findByProduct(productId, selectedSort, selectedRating);
 
 		model.addAttribute("product", product);
 		model.addAttribute("averageRating", averageRating);
 		model.addAttribute("reviews", reviews);
 		model.addAttribute("reviewForm", new Review());
+
+		// レビューの表示条件を画面に戻すために使う
+		model.addAttribute("selectedSort", selectedSort);
+		model.addAttribute("selectedRating", selectedRating);
 
 		return "product-detail";
 	}

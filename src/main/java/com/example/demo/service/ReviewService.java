@@ -25,8 +25,50 @@ public class ReviewService {
 		return averageRating == null ? 0.0 : averageRating;
 	}
 
-	public List<Review> findByProduct(int productId) {
-		return reviewMapper.findByProduct(productId);
+	/**
+	 * 商品ごとのレビュー一覧を取得する。
+	 * sortとratingは安全な値に整えてからMapperへ渡す。
+	 */
+	public List<Review> findByProduct(int productId, String sort, Integer rating) {
+		String safeSort = normalizeSort(sort);
+		Integer safeRating = normalizeRating(rating);
+		return reviewMapper.findByProduct(productId, safeSort, safeRating);
+	}
+
+	/**
+	 * 並び順の値を安全なものだけに限定する。
+	 * 不正な値が来た場合は、新しい順に戻す。
+	 */
+	public String normalizeSort(String sort) {
+		if (sort == null) {
+			return "new";
+		}
+
+		switch (sort) {
+		case "old":
+		case "high":
+		case "low":
+			return sort;
+		case "new":
+		default:
+			return "new";
+		}
+	}
+
+	/**
+	 * 星の数は1〜5だけを有効にする。
+	 * それ以外は絞り込みなしにする。
+	 */
+	public Integer normalizeRating(Integer rating) {
+		if (rating == null) {
+			return null;
+		}
+
+		if (rating >= 1 && rating <= 5) {
+			return rating;
+		}
+
+		return null;
 	}
 
 	/**
