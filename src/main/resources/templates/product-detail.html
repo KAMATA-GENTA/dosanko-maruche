@@ -56,6 +56,11 @@
 </div>
 
 <div th:each="review : ${reviews}">
+	<p>
+		投稿者：
+		<span th:text="${review.username != null ? review.username : 'ゲスト'}"></span>
+	</p>
+	
 	<div>
 		<span th:each="i : ${#numbers.sequence(1,5)}">
 			<span th:text="${i <= review.rating ? '★' : '☆'}"></span>
