@@ -194,28 +194,39 @@
 <!-- 商品一覧 -->
 <section class="product-section">
     <h2>商品一覧</h2>
+    <div class="product-list">
 
-	<div class="product-list">
-	    <div class="product-card"
-	         th:each="product : ${products}"
-	         th:attr="data-category=${product.categoryId}">
+        <!-- DBの商品を繰り返し表示 -->
+        <div class="product-card"
+             th:each="product : ${products}"
+             th:attr="data-category=${product.categoryId}">
 
-	        <img th:src="${product.imageUrl}" alt="商品画像">
+            <!-- 商品画像 -->
+            <img th:src="${product.imageUrl}" alt="商品画像">
 
-	        <h3 th:text="${product.productName}">商品名</h3>
+            <!-- 商品名 -->
+            <h3 th:text="${product.productName}">
+                商品名
+            </h3>
 
-	        <p th:text="'地域ID：' + ${product.regionId}">地域</p>
+            <!-- 地域ID -->
+            <p th:text="'地域ID：' + ${product.regionId}">
+                地域
+            </p>
 
-	        <p class="price" th:text="'¥' + ${product.price}">¥0</p>
+            <!-- 価格 -->
+            <p class="price"
+               th:text="'¥' + ${product.price}">
+                ¥0
+            </p>
 
-	        <a th:href="@{/products/{id}(id=${product.id})}">
-	            詳細を見る
-	        </a>
-	    </div>
-
-	</div>
+            <!-- 商品詳細リンク -->
+            <a th:href="@{/products/{id}(id=${product.id})}">
+                詳細を見る
+            </a>
+        </div>
+    </div>
 </section>
-
 
 <script>
     const categoryButtons = document.querySelectorAll(".category-card");
