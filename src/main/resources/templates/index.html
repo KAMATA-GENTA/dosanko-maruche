@@ -17,81 +17,11 @@
   <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#207891" />
   <meta name="msapplication-TileColor" content="#ffc40d" />
 
-  <title>MayBell - Online furniture store</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-    }
-
-    .swiper {
-      width: 100%;
-      height: 100vh;
-    }
-
-    .swiper-slide {
-      position: relative;
-      background-size: cover;
-      background-position: center;
-    }
-
-    .slide-grid {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      grid-template-rows: repeat(5, 1fr);
-    }
-
-    .cell {
-      position: absolute;
-      padding: 14px 22px;
-      text-decoration: none;
-      font-weight: bold;
-      background: rgba(0, 0, 0, 0.4);
-      color: white;
-    }
-
-    /* 中央 */
-    .center {
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    /* 右上 */
-    .top-right {
-
-      top: 0;
-      right: 0;
-    }
-
-    /* 左下 */
-    .bottom-left {
-      bottom: 0;
-      left: 0;
-    }
-
-    .slide-content {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 20px 40px;
-      border-radius: 8px;
-      text-align: center;
-    }
-
-    .slide-content a {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 16px;
-      background: white;
-      color: black;
-      text-decoration: none;
-      border-radius: 4px;
-    }
-  </style>
+  <title>どさん娘マルシェ</title>
 </head>
 
 <body x-data="{ desktopMenuOpen: false, mobileMenuOpen: false}">
+  <input type="checkbox" value="forest" class="toggle theme-controller" />
   <!-- Header -->
   <header class=" flex h-16 max-w-[1200px] items-center justify-between px-5 mx-auto">
     <a href="index">
@@ -116,7 +46,7 @@
 
       <input class="w-11/12 outline-none md:block hidden " type="search" placeholder="Search" />
 
-      <button class="ml-auto h-full bg-amber-400 px-4 hover:bg-yellow-300">
+      <button class="ml-auto h-full bg-neutral text-neutral-content px-4 hover:bg-yellow-300">
         Search
       </button>
     </form>
@@ -210,7 +140,7 @@
 
         <input class="hidden w-11/12 outline-none md:block" type="search" placeholder="Search" />
 
-        <button type="submit" class="ml-auto h-full bg-amber-400 px-4 hover:bg-yellow-300">
+        <button type="submit" class="ml-auto h-full bg-neutral text-neutral-content px-4 hover:bg-yellow-300">
           Search
         </button>
       </form>
@@ -230,7 +160,7 @@
   <nav class="relative bg-primary">
     <div class="mx-auto hidden h-12 w-full max-w-[1200px] items-center md:flex">
       <button @click="desktopMenuOpen = ! desktopMenuOpen"
-        class="ml-5 flex h-full w-40 cursor-pointer items-center justify-center bg-amber-400">
+        class="ml-5 flex h-full w-40 cursor-pointer items-center justify-center bg-neutral text-neutral-content hover:bg-yellow-400">
         <div class="flex justify-around" href="#">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="mx-1 h-6 w-6">
@@ -269,7 +199,7 @@
     <div class="mx-auto flex max-w-[1200px] py-10">
       <div class="w-[300px] border-r">
         <ul class="px-5">
-          <li class="active:blue-900 flex items-center gap-2 bg-amber-400 py-2 px-3 active:bg-amber-400">
+          <li class="active:blue-900 flex items-center gap-2 bg-neutral text-neutral-content py-2 px-3 active:bg-neutral">
             <img width="15px" height="15px" src="/images/bed.svg" alt="Bedroom icon" />
             Bedroom
             <span class="ml-auto"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -279,7 +209,7 @@
             </span>
           </li>
 
-          <li class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-amber-400">
+          <li class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-neutral">
             <img width="15px" height="15px" src="/images/sleep.svg" alt="bedroom icon" />
             Matrass
             <span class="ml-auto"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -289,7 +219,7 @@
             </span>
           </li>
 
-          <li class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-amber-400">
+          <li class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-neutral">
             <img width="15px" height="15px" src="/images/outdoor.svg" alt="bedroom icon" />
             Outdoor
             <span class="ml-auto"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -299,7 +229,7 @@
             </span>
           </li>
 
-          <li class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-amber-400">
+          <li class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-neutral">
             <img width="15px" height="15px" src="/images/sofa.svg" alt="bedroom icon" />
             Sofa
             <span class="ml-auto"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -309,7 +239,7 @@
             </span>
           </li>
 
-          <li class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-amber-400">
+          <li class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-neutral">
             <img width="15px" height="15px" src="/images/kitchen.svg" alt="bedroom icon" />
             Kitchen
             <span class="ml-auto"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -319,7 +249,7 @@
             </span>
           </li>
 
-          <li class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-amber-400">
+          <li class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-neutral">
             <img width="15px" height="15px" src="/images/food.svg" alt="Food icon" />
             Living room
             <span class="ml-auto"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -382,27 +312,27 @@
   <!-- Offer image  -->
 
   <!--		スライドショー-->
-  <div class="swiper">
+  <div class="swiper w-full h-screen">
     <div class="swiper-wrapper">
 
       <div class="swiper-slide" style="background-image:url('/images/hokkaido-940x940.png')">
 
-        <div class="slide-grid">
-          <a href="sapporo.html" class="cell center">札幌リンク</a>
-          <a href="otaru.html" class="cell top-right">小樽リンク</a>
-          <a href="siretoko.html" class="cell bottom-left">知床リンク</a>
+        <div>
+          <a href="sapporo.html" class="region" style="top: 60%; left: 33%;"><img src="/images/region-chara/sapporo/sapporonoel1.png" alt="ノエル">札幌リンク</a>
+          <a href="otaru.html" class="region top-[50%] left-[50%]"><img src="/images/region-chara/otaru/otarun1.png" alt="おたるん">小樽リンク</a>
+          <a href="siretoko.html" class="region top-[65%] left-[50%]"><img src="/images/region-chara/siretoko/siretokon1.png" alt="しれとこん">知床リンク</a>
         </div>
       </div>
 
       <div class="swiper-slide" style="background-image:url('https://picsum.photos/id/1016/1200/800')">
-        <div class="slide-content">
+        <div>
           <h2>Slide 2</h2>
           <a href="#">詳細を見る</a>
         </div>
       </div>
 
       <div class="swiper-slide" style="background-image:url('https://picsum.photos/id/1018/1200/800')">
-        <div class="slide-content">
+        <div>
           <h2>Slide 3</h2>
           <a href="#">詳細を見る</a>
         </div>
@@ -951,10 +881,10 @@
         <p class="text-white">ONLINE EXCLUSIVE</p>
         <h2 class="pt-6 text-5xl font-bold text-yellow-400">15% OFF</h2>
         <p class="pt-4 text-white">
-          ACCENT CHAIRS, <br />
+          neutral CHAIRS, <br />
           TABLES & OTTOMANS
         </p>
-        <button href="#" class="mt-6 bg-amber-400 px-4 py-2 duration-100 hover:bg-yellow-300">
+        <button href="#" class="mt-6 bg-neutral text-neutral-content px-4 py-2 duration-100 hover:bg-yellow-300">
           Shop now
         </button>
       </div>
@@ -978,7 +908,7 @@
         <div
           class="absolute flex h-full w-full items-center justify-center gap-3 opacity-0 duration-150 hover:opacity-100">
           <a href="product-overview.html">
-            <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-amber-400">
+            <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-neutral text-neutral-content">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="h-4 w-4">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -986,7 +916,7 @@
               </svg>
             </span>
           </a>
-          <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-amber-400">
+          <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-neutral text-neutral-content">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
               <path
                 d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
@@ -994,7 +924,7 @@
           </span>
         </div>
 
-        <div class="absolute right-1 mt-3 flex items-center justify-center bg-amber-400">
+        <div class="absolute right-1 mt-3 flex items-center justify-center bg-neutral text-neutral-content">
           <p class="px-2 py-2 text-sm">&minus; 25&percnt; OFF</p>
         </div>
       </div>
@@ -1060,7 +990,7 @@
         <div
           class="absolute flex h-full w-full items-center justify-center gap-3 opacity-0 duration-150 hover:opacity-100">
           <a href="product-overview.html">
-            <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-amber-400">
+            <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-neutral text-neutral-content">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="h-4 w-4">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -1068,7 +998,7 @@
               </svg>
             </span>
           </a>
-          <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-amber-400">
+          <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-neutral text-neutral-content">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
               <path
                 d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
@@ -1076,7 +1006,7 @@
           </span>
         </div>
 
-        <div class="absolute right-1 mt-3 flex items-center justify-center bg-amber-400">
+        <div class="absolute right-1 mt-3 flex items-center justify-center bg-neutral text-neutral-content">
           <p class="px-2 py-2 text-sm">&minus; 25&percnt; OFF</p>
         </div>
       </div>
@@ -1141,7 +1071,7 @@
         <div
           class="absolute flex h-full w-full items-center justify-center gap-3 opacity-0 duration-150 hover:opacity-100">
           <a href="product-overview.html">
-            <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-amber-400">
+            <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-neutral text-neutral-content">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="h-4 w-4">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -1149,7 +1079,7 @@
               </svg>
             </span>
           </a>
-          <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-amber-400">
+          <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-neutral text-neutral-content">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
               <path
                 d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
@@ -1157,7 +1087,7 @@
           </span>
         </div>
 
-        <div class="absolute right-1 mt-3 flex items-center justify-center bg-amber-400">
+        <div class="absolute right-1 mt-3 flex items-center justify-center bg-neutral text-neutral-content">
           <p class="px-2 py-2 text-sm">&minus; 25&percnt; OFF</p>
         </div>
       </div>
@@ -1222,7 +1152,7 @@
         <div
           class="absolute flex h-full w-full items-center justify-center gap-3 opacity-0 duration-150 hover:opacity-100">
           <a href="product-overview.html">
-            <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-amber-400">
+            <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-neutral text-neutral-content">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="h-4 w-4">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -1230,7 +1160,7 @@
               </svg>
             </span>
           </a>
-          <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-amber-400">
+          <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-neutral text-neutral-content">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
               <path
                 d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
@@ -1238,7 +1168,7 @@
           </span>
         </div>
 
-        <div class="absolute right-1 mt-3 flex items-center justify-center bg-amber-400">
+        <div class="absolute right-1 mt-3 flex items-center justify-center bg-neutral text-neutral-content">
           <p class="px-2 py-2 text-sm">&minus; 25&percnt; OFF</p>
         </div>
       </div>
@@ -1303,7 +1233,7 @@
         <div
           class="absolute flex h-full w-full items-center justify-center gap-3 opacity-0 duration-150 hover:opacity-100">
           <a href="product-overview.html">
-            <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-amber-400">
+            <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-neutral text-neutral-content">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="h-4 w-4">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -1311,7 +1241,7 @@
               </svg>
             </span>
           </a>
-          <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-amber-400">
+          <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-neutral text-neutral-content">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
               <path
                 d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
@@ -1319,7 +1249,7 @@
           </span>
         </div>
 
-        <div class="absolute right-1 mt-3 flex items-center justify-center bg-amber-400">
+        <div class="absolute right-1 mt-3 flex items-center justify-center bg-neutral text-neutral-content">
           <p class="px-2 py-2 text-sm">&minus; 25&percnt; OFF</p>
         </div>
       </div>
@@ -1384,7 +1314,7 @@
         <div
           class="absolute flex h-full w-full items-center justify-center gap-3 opacity-0 duration-150 hover:opacity-100">
           <a href="product-overview.html">
-            <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-amber-400">
+            <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-neutral text-neutral-content">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="h-4 w-4">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -1392,7 +1322,7 @@
               </svg>
             </span>
           </a>
-          <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-amber-400">
+          <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-neutral text-neutral-content">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
               <path
                 d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
@@ -1400,7 +1330,7 @@
           </span>
         </div>
 
-        <div class="absolute right-1 mt-3 flex items-center justify-center bg-amber-400">
+        <div class="absolute right-1 mt-3 flex items-center justify-center bg-neutral text-neutral-content">
           <p class="px-2 py-2 text-sm">&minus; 25&percnt; OFF</p>
         </div>
       </div>
@@ -1465,7 +1395,7 @@
         <div
           class="absolute flex h-full w-full items-center justify-center gap-3 opacity-0 duration-150 hover:opacity-100">
           <a href="product-overview.html">
-            <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-amber-400">
+            <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-neutral text-neutral-content">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="h-4 w-4">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -1473,7 +1403,7 @@
               </svg>
             </span>
           </a>
-          <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-amber-400">
+          <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-neutral text-neutral-content">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
               <path
                 d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
@@ -1481,7 +1411,7 @@
           </span>
         </div>
 
-        <div class="absolute right-1 mt-3 flex items-center justify-center bg-amber-400">
+        <div class="absolute right-1 mt-3 flex items-center justify-center bg-neutral text-neutral-content">
           <p class="px-2 py-2 text-sm">&minus; 25&percnt; OFF</p>
         </div>
       </div>
@@ -1546,7 +1476,7 @@
         <div
           class="absolute flex h-full w-full items-center justify-center gap-3 opacity-0 duration-150 hover:opacity-100">
           <a href="product-overview.html">
-            <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-amber-400">
+            <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-neutral text-neutral-content">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="h-4 w-4">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -1554,7 +1484,7 @@
               </svg>
             </span>
           </a>
-          <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-amber-400">
+          <span class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-neutral text-neutral-content">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
               <path
                 d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
@@ -1562,7 +1492,7 @@
           </span>
         </div>
 
-        <div class="absolute right-1 mt-3 flex items-center justify-center bg-amber-400">
+        <div class="absolute right-1 mt-3 flex items-center justify-center bg-neutral text-neutral-content">
           <p class="px-2 py-2 text-sm">&minus; 25&percnt; OFF</p>
         </div>
       </div>
@@ -1709,7 +1639,7 @@
   </script>
   <!-- Payment and copyright  -->
 
-  <section class="h-11 bg-amber-400">
+  <section class="h-11 bg-neutral text-neutral-content">
     <div class="mx-auto flex max-w-[1200px] items-center justify-between px-4 pt-2">
       <p>&copy; Bogdan Bulakh, 2023</p>
       <div class="flex items-center space-x-3">
