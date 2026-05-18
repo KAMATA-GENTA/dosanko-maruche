@@ -1,6 +1,4 @@
-package com.example.demo.entity;
-
-import com.example.demo.enums.Character;
+package com.example.demo.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
