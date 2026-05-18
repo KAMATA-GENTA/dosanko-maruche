@@ -3,48 +3,40 @@ package com.example.demo.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.entity.Region;
+import com.example.demo.enums.Region;
 
 @Controller
 @RequestMapping("/region")
 public class RegionController {
 
-	// 地域詳細ページ
-	@GetMapping("/sapporo")
-	public String showSpporo(Model model) {
-		model.addAttribute("region", Region.Sapporo);
+	//地域詳細ページ
+	@GetMapping("/{regionName}")
+	public String showRegion(
+			@PathVariable String regionName,
+			Model model) {
 
-		return "region_test";
-	}
+		Region region = null;
 
-	@GetMapping("/hakodate")
-	public String showhakodate(Model model) {
+		if (regionName.equals("sapporo")) {
+			region = Region.Sapporo;
 
-		model.addAttribute("region", Region.Hakodate);
-		return "region_test";
-	}
+		} else if (regionName.equals("hakodate")) {
+			region = Region.Hakodate;
 
-	@GetMapping("/wakkanai")
-	public String showRegionWakkanai(Model model) {
+		} else if (regionName.equals("wakkanai")) {
+			region = Region.Wakkanai;
 
-		model.addAttribute("region", Region.Wakkanai);
+		} else if (regionName.equals("kitami")) {
+			region = Region.Kitami;
 
-		return "region_test";
-	}
+		} else if (regionName.equals("obihiro")) {
+			region = Region.Obihiro;
+		}
 
-	@GetMapping("/kitami")
-	public String showRegionKitami(Model model) {
-		model.addAttribute("region", Region.Kitami);
-
-		return "region_test";
-	}
-
-	@GetMapping("/obihiro")
-	public String showRegionObihiro(Model model) {
-
-		model.addAttribute("region", Region.Obihiro);
+		model.addAttribute("region", region);
 
 		return "region_test";
 	}
