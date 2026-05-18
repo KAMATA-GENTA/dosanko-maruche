@@ -179,75 +179,75 @@
 
 <!-- 商品カテゴリ -->
 <section class="category-section">
-    <h2>🛒 カテゴリから探す</h2>
+    <h2>カテゴリから探す</h2>
 
     <div class="category-list">
-        <button class="category-card" data-category="all">すべて</button>
-        <button class="category-card" data-category="seafood">海産物</button>
-        <button class="category-card" data-category="meat">畜産物</button>
-        <button class="category-card" data-category="vegetable">農産物</button>
-        <button class="category-card" data-category="souvenir">お土産</button>
+
+		<a href="/#product-section"
+		   class="category-card"
+		   th:classappend="${selectedCategoryId == null} ? ' active'">
+		    すべて
+		</a>
+
+		<a href="/?categoryId=1#product-section"
+		   class="category-card"
+		   th:classappend="${selectedCategoryId == 1} ? ' active'">
+		    海産物
+		</a>
+
+		<a href="/?categoryId=2#product-section"
+		   class="category-card"
+		   th:classappend="${selectedCategoryId == 2} ? ' active'">
+		    畜産物
+		</a>
+
+		<a href="/?categoryId=3#product-section"
+		   class="category-card"
+		   th:classappend="${selectedCategoryId == 3} ? ' active'">
+		    農産物
+		</a>
+
+		<a href="/?categoryId=4#product-section"
+		   class="category-card"
+		   th:classappend="${selectedCategoryId == 4} ? ' active'">
+		    お土産
+		</a>
     </div>
 </section>
 
 
 <!-- 商品一覧 -->
-<section class="product-section">
+<section class="product-section" id="product-section">
     <h2>商品一覧</h2>
+
     <div class="product-list">
 
-        <!-- DBの商品を繰り返し表示 -->
         <div class="product-card"
-             th:each="product : ${products}"
-             th:attr="data-category=${product.categoryId}">
+             th:each="product : ${products}">
 
-            <!-- 商品画像 -->
             <img th:src="${product.imageUrl}" alt="商品画像">
 
-            <!-- 商品名 -->
             <h3 th:text="${product.productName}">
                 商品名
             </h3>
 
-            <!-- 地域ID -->
             <p th:text="'地域ID：' + ${product.regionId}">
                 地域
             </p>
 
-            <!-- 価格 -->
             <p class="price"
                th:text="'¥' + ${product.price}">
                 ¥0
             </p>
 
-            <!-- 商品詳細リンク -->
             <a th:href="@{/products/{id}(id=${product.id})}">
                 詳細を見る
             </a>
+
         </div>
+
     </div>
 </section>
-
-<script>
-    const categoryButtons = document.querySelectorAll(".category-card");
-    const productCards = document.querySelectorAll(".product-card");
-
-    categoryButtons.forEach(button => {
-        button.addEventListener("click", () => {
-            const selectedCategory = button.dataset.category;
-
-            productCards.forEach(card => {
-                const productCategory = card.dataset.category;
-
-                if (selectedCategory === "all" || selectedCategory === productCategory) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
-            });
-        });
-    });
-</script>
 
 </body>
 </html>

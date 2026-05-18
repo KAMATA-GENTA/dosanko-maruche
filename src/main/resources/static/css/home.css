@@ -185,6 +185,11 @@ section h2 {
     opacity: 0.8;
 }
 
+.category-card.active {
+    background-color: #ff7f50;
+    color: white;
+    font-weight: bold;
+}
 
 /* =========================
    商品一覧

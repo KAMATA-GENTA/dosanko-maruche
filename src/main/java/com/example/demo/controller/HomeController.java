@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.ProductEntity;
 import com.example.demo.service.ProductService;
@@ -19,11 +20,20 @@ public class HomeController {
 	}
 
 	@GetMapping("/")
-	public String home(Model model) {
+	public String home(
+			@RequestParam(required = false) Integer categoryId,
+			Model model) {
 
-		List<ProductEntity> products = productService.getAllProducts();
+		List<ProductEntity> products;
+
+		if (categoryId == null) {
+			products = productService.getAllProducts();
+		} else {
+			products = productService.getProductsByCategoryId(categoryId);
+		}
 
 		model.addAttribute("products", products);
+		model.addAttribute("selectedCategoryId", categoryId);
 
 		return "home";
 	}
