@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.UserMapper">
+
+  <!-- メールアドレスでユーザを検索する -->
+  <select id="findByEmail" parameterType="String"
+          resultType="com.example.demo.entity.User">
+    SELECT * FROM users
+    WHERE email = #{email}
+  </select>
+
+  <!-- ユーザを登録する -->
+  <insert id="insert" parameterType="com.example.demo.entity.User">
+    INSERT INTO users (username, email, password_hash)
+    VALUES (#{userName}, #{email}, #{password})
+  </insert>
+
+</mapper>
