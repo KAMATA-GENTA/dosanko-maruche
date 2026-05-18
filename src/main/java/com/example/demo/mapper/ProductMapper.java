@@ -51,12 +51,7 @@ public interface ProductMapper {
 			WHERE category_id = #{categoryId}
 			""")
 	List<ProductEntity> findByCategoryId(Integer categoryId);
-}
-import org.apache.ibatis.annotations.Mapper;
 
-import com.example.demo.entity.Product;
-
-@Mapper
-public interface ProductMapper {
+	// 商品IDに対応する商品を1件取得
 	Product findById(int productId);
 }
