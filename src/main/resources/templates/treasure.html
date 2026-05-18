@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>おたるんの宝箱探検</title>
+  <link rel="stylesheet" th:href="@{/css/treasure.css}">
+</head>
+<body>
+
+  <main class="game">
+
+    <div class="character-area">
+      <img th:src="@{/images/otarunusiro.png}" class="otarun" alt="探検するおたるん">
+
+      <div class="speech" id="message">
+        どれにする？
+      </div>
+    </div>
+
+    <form th:action="@{/treasure/result}" method="post" id="treasureForm">
+
+      <div class="treasures">
+        <button type="button" class="treasure" data-index="0">🎁</button>
+        <button type="button" class="treasure" data-index="1">🎁</button>
+        <button type="button" class="treasure" data-index="2">🎁</button>
+      </div>
+
+      <input type="hidden" id="result" name="result">
+      <input type="hidden" id="selectedBox" name="selectedBox">
+      <input type="hidden" id="correctBox" name="correctBox">
+
+    </form>
+
+  </main>
+
+  <script th:src="@{/js/treasure.js}"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.ProductMapper">
+
+    <!-- 商品詳細取得 -->
+    <resultMap id="productMap" type="com.example.demo.entity.Product">
+    <id property="productId" column="id"/>
+    <result property="regionId" column="region_id"/>
+    <result property="categoryId" column="category_id"/>
+    <result property="productName" column="product_name"/>
+    <result property="price" column="price"/>
+    <result property="description" column="description"/>
+    <result property="imageUrl" column="image_url"/>
+</resultMap>
+
+<select id="findById"
+        parameterType="int"
+        resultMap="productMap">
+
+    SELECT * FROM products
+    WHERE id = #{productId}
+
+</select>
+
+</mapper>

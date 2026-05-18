@@ -8,8 +8,7 @@
   "source": "src/index.html",
   "scripts": {
     "start": "parcel",
-    "build": "tailwindcss -i ./input.css -o ../src/main/resources/static/css/output.css",
-    "watch": "tailwindcss -i ./input.css -o ../src/main/resources/static/css/output.css --watch"
+    "build": "tailwindcss -i ./input.css -o ../src/main/resources/static/css/output.css"
   },
   "browserslist": "last 2 versions",
   "targets": {
@@ -28,12 +27,10 @@
     "url": "https://github.com/bbulakh/tailwind-ecommerce/issues"
   },
   "dependencies": {
-    "@parcel/packager-raw-url": "^2.8.3",
-    "@parcel/transformer-webmanifest": "^2.8.3",
     "@splidejs/splide": "^4.1.4",
-    "@tailwindcss/aspect-ratio": "^0.4.2",
     "alpinejs": "^3.12.1",
-    "parcel": "^2.8.3",
-    "tailwindcss": "^3.3.2"
+    "tailwindcss": "^4.3.0",
+    "@tailwindcss/cli":"v4.3.0",
+    "daisyui": "latest"
   }
 }
