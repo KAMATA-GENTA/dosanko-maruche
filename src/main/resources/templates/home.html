@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>どさん娘マルシェ</title>
+
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">
+        <a href="/">どさん娘マルシェ</a>
+    </div>
+
+    <nav class="nav">
+        <ul>
+            <li><a href="/">TOP</a></li>
+            <li><a href="/region/1">札幌</a></li>
+            <li><a href="/region/2">小樽</a></li>
+            <li><a href="/region/3">函館</a></li>
+            <li><a href="/region/4">北見</a></li>
+            <li><a href="/region/5">帯広</a></li>
+            <li><a href="/region/6">稚内</a></li>
+            <li><a href="/history">購入履歴</a></li>
+        </ul>
+    </nav>
+
+    <div class="header-menu">
+        <a href="/login">ログイン</a>
+        <a href="/signup">新規登録</a>
+        <a href="/cart">カート</a>
+    </div>
+</header>
+
+
+<!-- ヒーローセクション -->
+<section class="hero">
+    <div class="hero-background">
+        <img src="/images/hokkaido-bg.png" alt="北海道背景">
+    </div>
+</section>
+
+
+<!-- カテゴリ別ランキング -->
+<section class="ranking-section">
+    <h2>カテゴリ別ランキング</h2>
+
+    <div class="ranking-carousel">
+
+        <div class="ranking-category">
+            <h3>海産物ランキング</h3>
+
+            <div class="ranking-list">
+                <div class="ranking-card">
+                    <span class="rank">1位</span>
+                    <img src="/images/product1.jpg" alt="商品画像">
+                    <h4>海鮮丼セット</h4>
+                    <p>函館</p>
+                    <p class="price">¥3,500</p>
+                </div>
+
+                <div class="ranking-card">
+                    <span class="rank">2位</span>
+                    <img src="/images/product2.jpg" alt="商品画像">
+                    <h4>ホタテセット</h4>
+                    <p>稚内</p>
+                    <p class="price">¥2,800</p>
+                </div>
+
+                <div class="ranking-card">
+                    <span class="rank">3位</span>
+                    <img src="/images/product3.jpg" alt="商品画像">
+                    <h4>カニ詰め合わせ</h4>
+                    <p>小樽</p>
+                    <p class="price">¥5,000</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="ranking-category">
+            <h3>畜産物ランキング</h3>
+
+            <div class="ranking-list">
+                <div class="ranking-card">
+                    <span class="rank">1位</span>
+                    <img src="/images/product4.jpg" alt="商品画像">
+                    <h4>ジンギスカン</h4>
+                    <p>帯広</p>
+                    <p class="price">¥2,980</p>
+                </div>
+
+                <div class="ranking-card">
+                    <span class="rank">2位</span>
+                    <img src="/images/product5.jpg" alt="商品画像">
+                    <h4>チーズセット</h4>
+                    <p>札幌</p>
+                    <p class="price">¥1,800</p>
+                </div>
+
+                <div class="ranking-card">
+                    <span class="rank">3位</span>
+                    <img src="/images/product6.jpg" alt="商品画像">
+                    <h4>牛乳プリン</h4>
+                    <p>北見</p>
+                    <p class="price">¥900</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="ranking-category">
+            <h3>農産物ランキング</h3>
+
+            <div class="ranking-list">
+                <div class="ranking-card">
+                    <span class="rank">1位</span>
+                    <img src="/images/product7.jpg" alt="商品画像">
+                    <h4>夕張メロン</h4>
+                    <p>札幌</p>
+                    <p class="price">¥4,000</p>
+                </div>
+
+                <div class="ranking-card">
+                    <span class="rank">2位</span>
+                    <img src="/images/product8.jpg" alt="商品画像">
+                    <h4>じゃがいもセット</h4>
+                    <p>帯広</p>
+                    <p class="price">¥1,500</p>
+                </div>
+
+                <div class="ranking-card">
+                    <span class="rank">3位</span>
+                    <img src="/images/product9.jpg" alt="商品画像">
+                    <h4>とうもろこし</h4>
+                    <p>北見</p>
+                    <p class="price">¥1,200</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="ranking-category">
+            <h3>お土産ランキング</h3>
+
+            <div class="ranking-list">
+                <div class="ranking-card">
+                    <span class="rank">1位</span>
+                    <img src="/images/product10.jpg" alt="商品画像">
+                    <h4>白い恋人</h4>
+                    <p>札幌</p>
+                    <p class="price">¥1,200</p>
+                </div>
+
+                <div class="ranking-card">
+                    <span class="rank">2位</span>
+                    <img src="/images/product11.jpg" alt="商品画像">
+                    <h4>じゃがポックル</h4>
+                    <p>札幌</p>
+                    <p class="price">¥980</p>
+                </div>
+
+                <div class="ranking-card">
+                    <span class="rank">3位</span>
+                    <img src="/images/product12.jpg" alt="商品画像">
+                    <h4>小樽チョコ</h4>
+                    <p>小樽</p>
+                    <p class="price">¥1,100</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- 商品カテゴリ -->
+<section class="category-section">
+    <h2>🛒 カテゴリから探す</h2>
+
+    <div class="category-list">
+        <button class="category-card" data-category="all">すべて</button>
+        <button class="category-card" data-category="seafood">海産物</button>
+        <button class="category-card" data-category="meat">畜産物</button>
+        <button class="category-card" data-category="vegetable">農産物</button>
+        <button class="category-card" data-category="souvenir">お土産</button>
+    </div>
+</section>
+
+
+<!-- 商品一覧 -->
+<section class="product-section">
+    <h2>商品一覧</h2>
+
+	<div class="product-list">
+	    <div class="product-card"
+	         th:each="product : ${products}"
+	         th:attr="data-category=${product.categoryId}">
+
+	        <img th:src="${product.imageUrl}" alt="商品画像">
+
+	        <h3 th:text="${product.productName}">商品名</h3>
+
+	        <p th:text="'地域ID：' + ${product.regionId}">地域</p>
+
+	        <p class="price" th:text="'¥' + ${product.price}">¥0</p>
+
+	        <a th:href="@{/products/{id}(id=${product.id})}">
+	            詳細を見る
+	        </a>
+	    </div>
+
+	</div>
+</section>
+
+
+<script>
+    const categoryButtons = document.querySelectorAll(".category-card");
+    const productCards = document.querySelectorAll(".product-card");
+
+    categoryButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const selectedCategory = button.dataset.category;
+
+            productCards.forEach(card => {
+                const productCategory = card.dataset.category;
+
+                if (selectedCategory === "all" || selectedCategory === productCategory) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
