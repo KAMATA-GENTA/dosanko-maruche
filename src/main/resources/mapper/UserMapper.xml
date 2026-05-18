@@ -8,14 +8,19 @@
   <!-- メールアドレスでユーザを検索する -->
   <select id="findByEmail" parameterType="String"
           resultType="com.example.demo.entity.User">
-    SELECT * FROM users
+    SELECT
+      id,
+      username,
+      email,
+      password_hash AS passwordHash
+    FROM users
     WHERE email = #{email}
   </select>
 
   <!-- ユーザを登録する -->
   <insert id="insert" parameterType="com.example.demo.entity.User">
     INSERT INTO users (username, email, password_hash)
-    VALUES (#{userName}, #{email}, #{password})
+    VALUES (#{username}, #{email}, #{passwordHash})
   </insert>
 
 </mapper>

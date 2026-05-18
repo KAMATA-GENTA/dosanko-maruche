@@ -63,14 +63,42 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public String login(@ModelAttribute LoginForm form, Model model) {
-		// DBのemail/passwordと照合する処理
+		
+		
+		// ーーー★ ここから確認用コードを追加 ーーー
+				System.out.println("=== ログインデバッグ ===");
+				System.out.println("画面から入力されたメール: " + form.getEmail());
+				System.out.println("画面から入力されたパスワード: " + form.getPassword());
+				// ーーーーーーーーーーーーーーーーーーーーー
+
+		// DBからメールアドレスでユーザを検索する
 		User user = userMapper.findByEmail(form.getEmail());
-		boolean isAuthenticated = user != null
-				&& passwordEncoder.matches(form.getPassword(), user.getPassword());
+		
+		// ーーー★ ここから確認用コードを追加 ーーー
+				System.out.println("DBから見つかったユーザー: " + user);
+				if (user != null) {
+					System.out.println("DBに保存されているパスワード: " + user.getPasswordHash());
+				}
+				System.out.println("========================");
+				// ーーーーーーーーーーーーーーーーーーーーー
+
+		// data.sql のパスワードは平文なので、まず平文で比較する
+		// ※ sign-up から登録したユーザはBCryptハッシュなので matches() で照合
+		boolean isAuthenticated = false;
+		if (user != null) {
+			String stored = user.getPasswordHash();
+			if (stored.startsWith("$2a$") || stored.startsWith("$2b$")) {
+				// BCryptハッシュ → matches() で照合
+				isAuthenticated = passwordEncoder.matches(form.getPassword(), stored);
+			} else {
+				// 平文（data.sqlの初期データ）→ equals() で照合
+				isAuthenticated = stored.equals(form.getPassword());
+			}
+		}
 
 		if (isAuthenticated) {
 			session.setAttribute("userId", user.getId());
-			session.setAttribute("username", user.getUserName());
+			session.setAttribute("username", user.getUsername()); // DBから取得
 			return "redirect:/";
 		} else {
 			model.addAttribute("error", "メールアドレスまたはパスワードが間違っています。");
