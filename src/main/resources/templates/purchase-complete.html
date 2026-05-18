@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>購入完了</title>
+  <link rel="stylesheet" th:href="@{/css/cart.css}">
+</head>
+<body>
+
+  <div class="cart-container complete">
+
+    <h1>購入完了！</h1>
+
+    <div class="result-box hit" th:if="${result == 'hit'}">
+      🎉 当たり！送料無料になりました！
+    </div>
+
+    <div class="result-box miss" th:if="${result == 'miss'}">
+      😢 はずれ！送料はそのままです
+    </div>
+
+    <div class="price-box">
+      <p>商品合計：<span th:text="${subtotal} + '円'"></span></p>
+      <p>送料：<span th:text="${shippingFee} + '円'"></span></p>
+      <p class="total">合計：<span th:text="${totalPrice} + '円'"></span></p>
+    </div>
+
+    <a th:href="@{/cart}" class="purchase-btn">
+      カートへ戻る
+    </a>
+
+  </div>
+
+</body>
+</html>
