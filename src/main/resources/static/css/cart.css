@@ -1,0 +1,93 @@
+body {
+  margin: 0;
+  font-family: "Yu Gothic", "Meiryo", sans-serif;
+  background: #f5f1e8;
+  color: #333;
+}
+
+.cart-container {
+  width: 800px;
+  margin: 60px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.cart-container.complete {
+  text-align: center;
+}
+
+h1 {
+  color: #2f5f91;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+}
+
+th {
+  background: #2f5f91;
+  color: white;
+}
+
+th,
+td {
+  padding: 14px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.price-box {
+  margin-top: 25px;
+  text-align: right;
+  font-size: 20px;
+}
+
+.complete .price-box {
+  text-align: center;
+}
+
+.total {
+  font-size: 26px;
+  font-weight: bold;
+  color: #c0392b;
+}
+
+.purchase-btn {
+  display: block;
+  width: 260px;
+  margin: 30px auto 0;
+  padding: 16px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  background: linear-gradient(#ff9f1c, #d35400);
+  border-radius: 999px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.result-box {
+  padding: 18px;
+  margin: 20px 0;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 18px;
+}
+
+.result-box.hit {
+  background: #fff3c4;
+  border: 3px solid #ffd36a;
+  color: #b36b00;
+}
+
+.result-box.miss {
+  background: #eee;
+  border: 3px solid #aaa;
+  color: #555;
+}

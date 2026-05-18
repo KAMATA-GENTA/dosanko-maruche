@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+
+
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -27,14 +29,37 @@
             resultType="com.example.demo.entity.CartItem">
 
         SELECT
+            ci.id,
+            ci.user_id,
+            ci.product_id,
+            ci.quantity,
+            p.product_name,
+            p.price,
+            p.image_url
+        FROM cart_items ci
+        JOIN products p
+            ON ci.product_id = p.id
+        WHERE ci.user_id = #{userId}
+        ORDER BY ci.id
+
+    </select>
+
+    <delete id="deleteByUserId"
+            parameterType="int">
+        DELETE FROM cart_items
+        WHERE user_id = #{userId}
+
+        <!-- DELETE FROM cart_items
+        WHERE user_id = #{userId}
             id,
             user_id,
             product_id,
             quantity
         FROM cart_items
-        WHERE user_id = #{userId}
+        WHERE user_id = #{userId} -->
 
-    </select>
+    </delete>
+    
 
     <!-- 数量更新 -->
     <update id="updateQuantity">
