@@ -1,3 +1,16 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss" source('../src/main/resources/templates/**/*.{html,js,css}');
+@plugin "daisyui"{
+    themes: valentine --default,forest;
+}
+
+.swiper-slide {
+  @apply relative bg-cover bg-center;
+}
+
+.region {
+  @apply absolute no-underline font-bold text-white -translate-x-1/2 -translate-y-1/2;
+}
+
+.region img {
+  @apply w-30 h-auto;
+}
