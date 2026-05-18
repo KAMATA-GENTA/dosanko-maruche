@@ -46,15 +46,17 @@
 
     <delete id="deleteByUserId"
             parameterType="int">
-
         DELETE FROM cart_items
+        WHERE user_id = #{userId}
+
+        <!-- DELETE FROM cart_items
         WHERE user_id = #{userId}
             id,
             user_id,
             product_id,
             quantity
         FROM cart_items
-        WHERE user_id = #{userId}
+        WHERE user_id = #{userId} -->
 
     </delete>
     
