@@ -7,7 +7,7 @@
 
 <p th:text="${product.description}"></p>
 
-<!-- ⭐ 平均星表示 -->
+<!-- 平均星表示 -->
 <div>
 	<span th:each="i : ${#numbers.sequence(1,5)}">
 		<span th:text="${i <= averageRating ? '★' : '☆'}"></span>
@@ -26,6 +26,10 @@
 <hr>
 
 <h2 id="review-section">レビュー</h2>
+
+<div th:if="${#lists.isEmpty(reviews)}">
+	<p>まだレビューはありません。</p>
+</div>
 
 <div th:each="review : ${reviews}">
 	<div>
@@ -49,7 +53,7 @@
 		<option value="5">★5</option>
 	</select>
 
-	<textarea th:field="*{comment}"></textarea>
+	<textarea th:field="*{comment}" placeholder="レビューを入力してください"></textarea>
 
 	<button type="submit">投稿</button>
 </form>

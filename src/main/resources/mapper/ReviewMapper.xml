@@ -5,12 +5,21 @@
 
 <mapper namespace="com.example.demo.mapper.ReviewMapper">
 
-    <!-- 平均評価取得 -->
+    <resultMap id="reviewMap" type="com.example.demo.entity.Review">
+        <id property="reviewId" column="id" />
+        <result property="productId" column="product_id" />
+        <result property="userId" column="user_id" />
+        <result property="rating" column="rating" />
+        <result property="comment" column="comment" />
+        <result property="createdAt" column="created_at" />
+    </resultMap>
+
+    <!-- 平均評価取得：小数第2位以下を切り捨てて、小数第1位まで返す -->
     <select id="findAverageRating"
             parameterType="int"
             resultType="double">
 
-        SELECT COALESCE(AVG(rating),0)
+        SELECT COALESCE(TRUNC(AVG(rating)::numeric, 1), 0)
         FROM reviews
         WHERE product_id = #{productId}
 
@@ -19,7 +28,7 @@
     <!-- レビュー一覧取得 -->
     <select id="findByProduct"
             parameterType="int"
-            resultType="com.example.demo.entity.Review">
+            resultMap="reviewMap">
 
         SELECT
             id,
@@ -34,23 +43,26 @@
 
     </select>
 
-    <!-- レビュー投稿 -->
+    <!-- レビュー投稿：新規レビューをDBのreviewsテーブルに登録する -->
     <insert id="insert"
-            parameterType="com.example.demo.entity.Review">
+            parameterType="com.example.demo.entity.Review"
+            useGeneratedKeys="true"
+            keyProperty="reviewId"
+            keyColumn="id">
 
-        INSERT INTO reviews(
+        INSERT INTO reviews (
             product_id,
             user_id,
             rating,
             comment,
             created_at
         )
-        VALUES(
+        VALUES (
             #{productId},
             #{userId},
             #{rating},
             #{comment},
-            NOW()
+            CURRENT_TIMESTAMP
         )
 
     </insert>

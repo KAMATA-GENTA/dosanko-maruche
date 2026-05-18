@@ -55,18 +55,22 @@ public class ProductController {
 	// レビュー投稿
 	@PostMapping("/{productId}/review")
 	public String postReview(@PathVariable int productId,
-			@ModelAttribute Review review
-	//, @SessionAttribute("loginUser") User user
-	) {
+			@ModelAttribute("reviewForm") Review review,
+			@SessionAttribute(value = "loginUser", required = false) User user) {
 
 		review.setProductId(productId);
 
-		//開発現在ログイン関係のcontrollerがないため、仮で”１”としておく。
-		review.setUserId(1);
+		// ログイン機能が完成している場合はログイン中ユーザーのIDを使う。
+		// まだ未ログインで動作確認する場合は、data.sqlに存在するユーザーID=1で登録する。
+		if (user != null) {
+			review.setUserId(user.getId());
+		} else {
+			review.setUserId(1);
+		}
 
 		reviewService.save(review);
 
-		return "redirect:/product/" + productId;
+		return "redirect:/product/" + productId + "#review-section";
 	}
 
 	// カート追加
