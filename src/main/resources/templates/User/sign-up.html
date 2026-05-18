@@ -333,21 +333,29 @@
               >
             </div>
 
-            <div class="ml-auto flex gap-4 px-5">
-              <a
-                class="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
-                href="login.html"
-                >Login</a
-              >
+			<div class="ml-auto flex gap-4 px-5 items-center">
 
-              <span class="text-white">&#124;</span>
+			  <!-- ログイン済みのとき -->
+			  <span th:if="${isLoggedIn}" class="font-light text-white">
+			    こんにちは、
+			    <a href="/profile-information"
+			       class="font-bold text-yellow-400 hover:underline"
+			       th:text="${username} + 'さん'">usernameさん</a>
+			  </span>
+			  <a th:if="${isLoggedIn}"
+			     class="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
+			     href="/logout">Logout</a>
 
-              <a
-                class="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
-                href="sign-up.html"
-                >Sign Up</a
-              >
-            </div>
+			  <!-- 未ログインのとき -->
+			  <a th:unless="${isLoggedIn}"
+			     class="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
+			     href="/login">Login</a>
+			  <span th:unless="${isLoggedIn}" class="text-white">&#124;</span>
+			  <a th:unless="${isLoggedIn}"
+			     class="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
+			     href="/sign-up">Sign Up</a>
+
+			</div>
           </div>
         </nav>
         <!-- /Nav bar -->
@@ -595,7 +603,9 @@
             <p>Register for new customer</p>
           </div>
 
-          <form class="mt-6 flex flex-col">
+          <form class="mt-6 flex flex-col"
+           th:action="@{/sign-up}" th:object="${userForm}" method="post">
+            
             <label for="name">Full Name</label>
             <input
               class="mb-3 mt-3 border px-4 py-2"
@@ -623,21 +633,25 @@
               type="password"
               placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
             />
-          </form>
+            
 
           <div class="mt-4 flex justify-between">
             <form class="flex gap-2">
               <input type="checkbox" />
               <label for="checkbox">
                 I have read and agree with
-                <a href="#" class="text-violet-900">terms &amp; conditions</a>
+                <a th:href="@{/sign-up}" class="text-violet-900">terms &amp; conditions</a>
               </label>
             </form>
           </div>
 
-          <button class="my-5 w-full bg-violet-900 py-2 text-white">
-            CREATE ACCOUNT
-          </button>
+       <form class="mt-6 flex flex-col" action="/sign-up" method="post">
+    
+    <button type="submit" class="my-5 w-full bg-violet-900 py-2 text-white">
+        CREATE ACCOUNT
+    </button>
+
+</form>
 
           <p class="text-center text-gray-500">OR SIGN UP WITH</p>
 
