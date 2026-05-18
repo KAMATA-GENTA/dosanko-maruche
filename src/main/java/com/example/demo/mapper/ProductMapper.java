@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import com.example.demo.entity.Product;
 import com.example.demo.entity.ProductEntity;
 
 @Mapper
@@ -50,4 +51,12 @@ public interface ProductMapper {
 			WHERE category_id = #{categoryId}
 			""")
 	List<ProductEntity> findByCategoryId(Integer categoryId);
+}
+import org.apache.ibatis.annotations.Mapper;
+
+import com.example.demo.entity.Product;
+
+@Mapper
+public interface ProductMapper {
+	Product findById(int productId);
 }
