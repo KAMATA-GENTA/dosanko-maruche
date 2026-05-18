@@ -5,26 +5,30 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.ProductEntity;
-import com.example.demo.repository.ProductRepository;
+import com.example.demo.mapper.ProductMapper;
 
 @Service
 public class ProductService {
 
-	private final ProductRepository productRepository;
+	private final ProductMapper productMapper;
 
-	public ProductService(ProductRepository productRepository) {
-		this.productRepository = productRepository;
+	// コンストラクタ Springが自動でProductMapperを渡してくれる
+	public ProductService(ProductMapper productMapper) {
+		this.productMapper = productMapper;
 	}
 
+	// 全商品を取得
 	public List<ProductEntity> getAllProducts() {
-		return productRepository.findAll();
+		return productMapper.findAll();
 	}
 
+	// 地域IDに対応する商品一覧を取得
 	public List<ProductEntity> getProductsByRegionId(Integer regionId) {
-		return productRepository.findByRegionId(regionId);
+		return productMapper.findByRegionId(regionId);
 	}
 
+	// カテゴリIDに対応する商品一覧を取得
 	public List<ProductEntity> getProductsByCategoryId(Integer categoryId) {
-		return productRepository.findByCategoryId(categoryId);
+		return productMapper.findByCategoryId(categoryId);
 	}
 }
