@@ -14,7 +14,8 @@ VALUES
     'sato',
     'sato@example.com',
     'password456'
-);
+)
+ON CONFLICT (email) DO NOTHING;;
 
 -- products 初期データ
 
@@ -95,6 +96,59 @@ VALUES
 -- 帯広
 -- =========================
 (6, 1, '帯広昆布だしセット', 1500, '料理に便利な昆布だし。', '/images/reigon-product/obihiro/ob-koknbudasiset.jpg'),
+<<<<<<< HEAD
+(6, 1, '帯広ほたて加工品セット', 3000, 'ほたて加工品を詰め合わせました。', '/images/reigon-product/obihiro/ob-hotatekakouhin.jpg'),
+(6, 2, '帯広長いも', 2200, '粘りがあり、とろろにも向いた長いも。', '/images/reigon-product/obihiro/ob-obihironagaimo.jpg'),
+(6, 2, '帯広小豆', 1800, '和菓子やあんこ作りに使える小豆。', '/images/reigon-product/obihiro/ob-obihiroazuki.jpg'),
+(6, 2, '帯広枝豆セット', 2400, '香りと甘みの強い枝豆セット。', '/images/reigon-product/obihiro/ob-obihiroedamame.jpg'),
+(6, 3, '帯広豚丼セット', 3600, '帯広名物豚丼用の味付け豚肉。', '/images/reigon-product/obihiro/ob-obihirobutadonn.jpg'),
+(6, 3, '十勝牛ステーキ', 5800, '十勝地方をイメージした牛ステーキ。', '/images/reigon-product/obihiro/ob-tokatigyu.jpg'),
+(6, 3, '帯広チーズセット', 2300, '乳製品を活かした濃厚チーズ。', '/images/reigon-product/obihiro/ob-obihirocheeseset.jpg'),
+(6, 4, '帯広バターサンド', 1800, '濃厚バタークリーム入り焼き菓子。', '/images/reigon-product/obihiro/ob-obihirobuttersand.jpg'),
+(6, 4, '帯広ミルクキャラメル', 1200, '牛乳のコクを感じるキャラメル。', '/images/reigon-product/obihiro/ob-milkkyatameru.jpg');
+
+
+
+
+-- ===== 注文データ =====
+INSERT INTO orders (id, user_id, subtotal, shipping_fee, ordered_at) VALUES
+(1, 1, 15920, 500,  '2024-01-15 10:30:00'), -- 注文1: いくら(3980円) × 4個 = 15920円
+(2, 1, 1800,  800,  '2024-02-20 14:00:00'), -- 注文2: 昆布(1800円) × 1個 = 1800円
+(3, 1, 4200,  500,  '2024-03-05 09:15:00'), -- 注文3: 貝柱(4200円) × 1個 = 4200円
+(4, 1, 7800,  500,  '2024-04-10 16:45:00'), -- 注文4: 毛ガニ(7800円) × 1個 = 7800円
+(5, 1, 4600,  600,  '2024-05-01 11:00:00'); -- 注文5: 海鮮丼(4600円) × 1個 = 4600円
+
+-- ===== 注文明細データ =====
+INSERT INTO order_details (order_id, product_id, quantity, price) VALUES
+(1, 1,  4, 3980),   -- 札幌(地域1)
+(2, 11, 1, 1800),   -- 函館(地域2)
+(3, 21, 1, 4200),   -- 北見(地域3)
+(4, 31, 1, 7800),   -- 稚内(地域4)
+(5, 41, 1, 4600);   -- 小樽(地域5)
+
+
+
+-- ==========================================
+-- ユーザーID: 2 (satoさん) の注文データ
+-- ==========================================
+-- 注文ID（id）は、tanakaさんのデータ(1〜5)と被らないように「6」と「7」から始めます。
+-- user_id に「2」を指定します。
+INSERT INTO orders (id, user_id, subtotal, shipping_fee, ordered_at) VALUES
+(6, 2, 6800, 500, '2024-05-10 12:00:00'), -- 注文6: 合計 6800円 (1600円×2 + 3600円)
+(7, 2, 2600, 500, '2024-05-18 18:30:00'); -- 注文7: 合計 2600円 (2600円×1)
+
+-- ==========================================
+-- ユーザーID: 2 (satoさん) の注文明細データ
+-- ==========================================
+INSERT INTO order_details (order_id, product_id, quantity, price) VALUES
+-- 【注文ID: 6 の明細】
+(6, 23, 2, 1600),   -- 北見たまねぎ (商品ID: 23) × 2個
+(6, 55, 1, 3600),   -- 帯広豚丼セット (商品ID: 55) × 1個
+
+-- 【注文ID: 7 の明細】
+(7, 9,  1, 2600);   -- 札幌スープカレーセット (商品ID: 9) × 1個
+
+=======
 (6, 1, 'ほたて加工品セット', 3000, 'ほたて加工品を詰め合わせました。', '/images/reigon-product/obihiro/ob-hotatekakouhin.jpg'),
 (6, 2, '長いも', 2200, '粘りがあり、とろろにも向いた長いも。', '/images/reigon-product/obihiro/ob-obihironagaimo.jpg'),
 (6, 2, '小豆', 1800, '和菓子やあんこ作りに使える小豆。', '/images/reigon-product/obihiro/ob-obihiroazuki.jpg'),
@@ -104,3 +158,4 @@ VALUES
 (6, 3, 'チーズセット', 2300, '乳製品を活かした濃厚チーズ。', '/images/reigon-product/obihiro/ob-obihirocheeseset.jpg'),
 (6, 4, 'バターサンド', 1800, '濃厚バタークリーム入り焼き菓子。', '/images/reigon-product/obihiro/ob-obihirobuttersand.jpg'),
 (6, 4, 'ミルクキャラメル', 1200, '牛乳のコクを感じるキャラメル。', '/images/reigon-product/obihiro/ob-milkkyatameru.jpg');
+>>>>>>> main

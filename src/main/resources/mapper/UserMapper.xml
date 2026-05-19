@@ -8,14 +8,73 @@
   <!-- メールアドレスでユーザを検索する -->
   <select id="findByEmail" parameterType="String"
           resultType="com.example.demo.entity.User">
-    SELECT * FROM users
+    SELECT
+      id,
+      username,
+      email,
+      password_hash AS passwordHash
+    FROM users
     WHERE email = #{email}
   </select>
 
   <!-- ユーザを登録する -->
   <insert id="insert" parameterType="com.example.demo.entity.User">
     INSERT INTO users (username, email, password_hash)
-    VALUES (#{userName}, #{email}, #{password})
+    VALUES (#{username}, #{email}, #{passwordHash})
   </insert>
+
+  <!-- IDでユーザを検索する -->
+  <select id="findById" parameterType="int"
+          resultType="com.example.demo.entity.User">
+    SELECT
+      id,
+      username,
+      email,
+      password_hash AS passwordHash
+    FROM users
+    WHERE id = #{id}
+  </select>
+
+  <!-- 購入履歴を取得する -->
+  <select id="findOrdersByUserId" parameterType="int"
+          resultType="com.example.demo.entity.Order">
+    SELECT
+      id,
+      user_id       AS userId,
+      subtotal,
+      shipping_fee  AS shippingFee,
+      ordered_at    AS orderedAt
+    FROM orders
+    WHERE user_id = #{userId}
+    ORDER BY ordered_at DESC
+  </select>
+
+  <!-- 地域別購入回数を取得する -->
+  <select id="findRegionCountByUserId" parameterType="int"
+          resultType="com.example.demo.entity.RegionCount">
+    SELECT
+      CONCAT('地域', p.region_id) AS region,
+      COUNT(DISTINCT o.id)        AS count
+    FROM orders o
+    JOIN order_details od ON o.id          = od.order_id
+    JOIN products p       ON od.product_id = p.id
+    WHERE o.user_id = #{userId}
+    GROUP BY p.region_id
+    ORDER BY count DESC
+  </select>
+  
+  <select id="findOrderDetailsByOrderId" parameterType="int"
+        resultType="com.example.demo.entity.OrderDetail">
+    SELECT
+        od.id,
+        od.order_id      AS orderId,
+        od.product_id    AS productId,
+        od.quantity,
+        od.price,
+        p.product_name   AS productName
+    FROM order_details od
+    JOIN products p ON od.product_id = p.id
+    WHERE od.order_id = #{orderId}
+</select>
 
 </mapper>
