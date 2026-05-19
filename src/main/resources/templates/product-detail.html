@@ -5,14 +5,202 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${product.name} + '｜どさん娘マルシェ'">商品詳細｜どさん娘マルシェ</title>
     <link rel="stylesheet" href="/css/output.css">
+
+    <!-- Tailwindの再ビルド漏れや既存CSSのピンク色に負けないため、このページ専用CSSで上書き -->
     <style>
+        :root {
+            --sky-main: #2f7dd3;
+            --sky-dark: #1e5fa8;
+            --sky-soft: #eff8ff;
+            --sky-border: #d7eaff;
+            --text-main: #142033;
+            --text-sub: #526173;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, #f7fbff 0%, #ffffff 45%, #f7fbff 100%) !important;
+            color: var(--text-main) !important;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        .page-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.92) !important;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--sky-border) !important;
+        }
+
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 18px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--sky-main) !important;
+            white-space: nowrap;
+        }
+
+        .nav-list {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            color: #26364a !important;
+            font-size: 15px;
+            font-weight: 650;
+        }
+
+        .nav-list a:hover { color: var(--sky-main) !important; }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            white-space: nowrap;
+        }
+
+        .btn-outline,
+        .btn-primary,
+        .btn-sub {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            padding: 10px 18px;
+            font-weight: 800;
+            border: 1px solid var(--sky-main) !important;
+            transition: 0.18s ease;
+        }
+
+        .btn-outline {
+            background: #ffffff !important;
+            color: var(--sky-main) !important;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3587e5, #1f6fc7) !important;
+            color: #ffffff !important;
+            box-shadow: 0 10px 22px rgba(47, 125, 211, 0.22);
+        }
+
+        .btn-sub {
+            background: #ffffff !important;
+            color: var(--sky-main) !important;
+            width: 100%;
+        }
+
+        .btn-outline:hover,
+        .btn-sub:hover { background: var(--sky-soft) !important; }
+        .btn-primary:hover { transform: translateY(-1px); background: linear-gradient(135deg, #2476d4, #155da9) !important; }
+
+        .page-wrap {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 26px 28px 56px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #526173 !important;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+        .breadcrumb a { color: var(--sky-dark) !important; font-weight: 700; }
+
+        .product-layout {
+            display: grid;
+            grid-template-columns: minmax(320px, 0.9fr) minmax(360px, 1.15fr) minmax(280px, 0.75fr);
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.96) !important;
+            border: 1px solid var(--sky-border) !important;
+            border-radius: 20px;
+            box-shadow: 0 14px 32px rgba(43, 107, 173, 0.08);
+        }
+
+        .image-card {
+            min-height: 480px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+            background: linear-gradient(145deg, #ffffff, #f1f9ff) !important;
+        }
+
+        .product-image {
+            width: min(100%, 310px);
+            height: 310px;
+            object-fit: contain;
+            display: block;
+            filter: drop-shadow(0 18px 24px rgba(37, 91, 145, 0.12));
+        }
+
+        .info-card {
+            padding: 30px;
+            min-height: 480px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            padding: 7px 12px;
+            background: #e8f4ff !important;
+            color: var(--sky-dark) !important;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+
+        .product-title {
+            margin: 0;
+            font-size: 32px;
+            line-height: 1.35;
+            letter-spacing: 0.02em;
+            color: #132236 !important;
+        }
+
+        .rating-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-top: 16px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid #e5eef8;
+        }
+
         .star-rating {
             position: relative;
             display: inline-block;
-            font-size: 22px;
+            font-size: 20px;
             line-height: 1;
-            color: #ddd;
-            letter-spacing: 2px;
+            color: #d9e4ef;
+            letter-spacing: 1px;
         }
         .star-rating::before { content: "★★★★★"; }
         .star-rating::after {
@@ -22,101 +210,350 @@
             top: 0;
             width: var(--rating-percent);
             overflow: hidden;
-            color: gold;
+            color: #f7a600;
             white-space: nowrap;
+        }
+
+        .rating-score {
+            color: #26364a !important;
+            font-weight: 800;
+            font-size: 15px;
+        }
+
+        .review-link { color: var(--sky-main) !important; font-weight: 800; font-size: 14px; }
+
+        .description {
+            margin-top: 22px;
+            color: #2c3a4d !important;
+            font-size: 16px;
+            line-height: 1.9;
+        }
+
+        .detail-list {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #e5eef8;
+            display: grid;
+            gap: 14px;
+            font-size: 14px;
+        }
+
+        .detail-row {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+            gap: 12px;
+            color: #2c3a4d;
+        }
+        .detail-row dt { color: #6a7a8e; font-weight: 800; }
+        .detail-row dd { margin: 0; }
+
+        .purchase-card {
+            padding: 24px;
+            min-height: 480px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 22px;
+        }
+
+        .price-label { margin: 0 0 6px; font-size: 14px; font-weight: 800; color: #43566d; }
+        .price {
+            margin: 0;
+            color: var(--sky-main) !important;
+            font-size: 36px;
+            line-height: 1.15;
+            font-weight: 900;
+        }
+        .tax { font-size: 14px; color: #526173; font-weight: 700; }
+        .shipping { margin: 12px 0 0; color: #2c3a4d; font-size: 14px; font-weight: 700; }
+
+        .purchase-form {
+            margin-top: 24px;
+            display: grid;
+            gap: 14px;
+        }
+
+        .qty-label { font-size: 14px; font-weight: 900; color: #26364a; }
+
+        .qty-box {
+            display: inline-flex;
+            width: 142px;
+            height: 42px;
+            overflow: hidden;
+            border: 1px solid #c8def4;
+            border-radius: 10px;
+            background: #ffffff;
+        }
+
+        .qty-btn {
+            width: 42px;
+            border: 0;
+            background: #f3f9ff;
+            color: var(--sky-dark);
+            font-size: 20px;
+            font-weight: 900;
+            cursor: pointer;
+        }
+
+        .qty-input {
+            width: 58px;
+            border: 0;
+            border-left: 1px solid #d7eaff;
+            border-right: 1px solid #d7eaff;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 800;
+            outline: none;
+            color: #142033;
+        }
+        .qty-input::-webkit-outer-spin-button,
+        .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .qty-input { -moz-appearance: textfield; }
+
+        .cart-button {
+            width: 100%;
+            border: 0;
+            border-radius: 12px;
+            padding: 15px 18px;
+            background: linear-gradient(135deg, #3587e5, #1f6fc7) !important;
+            color: #ffffff !important;
+            font-size: 17px;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 14px 26px rgba(47, 125, 211, 0.26);
+        }
+
+        .cart-button:hover { background: linear-gradient(135deg, #2476d4, #155da9) !important; transform: translateY(-1px); }
+
+        .service-list {
+            display: grid;
+            gap: 12px;
+            padding-top: 18px;
+            border-top: 1px solid #e5eef8;
+            color: #315f96;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .review-section,
+        .review-post-section {
+            margin-top: 22px;
+            padding: 28px;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .section-title { margin: 0; font-size: 26px; color: #132236; }
+        .section-sub { margin: 6px 0 0; color: #6a7a8e; font-size: 14px; }
+
+        .filter-form { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+        .filter-form label { font-size: 13px; font-weight: 800; color: #43566d; }
+        .filter-form select,
+        .review-form select,
+        .review-form textarea {
+            border: 1px solid #c8def4 !important;
+            border-radius: 10px;
+            background: #ffffff !important;
+            color: #142033 !important;
+            outline: none;
+        }
+        .filter-form select { padding: 9px 12px; }
+        .filter-button {
+            border: 0;
+            border-radius: 10px;
+            padding: 10px 14px;
+            background: #26364a !important;
+            color: #ffffff !important;
+            font-weight: 800;
+        }
+        .reset-link { color: var(--sky-main) !important; font-weight: 800; font-size: 13px; }
+
+        .empty-review {
+            border-radius: 14px;
+            padding: 20px;
+            background: #f4f9ff !important;
+            color: #6a7a8e;
+        }
+
+        .review-list { display: grid; gap: 14px; }
+        .review-card {
+            border: 1px solid #dbeafa !important;
+            border-radius: 16px;
+            padding: 20px;
+            background: #ffffff !important;
+        }
+        .review-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            color: #526173;
+            font-size: 14px;
+        }
+        .review-name { margin: 0; color: #26364a; font-weight: 900; }
+        .review-stars { margin-top: 10px; color: #f7a600; font-size: 20px; }
+        .review-comment { margin: 12px 0 0; color: #2c3a4d; line-height: 1.8; }
+
+        .review-form { display: grid; gap: 16px; margin-top: 20px; }
+        .review-form label { display: block; margin-bottom: 8px; font-weight: 900; color: #26364a; font-size: 14px; }
+        .review-form select { width: 180px; padding: 11px 13px; }
+        .review-form textarea { width: 100%; min-height: 130px; padding: 14px; resize: vertical; }
+        .post-button {
+            width: 170px;
+            border: 0;
+            border-radius: 12px;
+            padding: 13px 18px;
+            background: linear-gradient(135deg, #3587e5, #1f6fc7) !important;
+            color: #ffffff !important;
+            font-weight: 900;
+            cursor: pointer;
+        }
+
+        @media (max-width: 1050px) {
+            .header-inner { flex-wrap: wrap; }
+            .product-layout { grid-template-columns: 1fr 1fr; }
+            .purchase-card { grid-column: 1 / -1; min-height: auto; }
+        }
+
+        @media (max-width: 720px) {
+            .header-inner, .page-wrap { padding-left: 16px; padding-right: 16px; }
+            .nav-list { gap: 12px; overflow-x: auto; width: 100%; padding-bottom: 4px; }
+            .product-layout { grid-template-columns: 1fr; }
+            .image-card, .info-card, .purchase-card { min-height: auto; }
+            .product-image { width: min(100%, 240px); height: 240px; }
+            .product-title { font-size: 26px; }
+            .section-head { align-items: flex-start; flex-direction: column; }
         }
     </style>
 </head>
 
-<body class="bg-gray-50 text-gray-800">
-
-<header class="sticky top-0 z-50 border-b border-gray-200 bg-white">
-    <div class="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-4 lg:flex-row lg:items-center lg:justify-between">
-        <div class="text-2xl font-bold text-gray-800">
-            <a href="/">どさん娘マルシェ</a>
-        </div>
+<body>
+<header class="page-header">
+    <div class="header-inner">
+        <a class="logo" href="/">
+            <span>❄</span>
+            <span>どさん娘マルシェ</span>
+        </a>
 
         <nav>
-            <ul class="flex flex-wrap gap-4 text-sm font-medium text-gray-700">
-                <li><a class="hover:text-orange-500" href="/">TOP</a></li>
-                <li><a class="hover:text-orange-500" href="/region/1">札幌</a></li>
-                <li><a class="hover:text-orange-500" href="/region/2">小樽</a></li>
-                <li><a class="hover:text-orange-500" href="/region/3">函館</a></li>
-                <li><a class="hover:text-orange-500" href="/region/4">北見</a></li>
-                <li><a class="hover:text-orange-500" href="/region/5">帯広</a></li>
-                <li><a class="hover:text-orange-500" href="/region/6">稚内</a></li>
-                <li><a class="hover:text-orange-500" href="/history">購入履歴</a></li>
+            <ul class="nav-list">
+                <li><a href="/">TOP</a></li>
+                <li><a href="/region/1">札幌</a></li>
+                <li><a href="/region/2">小樽</a></li>
+                <li><a href="/region/3">函館</a></li>
+                <li><a href="/region/4">北見</a></li>
+                <li><a href="/region/5">帯広</a></li>
+                <li><a href="/region/6">稚内</a></li>
+                <li><a href="/history">購入履歴</a></li>
             </ul>
         </nav>
 
-        <div class="flex gap-3 text-sm font-medium">
-            <a class="rounded-lg bg-gray-100 px-4 py-2 hover:bg-gray-200" href="/login">ログイン</a>
-            <a class="rounded-lg bg-gray-100 px-4 py-2 hover:bg-gray-200" href="/signup">新規登録</a>
-            <a class="rounded-lg bg-orange-500 px-4 py-2 text-white hover:bg-orange-600" href="/cart">カート</a>
+        <div class="header-actions">
+            <a class="btn-outline" href="/login">ログイン</a>
+            <a class="btn-primary" href="/signup">新規登録</a>
+            <a class="btn-outline" href="/cart">🛒 カート</a>
         </div>
     </div>
 </header>
 
-<main class="mx-auto max-w-7xl px-6 py-10">
-
-    <div class="mb-6 text-sm text-gray-500">
-        <a class="hover:text-orange-500" href="/">ホーム</a>
-        <span class="mx-2">/</span>
+<main class="page-wrap">
+    <div class="breadcrumb">
+        <a href="/">ホーム</a>
+        <span>›</span>
         <span th:text="${product.name}">商品名</span>
     </div>
 
-    <section class="grid gap-8 rounded-2xl bg-white p-6 shadow-sm lg:grid-cols-2 lg:p-8">
-        <div class="overflow-hidden rounded-2xl bg-gray-100">
-            <img class="w-full object-cover" style="height: 420px;" th:src="${product.imageUrl}" th:alt="${product.name}">
+    <!-- 上部：左半分に画像、右上に商品情報、右下に購入操作 -->
+    <section class="product-layout">
+        <div class="card image-card">
+            <img class="product-image" th:src="${product.imageUrl}" th:alt="${product.name}">
         </div>
 
-        <div class="flex flex-col justify-between gap-6">
-            <div>
-                <p class="mb-3 inline-block rounded-full bg-orange-100 px-4 py-1 text-sm font-semibold text-orange-600">北海道のおすすめ商品</p>
-                <h1 class="text-3xl font-bold leading-tight text-gray-900" th:text="${product.name}">商品名</h1>
+        <div class="card info-card">
+            <span class="tag">北海道産</span>
+            <h1 class="product-title" th:text="${product.name}">商品名</h1>
 
-                <div class="mt-4 flex flex-wrap items-center gap-3">
-                    <span class="star-rating" th:style="'--rating-percent:' + (${averageRating} * 20) + '%'"> </span>
-                    <span class="rounded-full bg-gray-100 px-3 py-1 text-sm font-semibold text-gray-700" th:text="${averageRating} + ' / 5.0'">0.0 / 5.0</span>
-                    <a class="text-sm font-semibold text-orange-500 hover:text-orange-600" href="#review-section">レビューを見る</a>
-                </div>
-
-                <p class="mt-6 text-4xl font-bold text-red-600" th:text="'¥' + ${product.price}">¥0</p>
-                <p class="mt-2 text-sm text-gray-500">送料：800円</p>
-
-                <p class="mt-6 leading-8 text-gray-700" th:text="${product.description}">
-                    商品説明
-                </p>
+            <div class="rating-row">
+                <span class="star-rating" th:style="'--rating-percent:' + (${averageRating} * 20) + '%'"> </span>
+                <span class="rating-score" th:text="${averageRating} + ' / 5.0'">0.0 / 5.0</span>
+                <a class="review-link" href="#review-section">レビューを見る</a>
             </div>
 
-            <form class="rounded-2xl border border-gray-200 bg-gray-50 p-5" th:action="@{/product/{id}/cart(id=${product.id})}" method="post">
-                <label class="mb-2 block text-sm font-semibold text-gray-700" for="quantity">数量</label>
-                <div class="flex flex-col gap-3 sm:flex-row">
-                    <input id="quantity" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-lg outline-none focus:border-orange-500 sm:w-32" type="number" name="quantity" value="1" min="1">
-                    <button class="rounded-lg bg-orange-500 px-8 py-3 font-bold text-white hover:bg-orange-600" type="submit">カートに追加</button>
+            <p class="description" th:text="${product.description}">
+                商品説明
+            </p>
+
+            <dl class="detail-list">
+                <div class="detail-row">
+                    <dt>内容量</dt>
+                    <dd>商品詳細をご確認ください</dd>
                 </div>
-            </form>
+                <div class="detail-row">
+                    <dt>発送</dt>
+                    <dd>通常2〜3営業日以内に発送</dd>
+                </div>
+                <div class="detail-row">
+                    <dt>保存方法</dt>
+                    <dd>直射日光・高温多湿を避けて保存してください</dd>
+                </div>
+            </dl>
         </div>
+
+        <aside class="card purchase-card">
+            <div>
+                <p class="price-label">価格</p>
+                <p class="price"><span th:text="'¥' + ${product.price}">¥0</span> <span class="tax">税込</span></p>
+                <p class="shipping">送料：全国一律 ¥800</p>
+
+                <form class="purchase-form" th:action="@{/product/{id}/cart(id=${product.id})}" method="post">
+                    <div>
+                        <label class="qty-label" for="quantity">数量</label>
+                        <div class="qty-box">
+                            <button class="qty-btn" type="button" onclick="const q=this.parentNode.querySelector('input'); q.value=Math.max(1, Number(q.value || 1)-1);">−</button>
+                            <input id="quantity" class="qty-input" type="number" name="quantity" value="1" min="1">
+                            <button class="qty-btn" type="button" onclick="const q=this.parentNode.querySelector('input'); q.value=Number(q.value || 1)+1;">＋</button>
+                        </div>
+                    </div>
+
+                    <button class="cart-button" type="submit">🛒 カートに追加</button>
+                </form>
+            </div>
+
+            <div>
+                <a class="btn-sub" href="/cart">カートを見る</a>
+                <div class="service-list">
+                    <span>🚚 通常2〜3営業日以内に発送</span>
+                    <span>🛡 安心の返品・交換保証</span>
+                    <span>🎁 ギフトにもおすすめ</span>
+                </div>
+            </div>
+        </aside>
     </section>
 
-    <section id="review-section" class="mt-10 rounded-2xl bg-white p-6 shadow-sm lg:p-8">
-        <div class="mb-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+    <!-- 下にスクロールしたらレビュー -->
+    <section id="review-section" class="card review-section">
+        <div class="section-head">
             <div>
-                <h2 class="text-2xl font-bold text-gray-900">レビュー</h2>
-                <p class="mt-1 text-sm text-gray-500">評価順・星の数でレビューを絞り込めます。</p>
+                <h2 class="section-title">レビュー</h2>
+                <p class="section-sub">評価順・星の数でレビューを絞り込めます。</p>
             </div>
 
-            <form class="flex flex-wrap items-center gap-3" th:action="@{/product/{id}(id=${product.id})}" method="get">
-                <label class="text-sm font-semibold text-gray-700" for="sort">並び順</label>
-                <select class="rounded-lg border border-gray-300 bg-white px-3 py-2" id="sort" name="sort">
+            <form class="filter-form" th:action="@{/product/{id}(id=${product.id})}" method="get">
+                <label for="sort">並び順</label>
+                <select id="sort" name="sort">
                     <option value="new" th:selected="${selectedSort == 'new'}">新しい順</option>
                     <option value="old" th:selected="${selectedSort == 'old'}">古い順</option>
                     <option value="high" th:selected="${selectedSort == 'high'}">評価が高い順</option>
                     <option value="low" th:selected="${selectedSort == 'low'}">評価が低い順</option>
                 </select>
 
-                <label class="text-sm font-semibold text-gray-700" for="rating">星の数</label>
-                <select class="rounded-lg border border-gray-300 bg-white px-3 py-2" id="rating" name="rating">
+                <label for="rating">星の数</label>
+                <select id="rating" name="rating">
                     <option value="" th:selected="${selectedRating == null}">すべて</option>
                     <option value="5" th:selected="${selectedRating == 5}">★5</option>
                     <option value="4" th:selected="${selectedRating == 4}">★4</option>
@@ -125,38 +562,38 @@
                     <option value="1" th:selected="${selectedRating == 1}">★1</option>
                 </select>
 
-                <button class="rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-700" type="submit">表示を変更</button>
-                <a class="text-sm font-semibold text-gray-500 hover:text-orange-500" th:href="@{/product/{id}(id=${product.id})}">リセット</a>
+                <button class="filter-button" type="submit">表示を変更</button>
+                <a class="reset-link" th:href="@{/product/{id}(id=${product.id})}">リセット</a>
             </form>
         </div>
 
-        <div class="rounded-xl bg-gray-50 p-5 text-gray-500" th:if="${#lists.isEmpty(reviews)}">
+        <div class="empty-review" th:if="${#lists.isEmpty(reviews)}">
             条件に合うレビューはありません。
         </div>
 
-        <div class="space-y-4" th:if="${!#lists.isEmpty(reviews)}">
-            <article class="rounded-xl border border-gray-200 p-5" th:each="review : ${reviews}">
-                <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                    <p class="font-bold text-gray-800" th:text="${review.username != null ? review.username : 'ゲスト'}">投稿者</p>
-                    <p class="text-sm text-gray-500" th:if="${review.createdAt != null}" th:text="${#temporals.format(review.createdAt, 'M月d日')}">投稿日</p>
+        <div class="review-list" th:if="${!#lists.isEmpty(reviews)}">
+            <article class="review-card" th:each="review : ${reviews}">
+                <div class="review-top">
+                    <p class="review-name" th:text="${review.username != null ? review.username : 'ゲスト'}">投稿者</p>
+                    <p th:if="${review.createdAt != null}" th:text="${#temporals.format(review.createdAt, 'M月d日')}">投稿日</p>
                 </div>
 
-                <div class="mt-2 text-xl text-yellow-400">
+                <div class="review-stars">
                     <span th:each="i : ${#numbers.sequence(1,5)}" th:text="${i <= review.rating ? '★' : '☆'}"></span>
                 </div>
 
-                <p class="mt-3 leading-7 text-gray-700" th:text="${review.comment}">レビュー本文</p>
+                <p class="review-comment" th:text="${review.comment}">レビュー本文</p>
             </article>
         </div>
     </section>
 
-    <section class="mt-10 rounded-2xl bg-white p-6 shadow-sm lg:p-8">
-        <h2 class="text-2xl font-bold text-gray-900">レビュー投稿</h2>
+    <section class="card review-post-section">
+        <h2 class="section-title">レビュー投稿</h2>
 
-        <form class="mt-5 grid gap-4" th:action="@{/product/{id}/review(id=${product.id})}" method="post" th:object="${reviewForm}">
+        <form class="review-form" th:action="@{/product/{id}/review(id=${product.id})}" method="post" th:object="${reviewForm}">
             <div>
-                <label class="mb-2 block text-sm font-semibold text-gray-700">評価</label>
-                <select class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 sm:w-48" th:field="*{rating}">
+                <label>評価</label>
+                <select th:field="*{rating}">
                     <option value="1">★1</option>
                     <option value="2">★2</option>
                     <option value="3">★3</option>
@@ -166,15 +603,13 @@
             </div>
 
             <div>
-                <label class="mb-2 block text-sm font-semibold text-gray-700">コメント</label>
-                <textarea class="min-h-32 w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-orange-500" th:field="*{comment}" placeholder="レビューを入力してください"></textarea>
+                <label>コメント</label>
+                <textarea th:field="*{comment}" placeholder="レビューを入力してください"></textarea>
             </div>
 
-            <button class="w-full rounded-lg bg-orange-500 px-6 py-3 font-bold text-white hover:bg-orange-600 sm:w-40" type="submit">投稿</button>
+            <button class="post-button" type="submit">投稿</button>
         </form>
     </section>
-
 </main>
-
 </body>
 </html>
