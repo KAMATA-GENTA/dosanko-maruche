@@ -33,6 +33,6 @@ public class HomeController {
 		model.addAttribute("products", products);
 		model.addAttribute("selectedCategoryId", categoryId);
 
-		return "index";
+		return "home";
 	}
 }
