@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import com.example.demo.entity.Product;
-import com.example.demo.entity.ProductEntity;
 
 @Mapper
 public interface ProductMapper {
@@ -16,41 +15,41 @@ public interface ProductMapper {
 			    id,
 			    region_id AS regionId,
 			    category_id AS categoryId,
-			    product_name AS productName,
+			    product_name AS name,
 			    price,
 			    description,
 			    image_url AS imageUrl
 			FROM products
 			""")
-	List<ProductEntity> findAll();
+	List<Product> findAll();
 
 	@Select("""
 			SELECT
 			    id,
 			    region_id AS regionId,
 			    category_id AS categoryId,
-			    product_name AS productName,
+			    product_name AS name,
 			    price,
 			    description,
 			    image_url AS imageUrl
 			FROM products
 			WHERE region_id = #{regionId}
 			""")
-	List<ProductEntity> findByRegionId(Integer regionId);
+	List<Product> findByRegionId(Integer regionId);
 
 	@Select("""
 			SELECT
 			    id,
 			    region_id AS regionId,
 			    category_id AS categoryId,
-			    product_name AS productName,
+			    product_name AS name,
 			    price,
 			    description,
 			    image_url AS imageUrl
 			FROM products
 			WHERE category_id = #{categoryId}
 			""")
-	List<ProductEntity> findByCategoryId(Integer categoryId);
+	List<Product> findByCategoryId(Integer categoryId);
 
 	// 商品IDに対応する商品を1件取得
 	Product findById(int productId);
