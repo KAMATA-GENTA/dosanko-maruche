@@ -16,4 +16,5 @@ public class Review {
 	private int rating; // 評価（星の数）
 	private String comment; // コメント
 	private LocalDateTime createdAt; // 作成日時
+	private String username; //ユーザーネーム
 }
