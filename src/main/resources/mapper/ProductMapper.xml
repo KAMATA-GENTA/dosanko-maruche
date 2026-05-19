@@ -8,10 +8,10 @@
 
     <!-- 商品詳細取得 -->
     <resultMap id="productMap" type="com.example.demo.entity.Product">
-        <id property="productId" column="id"/>
+        <id property="id" column="id"/>
         <result property="regionId" column="region_id"/>
         <result property="categoryId" column="category_id"/>
-        <result property="productName" column="product_name"/>
+        <result property="name" column="product_name"/>
         <result property="price" column="price"/>
         <result property="description" column="description"/>
         <result property="imageUrl" column="image_url"/>
@@ -32,7 +32,7 @@
             id,
             region_id AS regionId,
             category_id AS categoryId,
-            product_name AS productName,
+            product_name AS name,
             price,
             description,
             image_url AS imageUrl,
@@ -60,7 +60,7 @@
             id,
             region_id AS regionId,
             category_id AS categoryId,
-            product_name AS productName,
+            product_name AS name,
             price,
             description,
             image_url AS imageUrl,
@@ -90,7 +90,7 @@
             id,
             region_id AS regionId,
             category_id AS categoryId,
-            product_name AS productName,
+            product_name AS name,
             price,
             description,
             image_url AS imageUrl,

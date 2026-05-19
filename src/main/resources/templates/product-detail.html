@@ -4,6 +4,30 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/css/output.css" />
 <title>Insert title here</title>
+<style>
+.star-rating {
+	position: relative;
+	display: inline-block;
+	font-size: 20px;
+	line-height: 1;
+	color: #ddd; /* 空星 */
+}
+
+.star-rating::before {
+	content: "★★★★★";
+}
+
+.star-rating::after {
+	content: "★★★★★";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: var(--rating-percent);
+	overflow: hidden;
+	color: gold;
+	white-space: nowrap;
+}
+</style>
 </head>
 
 <body>
@@ -73,7 +97,7 @@
 	  </div>
 	</header>
 
-<h1 th:text="${product.productName}"></h1>
+<h1 th:text="${product.name}"></h1>
 
 <img th:src="${product.imageUrl}">
 
@@ -83,11 +107,14 @@
 <p th:text="${product.description}"></p>
 
 <!-- 平均星表示 -->
-<div>
-	<span th:each="i : ${#numbers.sequence(1,5)}">
-		<span th:text="${i <= averageRating ? '★' : '☆'}"></span>
+<div style="display:flex; align-items:center; gap:10px;">
+
+	<span class="star-rating"
+	      th:style="'--rating-percent:' + (${averageRating} * 20) + '%'">
 	</span>
-	(<span th:text="${averageRating}"></span>)
+
+	<span th:text="${averageRating}"></span>
+
 </div>
 
 <a href="#review-section">レビューはこちら</a>
