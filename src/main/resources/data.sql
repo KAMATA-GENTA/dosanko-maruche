@@ -14,8 +14,7 @@ VALUES
     'sato',
     'sato@example.com',
     'password456'
-)
-ON CONFLICT (email) DO NOTHING;;
+);
 
 -- products 初期データ
 
