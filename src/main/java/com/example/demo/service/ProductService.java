@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Product;
+import com.example.demo.entity.RankingProduct;
 import com.example.demo.mapper.ProductMapper;
 
 @Service
@@ -34,5 +35,10 @@ public class ProductService {
 	// 商品詳細取得
 	public Product findById(int productId) {
 		return productMapper.findById(productId);
+	}
+
+	// カテゴリ別ランキングTOP3を取得
+	public List<RankingProduct> getRankingByCategoryId(Integer categoryId) {
+		return productMapper.findRankingByCategoryId(categoryId);
 	}
 }

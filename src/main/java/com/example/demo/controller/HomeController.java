@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Product;
+import com.example.demo.entity.RankingProduct;
 import com.example.demo.service.ProductService;
 
 @Controller
@@ -20,7 +21,9 @@ public class HomeController {
 	}
 
 	@GetMapping("/")
-	public String home(@RequestParam(required = false) Integer categoryId, Model model) {
+	public String home(
+			@RequestParam(required = false) Integer categoryId,
+			Model model) {
 
 		List<Product> products;
 
@@ -32,6 +35,16 @@ public class HomeController {
 
 		model.addAttribute("products", products);
 		model.addAttribute("selectedCategoryId", categoryId);
+
+		List<RankingProduct> seafoodRanking = productService.getRankingByCategoryId(1);
+		List<RankingProduct> meatRanking = productService.getRankingByCategoryId(2);
+		List<RankingProduct> vegetableRanking = productService.getRankingByCategoryId(3);
+		List<RankingProduct> souvenirRanking = productService.getRankingByCategoryId(4);
+
+		model.addAttribute("seafoodRanking", seafoodRanking);
+		model.addAttribute("meatRanking", meatRanking);
+		model.addAttribute("vegetableRanking", vegetableRanking);
+		model.addAttribute("souvenirRanking", souvenirRanking);
 
 		return "home";
 	}
