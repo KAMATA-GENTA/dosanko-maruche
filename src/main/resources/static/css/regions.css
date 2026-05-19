@@ -1,0 +1,206 @@
+@charset "UTF-8";body {
+	margin: 0;
+	background-color: #f4f4f4;
+	font-family: sans-serif;
+	color: #333;
+}
+
+.region-image {
+	width: 100%;
+	height: auto;
+}
+
+.character-image {
+	width: 500px;
+}
+
+.ranking-section,
+.category-section {
+	padding: 20px 14px;
+}
+
+.ranking-title,
+.category-title {
+	font-size: 36px;
+	font-weight: bold;
+	margin-bottom: 50px;
+}
+
+.ranking-area {
+	display: flex;
+	gap: 90px;
+	overflow-x: auto;
+	padding-bottom: 18px;
+}
+
+.ranking-block {
+	min-width: 1200px;
+}
+
+.ranking-block h2 {
+	font-size: 26px;
+	margin-bottom: 28px;
+}
+
+.card-list {
+	display: flex;
+	gap: 30px;
+}
+
+.product-card {
+	min-width: 330px;
+	height: 450px;
+	background-color: #fff;
+	border-radius: 12px;
+	padding: 22px;
+}
+
+.rank-badge {
+	display: inline-block;
+	background-color: orange;
+	color: white;
+	font-size: 22px;
+	font-weight: bold;
+	padding: 10px 16px;
+	border-radius: 6px;
+	margin-bottom: 15px;
+}
+
+.product-image {
+	width: 100%;
+	height: 240px;
+	object-fit: cover;
+}
+
+.product-name {
+	font-size: 22px;
+	font-weight: bold;
+	margin-top: 16px;
+}
+
+.product-area {
+	font-size: 20px;
+	margin-top: 6px;
+}
+
+.product-price {
+	color: crimson;
+	font-size: 22px;
+	font-weight: bold;
+	margin-top: 18px;
+}
+
+.category-buttons {
+	display: flex;
+	gap: 26px;
+	flex-wrap: wrap;
+}
+
+.category-buttons a {
+	background-color: #4aa3f5;
+	color: white;
+	text-decoration: none;
+	font-size: 20px;
+	font-weight: bold;
+	padding: 20px 38px;
+	border-radius: 8px;
+}
+.header {
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 30px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 1000;
+}
+
+.header-menu {
+    display: flex;
+    gap: 15px;
+}
+
+.category-list {
+    display: flex;
+    gap: 20px;
+
+    flex-wrap: wrap;
+}
+
+.category-card {
+    border: none;
+
+    background-color: #4da6ff;
+    color: white;
+
+    padding: 15px 25px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+}
+
+.category-card:hover {
+    opacity: 0.8;
+}
+
+.category-card.active {
+    background-color: #ff7f50;
+    color: white;
+    font-weight: bold;
+}
+
+/* =========================
+   商品一覧
+========================= */
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 20px;
+}
+
+.product-card {
+    background-color: white;
+
+    width: 250px;
+
+    border-radius: 10px;
+
+    padding: 15px;
+}
+
+.product-card img {
+    height: 180px;
+    object-fit: cover;
+
+    border-radius: 10px;
+}
+
+.product-card h3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.product-card a {
+    display: inline-block;
+
+    margin-top: 10px;
+
+    background-color: #ff7f50;
+    color: white;
+
+    padding: 10px 15px;
+
+    border-radius: 5px;
+}
+
+
