@@ -1,21 +1,33 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.entity.ProductEntity;
 import com.example.demo.enums.Region;
+import com.example.demo.service.ProductService;
 
 @Controller
 @RequestMapping("/region")
 public class RegionController {
 
+	private final ProductService productService;
+
+	public RegionController(ProductService productService) {
+		this.productService = productService;
+	}
+
 	//地域詳細ページ
 	@GetMapping("/{regionName}")
 	public String showRegion(
 			@PathVariable String regionName,
+			@RequestParam(required = false) Integer categoryId,
 			Model model) {
 
 		Region region = null;
@@ -36,7 +48,18 @@ public class RegionController {
 			region = Region.Obihiro;
 		}
 
+		List<ProductEntity> products;
+
+		if (categoryId == null) {
+			products = productService.getAllProducts();
+		} else {
+			products = productService.getProductsByCategoryId(categoryId);
+		}
+
 		model.addAttribute("region", region);
+		model.addAttribute("regionName", regionName);
+		model.addAttribute("products", products);
+		model.addAttribute("selectedCategoryId", categoryId);
 
 		return "region_test";
 	}
