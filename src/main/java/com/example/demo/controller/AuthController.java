@@ -84,6 +84,7 @@ public class AuthController {
 		if (isAuthenticated) {
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("username", user.getUsername()); // DBから取得
+			session.setAttribute("loginUser", user);
 			return "redirect:/";
 		} else {
 			model.addAttribute("error", "メールアドレスまたはパスワードが間違っています。");
