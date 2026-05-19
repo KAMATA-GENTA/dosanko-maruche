@@ -86,10 +86,27 @@ public class ProductController {
 	@PostMapping("/{productId}/cart")
 	public String addToCart(@PathVariable int productId,
 			@RequestParam int quantity,
-			@SessionAttribute("loginUser") User user) {
+			////			@SessionAttribute("loginUser") User user) { testo用コメントアウト
+			//			
+			//			
+			//
+			//		cartService.addToCart(user.getId(), productId, quantity);
+			@SessionAttribute(value = "loginUser", required = false) User user) {
 
-		cartService.addToCart(user.getId(), productId, quantity);
+		int userId;
 
-		return "redirect:/cart";
+		// ★ loginUser が存在するか確認
+		if (user != null) {
+			userId = user.getId();
+
+			// ★ 無い場合はデモ用ユーザーID=1を使う
+		} else {
+			userId = 1;
+		}
+
+		// ★ user.getId() を userId に変更
+		cartService.addToCart(userId, productId, quantity);
+
+		return "redirect:/product/{productId}";
 	}
 }
