@@ -1,199 +1,180 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="/css/output.css" />
-<title>Insert title here</title>
-<style>
-.star-rating {
-	position: relative;
-	display: inline-block;
-	font-size: 20px;
-	line-height: 1;
-	color: #ddd; /* 空星 */
-}
-
-.star-rating::before {
-	content: "★★★★★";
-}
-
-.star-rating::after {
-	content: "★★★★★";
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: var(--rating-percent);
-	overflow: hidden;
-	color: gold;
-	white-space: nowrap;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${product.name} + '｜どさん娘マルシェ'">商品詳細｜どさん娘マルシェ</title>
+    <link rel="stylesheet" href="/css/output.css">
+    <style>
+        .star-rating {
+            position: relative;
+            display: inline-block;
+            font-size: 22px;
+            line-height: 1;
+            color: #ddd;
+            letter-spacing: 2px;
+        }
+        .star-rating::before { content: "★★★★★"; }
+        .star-rating::after {
+            content: "★★★★★";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: var(--rating-percent);
+            overflow: hidden;
+            color: gold;
+            white-space: nowrap;
+        }
+    </style>
 </head>
 
-<body>
-	<header class=" flex h-16 max-w-[1200px] items-center justify-between px-5 mx-auto">
-	  <a href="index">
-	    <img class="cursor-pointer sm:h-auto sm:w-auto" src="/images/logo.svg" alt="company logo" />
-	  </a>
+<body class="bg-gray-900 hover:bg-black text-white"">
 
-	  <div class="md:hidden">
-	    <button @click="mobileMenuOpen = ! mobileMenuOpen">
-	      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-	        class="h-8 w-8">
-	        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-	      </svg>
-	    </button>
-	  </div>
+<header class="sticky top-0 z-50 border-b border-gray-200 bg-white">
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-4 lg:flex-row lg:items-center lg:justify-between">
+        <div class="text-2xl font-bold text-gray-800">
+            <a href="/">どさん娘マルシェ</a>
+        </div>
 
-	  <form class="hidden h-9 w-2/5 items-center border border-base-content/50 md:flex">
-	    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-	      class="mx-3 h-4 w-4">
-	      <path stroke-linecap="round" stroke-linejoin="round"
-	        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-	    </svg>
+        <nav>
+            <ul class="flex flex-wrap gap-4 text-sm font-medium text-gray-700">
+                <li><a class="hover:text-orange-500" href="/">TOP</a></li>
+                <li><a class="hover:text-orange-500" href="/region/1">札幌</a></li>
+                <li><a class="hover:text-orange-500" href="/region/2">小樽</a></li>
+                <li><a class="hover:text-orange-500" href="/region/3">函館</a></li>
+                <li><a class="hover:text-orange-500" href="/region/4">北見</a></li>
+                <li><a class="hover:text-orange-500" href="/region/5">帯広</a></li>
+                <li><a class="hover:text-orange-500" href="/region/6">稚内</a></li>
+                <li><a class="hover:text-orange-500" href="/history">購入履歴</a></li>
+            </ul>
+        </nav>
 
-	    <input class="w-11/12 outline-none md:block hidden " type="search" placeholder="Search" />
+        <div class="flex gap-3 text-sm font-medium">
+            <a class="rounded-lg bg-gray-100 px-4 py-2 hover:bg-gray-200" href="/login">ログイン</a>
+            <a class="rounded-lg bg-gray-100 px-4 py-2 hover:bg-gray-200" href="/signup">新規登録</a>
+            <a class="rounded-lg bg-orange-500 px-4 py-2 text-white hover:bg-orange-600" href="/cart">カート</a>
+        </div>
+    </div>
+</header>
 
-	    <button class="ml-auto h-full bg-primary text-primary-content px-4 hover:bg-yellow-300">
-	      Search
-	    </button>
-	  </form>
+<main class="mx-auto max-w-7xl px-6 py-10">
 
-	  <div class="hidden gap-3 md:!flex">
-	    <a href="wishlist.html" class="flex cursor-pointer flex-col items-center justify-center">
-	      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-	        class="h-6 w-6">
-	        <path stroke-linecap="round" stroke-linejoin="round"
-	          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-	      </svg>
+    <div class="mb-6 text-sm text-gray-500">
+        <a class="hover:text-orange-500" href="/">ホーム</a>
+        <span class="mx-2">/</span>
+        <span th:text="${product.name}">商品名</span>
+    </div>
 
-	      <p class="text-xs">Wishlist</p>
-	    </a>
+    <section class="grid gap-8 rounded-2xl bg-white p-6 shadow-sm lg:grid-cols-2 lg:p-8">
+        <div class="overflow-hidden rounded-2xl bg-gray-100">
+            <img class="w-full object-cover" style="height: 420px;" th:src="${product.imageUrl}" th:alt="${product.name}">
+        </div>
 
-	    <a href="/cart" class="flex cursor-pointer flex-col items-center justify-center">
-	      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
-	        <path fill-rule="evenodd"
-	          d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3zm-3 8.25a3 3 0 106 0v-.75a.75.75 0 011.5 0v.75a4.5 4.5 0 11-9 0v-.75a.75.75 0 011.5 0v.75z"
-	          clip-rule="evenodd" />
-	      </svg>
+        <div class="flex flex-col justify-between gap-6">
+            <div>
+                <p class="mb-3 inline-block rounded-full bg-orange-100 px-4 py-1 text-sm font-semibold text-orange-600">北海道のおすすめ商品</p>
+                <h1 class="text-3xl font-bold leading-tight text-gray-900" th:text="${product.name}">商品名</h1>
 
-	      <p class="text-xs">Cart</p>
-	    </a>
+                <div class="mt-4 flex flex-wrap items-center gap-3">
+                    <span class="star-rating" th:style="'--rating-percent:' + (${averageRating} * 20) + '%'"> </span>
+                    <span class="rounded-full bg-gray-100 px-3 py-1 text-sm font-semibold text-gray-700" th:text="${averageRating} + ' / 5.0'">0.0 / 5.0</span>
+                    <a class="text-sm font-semibold text-orange-500 hover:text-orange-600" href="#review-section">レビューを見る</a>
+                </div>
 
-	    <a href="account-page.html" class="relative flex cursor-pointer flex-col items-center justify-center">
-	      <span class="absolute bottom-[33px] right-1 flex h-2 w-2">
-	        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
-	        <span class="relative inline-flex h-2 w-2 rounded-full bg-red-500"></span>
-	      </span>
+                <p class="mt-6 text-4xl font-bold text-red-600" th:text="'¥' + ${product.price}">¥0</p>
+                <p class="mt-2 text-sm text-gray-500">送料：800円</p>
 
-	      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-	        class="h-6 w-6">
-	        <path stroke-linecap="round" stroke-linejoin="round"
-	          d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-	      </svg>
+                <p class="mt-6 leading-8 text-gray-700" th:text="${product.description}">
+                    商品説明
+                </p>
+            </div>
 
-	      <p class="text-xs">Account</p>
-	    </a>
-	  </div>
-	</header>
+            <form class="rounded-2xl border border-gray-200 bg-gray-50 p-5" th:action="@{/product/{id}/cart(id=${product.id})}" method="post">
+                <label class="mb-2 block text-sm font-semibold text-gray-700" for="quantity">数量</label>
+                <div class="flex flex-col gap-3 sm:flex-row">
+                    <input id="quantity" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-lg outline-none focus:border-orange-500 sm:w-32" type="number" name="quantity" value="1" min="1">
+                    <button class="rounded-lg bg-orange-500 px-8 py-3 font-bold text-white hover:bg-orange-600" type="submit">カートに追加</button>
+                </div>
+            </form>
+        </div>
+    </section>
 
-<h1 th:text="${product.name}"></h1>
+    <section id="review-section" class="mt-10 rounded-2xl bg-white p-6 shadow-sm lg:p-8">
+        <div class="mb-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900">レビュー</h2>
+                <p class="mt-1 text-sm text-gray-500">評価順・星の数でレビューを絞り込めます。</p>
+            </div>
 
-<img th:src="${product.imageUrl}">
+            <form class="flex flex-wrap items-center gap-3" th:action="@{/product/{id}(id=${product.id})}" method="get">
+                <label class="text-sm font-semibold text-gray-700" for="sort">並び順</label>
+                <select class="rounded-lg border border-gray-300 bg-white px-3 py-2" id="sort" name="sort">
+                    <option value="new" th:selected="${selectedSort == 'new'}">新しい順</option>
+                    <option value="old" th:selected="${selectedSort == 'old'}">古い順</option>
+                    <option value="high" th:selected="${selectedSort == 'high'}">評価が高い順</option>
+                    <option value="low" th:selected="${selectedSort == 'low'}">評価が低い順</option>
+                </select>
 
-<p>価格: <span th:text="${product.price}"></span>円</p>
-<p>送料: 800円</p>
+                <label class="text-sm font-semibold text-gray-700" for="rating">星の数</label>
+                <select class="rounded-lg border border-gray-300 bg-white px-3 py-2" id="rating" name="rating">
+                    <option value="" th:selected="${selectedRating == null}">すべて</option>
+                    <option value="5" th:selected="${selectedRating == 5}">★5</option>
+                    <option value="4" th:selected="${selectedRating == 4}">★4</option>
+                    <option value="3" th:selected="${selectedRating == 3}">★3</option>
+                    <option value="2" th:selected="${selectedRating == 2}">★2</option>
+                    <option value="1" th:selected="${selectedRating == 1}">★1</option>
+                </select>
 
-<p th:text="${product.description}"></p>
+                <button class="rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-700" type="submit">表示を変更</button>
+                <a class="text-sm font-semibold text-gray-500 hover:text-orange-500" th:href="@{/product/{id}(id=${product.id})}">リセット</a>
+            </form>
+        </div>
 
-<!-- 平均星表示 -->
-<div style="display:flex; align-items:center; gap:10px;">
+        <div class="rounded-xl bg-gray-50 p-5 text-gray-500" th:if="${#lists.isEmpty(reviews)}">
+            条件に合うレビューはありません。
+        </div>
 
-	<span class="star-rating"
-	      th:style="'--rating-percent:' + (${averageRating} * 20) + '%'">
-	</span>
+        <div class="space-y-4" th:if="${!#lists.isEmpty(reviews)}">
+            <article class="rounded-xl border border-gray-200 p-5" th:each="review : ${reviews}">
+                <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <p class="font-bold text-gray-800" th:text="${review.username != null ? review.username : 'ゲスト'}">投稿者</p>
+                    <p class="text-sm text-gray-500" th:if="${review.createdAt != null}" th:text="${#temporals.format(review.createdAt, 'M月d日')}">投稿日</p>
+                </div>
 
-	<span th:text="${averageRating}"></span>
+                <div class="mt-2 text-xl text-yellow-400">
+                    <span th:each="i : ${#numbers.sequence(1,5)}" th:text="${i <= review.rating ? '★' : '☆'}"></span>
+                </div>
 
-</div>
+                <p class="mt-3 leading-7 text-gray-700" th:text="${review.comment}">レビュー本文</p>
+            </article>
+        </div>
+    </section>
 
-<a href="#review-section">レビューはこちら</a>
+    <section class="mt-10 rounded-2xl bg-white p-6 shadow-sm lg:p-8">
+        <h2 class="text-2xl font-bold text-gray-900">レビュー投稿</h2>
 
-<!-- カート追加 -->
-<form th:action="@{/product/{id}/cart(id=${product.id})}" method="post">
-	<input type="number" name="quantity" value="1" min="1">
-	<button type="submit">カートに追加</button>
-</form>
+        <form class="mt-5 grid gap-4" th:action="@{/product/{id}/review(id=${product.id})}" method="post" th:object="${reviewForm}">
+            <div>
+                <label class="mb-2 block text-sm font-semibold text-gray-700">評価</label>
+                <select class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 sm:w-48" th:field="*{rating}">
+                    <option value="1">★1</option>
+                    <option value="2">★2</option>
+                    <option value="3">★3</option>
+                    <option value="4">★4</option>
+                    <option value="5">★5</option>
+                </select>
+            </div>
 
-<hr>
+            <div>
+                <label class="mb-2 block text-sm font-semibold text-gray-700">コメント</label>
+                <textarea class="min-h-32 w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-orange-500" th:field="*{comment}" placeholder="レビューを入力してください"></textarea>
+            </div>
 
-<h2 id="review-section">レビュー</h2>
+            <button class="w-full rounded-lg bg-orange-500 px-6 py-3 font-bold text-white hover:bg-orange-600 sm:w-40" type="submit">投稿</button>
+        </form>
+    </section>
 
-<!-- レビューの並び替え・星の数フィルタ -->
-<form th:action="@{/product/{id}(id=${product.id})}" method="get">
-	<label for="sort">並び順</label>
-	<select id="sort" name="sort">
-		<option value="new" th:selected="${selectedSort == 'new'}">新しい順</option>
-		<option value="old" th:selected="${selectedSort == 'old'}">古い順</option>
-		<option value="high" th:selected="${selectedSort == 'high'}">評価が高い順</option>
-		<option value="low" th:selected="${selectedSort == 'low'}">評価が低い順</option>
-	</select>
-
-	<label for="rating">星の数</label>
-	<select id="rating" name="rating">
-		<option value="" th:selected="${selectedRating == null}">すべて</option>
-		<option value="5" th:selected="${selectedRating == 5}">★5</option>
-		<option value="4" th:selected="${selectedRating == 4}">★4</option>
-		<option value="3" th:selected="${selectedRating == 3}">★3</option>
-		<option value="2" th:selected="${selectedRating == 2}">★2</option>
-		<option value="1" th:selected="${selectedRating == 1}">★1</option>
-	</select>
-
-	<button type="submit">表示を変更</button>
-	<a th:href="@{/product/{id}(id=${product.id})}">条件をリセット</a>
-</form>
-
-<div th:if="${#lists.isEmpty(reviews)}">
-	<p>条件に合うレビューはありません。</p>
-</div>
-
-<div th:each="review : ${reviews}">
-	<p>
-		投稿者：
-		<span th:text="${review.username != null ? review.username : 'ゲスト'}"></span>
-	</p>
-	
-	<div>
-		<span th:each="i : ${#numbers.sequence(1,5)}">
-			<span th:text="${i <= review.rating ? '★' : '☆'}"></span>
-		</span>
-	</div>
-
-	<!-- レビュー投稿日表示：既存のcreated_atを使うためDB設計の変更は不要 -->
-	<p th:if="${review.createdAt != null}">
-		投稿日：<span th:text="${#temporals.format(review.createdAt, 'M月d日')}"></span>
-	</p>
-
-	<p th:text="${review.comment}"></p>
-</div>
-
-<hr>
-
-<h3>レビュー投稿</h3>
-
-<form th:action="@{/product/{id}/review(id=${product.id})}" method="post" th:object="${reviewForm}">
-	<select th:field="*{rating}">
-		<option value="1">★1</option>
-		<option value="2">★2</option>
-		<option value="3">★3</option>
-		<option value="4">★4</option>
-		<option value="5">★5</option>
-	</select>
-
-	<textarea th:field="*{comment}" placeholder="レビューを入力してください"></textarea>
-
-	<button type="submit">投稿</button>
-</form>
+</main>
 
 </body>
 </html>
