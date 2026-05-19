@@ -96,7 +96,6 @@ VALUES
 -- 帯広
 -- =========================
 (6, 1, '帯広昆布だしセット', 1500, '料理に便利な昆布だし。', '/images/reigon-product/obihiro/ob-koknbudasiset.jpg'),
-<<<<<<< HEAD
 (6, 1, '帯広ほたて加工品セット', 3000, 'ほたて加工品を詰め合わせました。', '/images/reigon-product/obihiro/ob-hotatekakouhin.jpg'),
 (6, 2, '帯広長いも', 2200, '粘りがあり、とろろにも向いた長いも。', '/images/reigon-product/obihiro/ob-obihironagaimo.jpg'),
 (6, 2, '帯広小豆', 1800, '和菓子やあんこ作りに使える小豆。', '/images/reigon-product/obihiro/ob-obihiroazuki.jpg'),
@@ -148,14 +147,4 @@ INSERT INTO order_details (order_id, product_id, quantity, price) VALUES
 -- 【注文ID: 7 の明細】
 (7, 9,  1, 2600);   -- 札幌スープカレーセット (商品ID: 9) × 1個
 
-=======
-(6, 1, 'ほたて加工品セット', 3000, 'ほたて加工品を詰め合わせました。', '/images/reigon-product/obihiro/ob-hotatekakouhin.jpg'),
-(6, 2, '長いも', 2200, '粘りがあり、とろろにも向いた長いも。', '/images/reigon-product/obihiro/ob-obihironagaimo.jpg'),
-(6, 2, '小豆', 1800, '和菓子やあんこ作りに使える小豆。', '/images/reigon-product/obihiro/ob-obihiroazuki.jpg'),
-(6, 2, '枝豆セット', 2400, '香りと甘みの強い枝豆セット。', '/images/reigon-product/obihiro/ob-obihiroedamame.jpg'),
-(6, 3, '豚丼セット', 3600, '帯広名物豚丼用の味付け豚肉。', '/images/reigon-product/obihiro/ob-obihirobutadonn.jpg'),
-(6, 3, '十勝牛ステーキ', 5800, '十勝地方をイメージした牛ステーキ。', '/images/reigon-product/obihiro/ob-tokatigyu.jpg'),
-(6, 3, 'チーズセット', 2300, '乳製品を活かした濃厚チーズ。', '/images/reigon-product/obihiro/ob-obihirocheeseset.jpg'),
-(6, 4, 'バターサンド', 1800, '濃厚バタークリーム入り焼き菓子。', '/images/reigon-product/obihiro/ob-obihirobuttersand.jpg'),
-(6, 4, 'ミルクキャラメル', 1200, '牛乳のコクを感じるキャラメル。', '/images/reigon-product/obihiro/ob-milkkyatameru.jpg');
->>>>>>> main
+
