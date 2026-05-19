@@ -78,4 +78,10 @@
 
     </delete>
 
+    <delete id="deleteByIdAndUserId">
+    DELETE FROM cart_items
+    WHERE id = #{id}
+      AND user_id = #{userId}
+    </delete>
+
 </mapper>

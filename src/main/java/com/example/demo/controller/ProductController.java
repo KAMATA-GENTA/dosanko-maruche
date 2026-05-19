@@ -1,6 +1,10 @@
 package com.example.demo.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -84,28 +88,32 @@ public class ProductController {
 
 	// カート追加
 	@PostMapping("/{productId}/cart")
-	public String addToCart(@PathVariable int productId,
+	public String addToCart(
+			@PathVariable int productId,
 			@RequestParam int quantity,
-			////			@SessionAttribute("loginUser") User user) { testo用コメントアウト
-			//			
-			//			
-			//
-			//		cartService.addToCart(user.getId(), productId, quantity);
-			@SessionAttribute(value = "loginUser", required = false) User user) {
+			@SessionAttribute(value = "loginUser", required = false) User user,
+			HttpSession session) {
 
-		int userId;
-
-		// ★ loginUser が存在するか確認
+		// ログイン済みならDBに保存
 		if (user != null) {
-			userId = user.getId();
 
-			// ★ 無い場合はデモ用ユーザーID=1を使う
+			cartService.addToCart(user.getId(), productId, quantity);
+
 		} else {
-			userId = 1;
-		}
 
-		// ★ user.getId() を userId に変更
-		cartService.addToCart(userId, productId, quantity);
+			// 未ログインならsessionに保存
+			Map<Integer, Integer> guestCart = (Map<Integer, Integer>) session.getAttribute("guestCart");
+
+			if (guestCart == null) {
+				guestCart = new HashMap<>();
+			}
+
+			guestCart.put(
+					productId,
+					guestCart.getOrDefault(productId, 0) + quantity);
+
+			session.setAttribute("guestCart", guestCart);
+		}
 
 		return "redirect:/product/{productId}";
 	}

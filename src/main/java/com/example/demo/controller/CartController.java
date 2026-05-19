@@ -2,13 +2,15 @@ package com.example.demo.controller;
 
 import java.util.List;
 
-import jakarta.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.example.demo.entity.CartItem;
+import com.example.demo.entity.User;
 import com.example.demo.mapper.CartMapper;
 
 @Controller
@@ -21,12 +23,15 @@ public class CartController {
 	}
 
 	@GetMapping("/cart")
-	public String showCart(Model model, HttpSession session) {
+	public String showCart(
+			Model model,
+			@SessionAttribute(value = "loginUser", required = false) User user) {
 
-		// ログイン機能がまだなら仮で userId = 1
-		Integer userId = 1;
+		if (user == null) {
+			return "redirect:/login";
+		}
 
-		session.setAttribute("userId", userId);
+		int userId = user.getId();
 
 		List<CartItem> cartItems = cartMapper.findByUserId(userId);
 
@@ -36,14 +41,25 @@ public class CartController {
 
 		int shippingFee = 800;
 
-		session.setAttribute("subtotal", subtotal);
-		session.setAttribute("shippingFee", shippingFee);
-
 		model.addAttribute("cartItems", cartItems);
 		model.addAttribute("subtotal", subtotal);
 		model.addAttribute("shippingFee", shippingFee);
 		model.addAttribute("totalPrice", subtotal + shippingFee);
 
 		return "cart2";
+	}
+
+	@PostMapping("/cart/delete/{cartItemId}")
+	public String deleteCartItem(
+			@PathVariable int cartItemId,
+			@SessionAttribute(value = "loginUser", required = false) User user) {
+
+		if (user == null) {
+			return "redirect:/login";
+		}
+
+		cartMapper.deleteByIdAndUserId(cartItemId, user.getId());
+
+		return "redirect:/cart";
 	}
 }
