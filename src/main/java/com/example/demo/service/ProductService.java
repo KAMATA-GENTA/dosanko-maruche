@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Product;
-import com.example.demo.entity.ProductEntity;
 import com.example.demo.mapper.ProductMapper;
 
 @Service
@@ -19,17 +18,17 @@ public class ProductService {
 	}
 
 	// 全商品を取得
-	public List<ProductEntity> getAllProducts() {
+	public List<Product> getAllProducts() {
 		return productMapper.findAll();
 	}
 
 	// 地域IDに対応する商品一覧を取得
-	public List<ProductEntity> getProductsByRegionId(Integer regionId) {
+	public List<Product> getProductsByRegionId(Integer regionId) {
 		return productMapper.findByRegionId(regionId);
 	}
 
 	// カテゴリIDに対応する商品一覧を取得
-	public List<ProductEntity> getProductsByCategoryId(Integer categoryId) {
+	public List<Product> getProductsByCategoryId(Integer categoryId) {
 		return productMapper.findByCategoryId(categoryId);
 	}
 

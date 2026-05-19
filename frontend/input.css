@@ -4,11 +4,11 @@
 }
 
 .swiper-slide {
-  @apply relative bg-cover bg-center;
+  @apply relative bg-no-repeat bg-center bg-contain;
 }
 
 .region {
-  @apply absolute no-underline font-bold text-white -translate-x-1/2 -translate-y-1/2;
+  @apply absolute no-underline font-bold text-primary -translate-x-1/2 -translate-y-1/2;
 }
 
 .region img {
