@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.entity.ProductEntity;
+import com.example.demo.entity.Product;
 import com.example.demo.enums.Region;
 import com.example.demo.service.ProductService;
 
@@ -23,11 +23,9 @@ public class RegionController {
 		this.productService = productService;
 	}
 
-	//地域詳細ページ
+	// 地域詳細ページ
 	@GetMapping("/{regionName}")
-	public String showRegion(
-			@PathVariable String regionName,
-			@RequestParam(required = false) Integer categoryId,
+	public String showRegion(@PathVariable String regionName, @RequestParam(required = false) Integer categoryId,
 			Model model) {
 
 		Region region = null;
@@ -48,7 +46,7 @@ public class RegionController {
 			region = Region.Obihiro;
 		}
 
-		List<ProductEntity> products;
+		List<Product> products;
 
 		if (categoryId == null) {
 			products = productService.getAllProducts();
