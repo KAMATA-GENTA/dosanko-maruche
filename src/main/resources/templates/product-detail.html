@@ -1,4 +1,4 @@
-<h1 th:text="${product.productName}"></h1>
+<h1 th:text="${product.name}"></h1>
 
 <img th:src="${product.imageUrl}">
 
@@ -18,7 +18,7 @@
 <a href="#review-section">レビューはこちら</a>
 
 <!-- カート追加 -->
-<form th:action="@{/product/{id}/cart(id=${product.productId})}" method="post">
+<form th:action="@{/product/{id}/cart(id=${product.id})}" method="post">
 	<input type="number" name="quantity" value="1" min="1">
 	<button type="submit">カートに追加</button>
 </form>
@@ -28,7 +28,7 @@
 <h2 id="review-section">レビュー</h2>
 
 <!-- レビューの並び替え・星の数フィルタ -->
-<form th:action="@{/product/{id}(id=${product.productId})}" method="get">
+<form th:action="@{/product/{id}(id=${product.id})}" method="get">
 	<label for="sort">並び順</label>
 	<select id="sort" name="sort">
 		<option value="new" th:selected="${selectedSort == 'new'}">新しい順</option>
@@ -48,7 +48,7 @@
 	</select>
 
 	<button type="submit">表示を変更</button>
-	<a th:href="@{/product/{id}(id=${product.productId})}">条件をリセット</a>
+	<a th:href="@{/product/{id}(id=${product.id})}">条件をリセット</a>
 </form>
 
 <div th:if="${#lists.isEmpty(reviews)}">
@@ -56,6 +56,11 @@
 </div>
 
 <div th:each="review : ${reviews}">
+	<p>
+		投稿者：
+		<span th:text="${review.username != null ? review.username : 'ゲスト'}"></span>
+	</p>
+	
 	<div>
 		<span th:each="i : ${#numbers.sequence(1,5)}">
 			<span th:text="${i <= review.rating ? '★' : '☆'}"></span>
@@ -74,7 +79,7 @@
 
 <h3>レビュー投稿</h3>
 
-<form th:action="@{/product/{id}/review(id=${product.productId})}" method="post" th:object="${reviewForm}">
+<form th:action="@{/product/{id}/review(id=${product.id})}" method="post" th:object="${reviewForm}">
 	<select th:field="*{rating}">
 		<option value="1">★1</option>
 		<option value="2">★2</option>

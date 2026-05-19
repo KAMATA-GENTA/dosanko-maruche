@@ -20,9 +20,7 @@ public class HomeController {
 	}
 
 	@GetMapping("/")
-	public String home(
-			@RequestParam(required = false) Integer categoryId,
-			Model model) {
+	public String home(@RequestParam(required = false) Integer categoryId, Model model) {
 
 		List<Product> products;
 
@@ -35,6 +33,6 @@ public class HomeController {
 		model.addAttribute("products", products);
 		model.addAttribute("selectedCategoryId", categoryId);
 
-		return "home";
+		return "index";
 	}
 }

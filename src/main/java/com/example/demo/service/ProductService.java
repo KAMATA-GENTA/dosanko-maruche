@@ -16,17 +16,17 @@ public class ProductService {
 		this.productMapper = productMapper;
 	}
 
-	// 全商品取得
+	// 全商品を取得
 	public List<Product> getAllProducts() {
 		return productMapper.findAll();
 	}
 
-	// 地域検索
+	// 地域IDに対応する商品一覧を取得
 	public List<Product> getProductsByRegionId(Integer regionId) {
 		return productMapper.findByRegionId(regionId);
 	}
 
-	// カテゴリ検索
+	// カテゴリIDに対応する商品一覧を取得
 	public List<Product> getProductsByCategoryId(Integer categoryId) {
 		return productMapper.findByCategoryId(categoryId);
 	}
