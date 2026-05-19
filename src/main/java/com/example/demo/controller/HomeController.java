@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.entity.ProductEntity;
+import com.example.demo.entity.Product;
 import com.example.demo.service.ProductService;
 
 @Controller
@@ -20,11 +20,9 @@ public class HomeController {
 	}
 
 	@GetMapping("/")
-	public String home(
-			@RequestParam(required = false) Integer categoryId,
-			Model model) {
+	public String home(@RequestParam(required = false) Integer categoryId, Model model) {
 
-		List<ProductEntity> products;
+		List<Product> products;
 
 		if (categoryId == null) {
 			products = productService.getAllProducts();
@@ -35,6 +33,6 @@ public class HomeController {
 		model.addAttribute("products", products);
 		model.addAttribute("selectedCategoryId", categoryId);
 
-		return "home";
+		return "index";
 	}
 }
