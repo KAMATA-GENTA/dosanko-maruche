@@ -11,9 +11,9 @@ public class CartItem {
 	private Integer quantity;
 	// private String imageUrl;
 
-	public Integer getSubtotal() {
-		return price * quantity;
-	}
+	//	public Integer getSubtotal() {
+	//		return price * quantity;
+	//	}
 
 	//	public Integer getId() {
 	//		return id;
