@@ -2001,6 +2001,9 @@
   .text-primary-content {
     color: var(--color-primary-content);
   }
+  .text-primary-content {
+    color: var(--color-primary-content);
+  }
   .text-red-500 {
     color: var(--color-red-500);
   }
