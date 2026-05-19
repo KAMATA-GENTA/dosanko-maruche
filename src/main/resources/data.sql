@@ -104,3 +104,18 @@ VALUES
 (6, 3, '帯広チーズセット', 2300, '乳製品を活かした濃厚チーズ。', '/images/region-product/obihiro/ob-obihirocheeseset.jpg'),
 (6, 4, '帯広バターサンド', 1800, '濃厚バタークリーム入り焼き菓子。', '/images/region-product/obihiro/ob-obihirobuttersand.jpg'),
 (6, 4, '帯広ミルクキャラメル', 1200, '牛乳のコクを感じるキャラメル。', '/images/region-product/obihiro/ob-milkkyatameru.jpg');
+
+
+INSERT INTO orders
+(id, user_id, subtotal,shipping_fee)
+VALUES
+(1, 1, 3000,800);
+--購入履歴--
+INSERT INTO order_details
+(order_id, product_id, quantity, price)
+VALUES
+(1, 1, 1, 3000),
+(1, 1, 1, 3000),
+(1, 1, 1, 3000),
+(1, 1, 1, 3000),
+(1, 1, 1, 3000);

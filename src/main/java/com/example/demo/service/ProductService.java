@@ -36,4 +36,12 @@ public class ProductService {
 	public Product findById(int productId) {
 		return productMapper.findById(productId);
 	}
+
+	public List<Product> getProductsByRegionIdAndCategoryId(
+			Integer regionId,
+			Integer categoryId) {
+
+		return productMapper.findByRegionIdAndCategoryId(regionId, categoryId);
+	}
+
 }

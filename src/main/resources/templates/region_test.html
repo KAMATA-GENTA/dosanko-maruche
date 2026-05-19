@@ -23,7 +23,7 @@
 <p th:text="${region.description}">
     地域説明
 </p>
-<img th:src="@{'/images/Character/' + ${region.charaImage.charaImage}}" alt="キャラクター画像" width="500">
+<img th:src="@{'/images/Character/' + ${characterImage}}" alt="キャラクター画像" width="300">
 <section class="ranking-section">
 
 	<h1 class="ranking-title">カテゴリ別ランキング</h1>
@@ -86,31 +86,30 @@
 
     <div class="category-list">
 
-  <a th:href="@{/region/{regionName}(regionName=${regionName})} + '#regionProduct-section'"
-     class="category-card"
-     th:classappend="${selectedCategoryId == null} ? ' active'">
+<a th:href="@{/region/{regionName}(regionName=${regionName})} + '#regionProduct-section'"
+     class="category-card">
       すべて
   </a>
 
-  <a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=1)} + '#regionProduct-section'"
+  <a th:href=  "@{/region/{regionName}/category/{categoryId}(regionName=${regionName}, categoryId=1)} + '#regionProduct-section'"
      class="category-card"
      th:classappend="${selectedCategoryId == 1} ? ' active'">
       海産物
   </a>
 
-  <a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=2)} + '#regionProduct-section'"
+  <a th:href=  "@{/region/{regionName}/category/{categoryId}(regionName=${regionName}, categoryId=3)} + '#regionProduct-section'"
      class="category-card"
-     th:classappend="${selectedCategoryId == 2} ? ' active'">
+     th:classappend="${selectedCategoryId == 3} ? ' active'">
       畜産物
   </a>
 
-  <a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=3)} + '#regionProduct-section'"
+  <a th:href=  "@{/region/{regionName}/category/{categoryId}(regionName=${regionName}, categoryId=2)} + '#regionProduct-section'"
      class="category-card"
-     th:classappend="${selectedCategoryId == 3} ? ' active'">
+     th:classappend="${selectedCategoryId == 2} ? ' active'">
       農産物
   </a>
 
-  <a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=4)} + '#regionProduct-section'"
+  <a th:href=  "@{/region/{regionName}/category/{categoryId}(regionName=${regionName}, categoryId=4)} + '#regionProduct-section'"
      class="category-card"
      th:classappend="${selectedCategoryId == 4} ? ' active'">
       お土産
@@ -130,7 +129,7 @@
 
             <img th:src="${product.imageUrl}" alt="商品画像">
 
-            <h3 th:text="${product.productName}">
+            <h3 th:text="${product.name}">
                 商品名
             </h3>
 

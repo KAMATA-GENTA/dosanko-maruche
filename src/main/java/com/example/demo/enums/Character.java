@@ -16,6 +16,6 @@ public enum Character {
 	private String name;
 	private String charaImage;
 	private String charaImage2;
-	private String cahaImage3;
+	private String charaImage3;
 
 }

@@ -53,4 +53,8 @@ public interface ProductMapper {
 
 	// 商品IDに対応する商品を1件取得
 	Product findById(int productId);
+
+	List<Product> findByRegionIdAndCategoryId(
+			Integer regionId,
+			Integer categoryId);
 }
