@@ -3,120 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>地域詳細</title>
+<link rel="stylesheet" href="/css/regions.css">
 </head>
-<style>
-body {
-	margin: 0;
-	background-color: #f4f4f4;
-	font-family: sans-serif;
-	color: #333;
-}
 
-.region-image {
-	width: 100%;
-	height: auto;
-}
 
-.character-image {
-	width: 500px;
-}
-
-.ranking-section,
-.category-section {
-	padding: 20px 14px;
-}
-
-.ranking-title,
-.category-title {
-	font-size: 36px;
-	font-weight: bold;
-	margin-bottom: 50px;
-}
-
-.ranking-area {
-	display: flex;
-	gap: 90px;
-	overflow-x: auto;
-	padding-bottom: 18px;
-}
-
-.ranking-block {
-	min-width: 1200px;
-}
-
-.ranking-block h2 {
-	font-size: 26px;
-	margin-bottom: 28px;
-}
-
-.card-list {
-	display: flex;
-	gap: 30px;
-}
-
-.product-card {
-	min-width: 330px;
-	height: 450px;
-	background-color: #fff;
-	border-radius: 12px;
-	padding: 22px;
-}
-
-.rank-badge {
-	display: inline-block;
-	background-color: orange;
-	color: white;
-	font-size: 22px;
-	font-weight: bold;
-	padding: 10px 16px;
-	border-radius: 6px;
-	margin-bottom: 15px;
-}
-
-.product-image {
-	width: 100%;
-	height: 240px;
-	object-fit: cover;
-}
-
-.product-name {
-	font-size: 22px;
-	font-weight: bold;
-	margin-top: 16px;
-}
-
-.product-area {
-	font-size: 20px;
-	margin-top: 6px;
-}
-
-.product-price {
-	color: crimson;
-	font-size: 22px;
-	font-weight: bold;
-	margin-top: 18px;
-}
-
-.category-buttons {
-	display: flex;
-	gap: 26px;
-	flex-wrap: wrap;
-}
-
-.category-buttons a {
-	background-color: #4aa3f5;
-	color: white;
-	text-decoration: none;
-	font-size: 20px;
-	font-weight: bold;
-	padding: 20px 38px;
-	border-radius: 8px;
-}
-</style>
-
-</head>
 <body>
-
+	<header class="header">
+		<div class="header-menu">
+			<a href="/login">ログイン</a>
+			<a href="/signup">新規登録</a>
+			<a href="/cart">カート</a>
+		</div>
+		</header>
+		
 <h1 th:text="${region.name}">地域名</h1>
 
 <img th:src="@{'/images/' + ${region.regionImage}}" alt="地域画像" width="100%">
@@ -180,20 +79,79 @@ body {
 </section>
 
 
-<!-- 追加：カテゴリから探す -->
+
+<!-- 商品カテゴリ -->
 <section class="category-section">
+    <h2>カテゴリから探す</h2>
 
-	<h1 class="category-title">🛒 カテゴリから探す</h1>
+    <div class="category-list">
 
-	<div class="category-buttons">
-		<a href="/products">すべて</a>
-		<a href="/products?category=seafood">海産物</a>
-		<a href="/products?category=meat">畜産物</a>
-		<a href="/products?category=farm">農産物</a>
-		<a href="/products?category=souvenir">お土産</a>
-	</div>
+  <a th:href="@{/region/{regionName}(regionName=${regionName})} + '#regionProduct-section'"
+     class="category-card"
+     th:classappend="${selectedCategoryId == null} ? ' active'">
+      すべて
+  </a>
 
+  <a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=1)} + '#regionProduct-section'"
+     class="category-card"
+     th:classappend="${selectedCategoryId == 1} ? ' active'">
+      海産物
+  </a>
+
+  <a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=2)} + '#regionProduct-section'"
+     class="category-card"
+     th:classappend="${selectedCategoryId == 2} ? ' active'">
+      畜産物
+  </a>
+
+  <a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=3)} + '#regionProduct-section'"
+     class="category-card"
+     th:classappend="${selectedCategoryId == 3} ? ' active'">
+      農産物
+  </a>
+
+  <a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=4)} + '#regionProduct-section'"
+     class="category-card"
+     th:classappend="${selectedCategoryId == 4} ? ' active'">
+      お土産
+  </a>
+    </div>
 </section>
+
+
+<!-- 商品一覧 -->
+<section class="regionProduct-section" id="regionProduct-section">
+    <h2>商品一覧</h2>
+
+    <div class="product-list">
+
+        <div class="product-card"
+             th:each="product : ${products}">
+
+            <img th:src="${product.imageUrl}" alt="商品画像">
+
+            <h3 th:text="${product.productName}">
+                商品名
+            </h3>
+
+            <p th:text="'地域ID：' + ${product.regionId}">
+                地域
+            </p>
+
+            <p class="price"
+               th:text="'¥' + ${product.price}">
+                ¥0
+            </p>
+
+            <a th:href="@{/products/{id}(id=${product.id})}">
+                詳細を見る
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
 
 </body>
 </html>

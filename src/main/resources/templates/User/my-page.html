@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/output.css" />
+  <title>マイページ</title>
+</head>
+
+<body x-data="{ desktopMenuOpen: false, mobileMenuOpen: false }">
+  <main class="flex flex-col min-h-screen justify-between">
+
+    <div>
+      <header class="mx-auto flex w-full h-16 max-w-[1200px] items-center justify-between px-5">
+        <a href="/">
+          <img class="cursor-pointer" src="/images/company-logo.svg" alt="company logo" />
+        </a>
+        <div class="md:hidden">
+          <button @click="mobileMenuOpen = !mobileMenuOpen">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="h-8 w-8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+        </div>
+        <div class="hidden h-9 w-2/5 items-center border md:flex">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="mx-3 h-4 w-4">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+          <input class="hidden w-11/12 outline-none md:block" type="search" placeholder="Search" />
+          <button class="ml-auto h-full bg-amber-400 px-4 hover:bg-yellow-300">Search</button>
+        </div>
+        <div class="hidden gap-3 md:!flex">
+          <a href="/wishlist" class="flex cursor-pointer flex-col items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+            </svg>
+            <p class="text-xs">Wishlist</p>
+          </a>
+          <a href="/cart" class="flex cursor-pointer flex-col items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+              <path fill-rule="evenodd"
+                d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3zm-3 8.25a3 3 0 106 0v-.75a.75.75 0 011.5 0v.75a4.5 4.5 0 11-9 0v-.75a.75.75 0 011.5 0v.75z"
+                clip-rule="evenodd" />
+            </svg>
+            <p class="text-xs">Cart</p>
+          </a>
+          <a href="/my-page" class="relative flex cursor-pointer flex-col items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="h-6 w-6 text-violet-900">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+            </svg>
+            <p class="text-xs font-bold text-violet-900">Account</p>
+          </a>
+        </div>
+      </header>
+
+      <nav class="relative bg-violet-900">
+        <div class="mx-auto hidden h-12 w-full max-w-[1200px] items-center md:flex">
+          <button @click="desktopMenuOpen = !desktopMenuOpen"
+            class="ml-5 flex h-full w-40 cursor-pointer items-center justify-center bg-amber-400">
+            <div class="flex justify-around">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="mx-1 h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+              All categories
+            </div>
+          </button>
+          <div class="mx-7 flex gap-8">
+            <a class="font-light text-white hover:text-yellow-400 hover:underline" href="/">Home</a>
+            <a class="font-light text-white hover:text-yellow-400 hover:underline" href="/catalog">Catalog</a>
+            <a class="font-light text-white hover:text-yellow-400 hover:underline" href="/about-us">About Us</a>
+            <a class="font-light text-white hover:text-yellow-400 hover:underline" href="/contact-us">Contact Us</a>
+          </div>
+          <div class="ml-auto flex gap-4 px-5 items-center">
+            <span th:if="${isLoggedIn}" class="font-light text-white">
+              こんにちは、
+              <a href="/my-page" class="font-bold text-yellow-400 hover:underline"
+                th:text="${username} + 'さん'">usernameさん</a>
+            </span>
+            <a th:if="${isLoggedIn}"
+               class="font-light text-white hover:text-yellow-400 hover:underline"
+               href="/logout">Logout</a>
+            <a th:unless="${isLoggedIn}"
+               class="font-light text-white hover:text-yellow-400 hover:underline"
+               href="/login">Login</a>
+            <span th:unless="${isLoggedIn}" class="text-white">&#124;</span>
+            <a th:unless="${isLoggedIn}"
+               class="font-light text-white hover:text-yellow-400 hover:underline"
+               href="/sign-up">Sign Up</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <section class="mx-auto w-full max-w-[1200px] px-5 py-10 flex-grow">
+
+      <div class="mb-8 border-b pb-4">
+        <h1 class="text-3xl font-bold text-violet-900">マイページ</h1>
+        <p class="text-gray-500 text-sm mt-1">アカウント情報・購入履歴を確認できます</p>
+      </div>
+
+      <div class="flex flex-col lg:flex-row gap-8">
+
+        <aside class="lg:w-1/4">
+
+          <div class="border rounded shadow-sm p-6 bg-white">
+            <div class="flex flex-col items-center mb-6">
+              <div class="h-20 w-20 rounded-full bg-violet-900 flex items-center justify-center text-white text-3xl font-bold mb-3">
+                <span th:text="${#strings.substring(user.username, 0, 1)}">U</span>
+              </div>
+              <p class="font-bold text-lg text-gray-800" th:text="${user.username}">ユーザー名</p>
+              <p class="text-sm text-gray-500" th:text="${user.email}">email@example.com</p>
+            </div>
+            <div class="border-t pt-4 space-y-3 text-sm">
+              <div>
+                <p class="text-gray-400 text-xs font-medium uppercase tracking-wide">お名前</p>
+                <p class="font-medium text-gray-800 mt-0.5" th:text="${user.username}">山田 太郎</p>
+              </div>
+              <div>
+                <p class="text-gray-400 text-xs font-medium uppercase tracking-wide">メールアドレス</p>
+                <p class="font-medium text-gray-800 mt-0.5" th:text="${user.email}">yamada@example.com</p>
+              </div>
+            </div>
+            <div class="mt-6 border-t pt-4">
+              <a href="/logout"
+                 class="block w-full text-center bg-violet-900 text-white py-2 rounded hover:bg-violet-800 transition-colors duration-150 text-sm font-medium">
+                ログアウト
+              </a>
+            </div>
+          </div>
+
+          <div class="border rounded shadow-sm p-6 bg-white mt-6">
+            <h2 class="text-base font-bold text-gray-700 mb-4">🗾 地域別購入回数</h2>
+            <div th:if="${not #lists.isEmpty(regionCounts)}">
+              <div th:each="rc : ${regionCounts}" class="mb-3">
+                <div class="flex justify-between text-sm mb-1">
+                  <span class="text-gray-700" th:text="${rc.region}">地域名</span>
+                  <span class="font-bold text-violet-900" th:text="${rc.count} + '回'">0回</span>
+                </div>
+                <div class="w-full bg-gray-100 rounded h-2">
+                  <div class="bg-amber-400 h-2 rounded"
+                       th:style="'width: ' + ${rc.count * 20 > 100 ? 100 : rc.count * 20} + '%'"></div>
+                </div>
+              </div>
+            </div>
+            <p th:if="${#lists.isEmpty(regionCounts)}" class="text-sm text-gray-400">
+              購入データがありません
+            </p>
+          </div>
+
+        </aside>
+
+        <div class="lg:w-3/4">
+          <div class="border rounded shadow-sm bg-white">
+            <div class="px-6 py-4 border-b">
+              <h2 class="text-lg font-bold text-gray-700">購入履歴</h2>
+            </div>
+
+            <div th:if="${not #lists.isEmpty(orders)}">
+              <table class="w-full text-sm">
+                <thead class="bg-gray-50 text-gray-500 text-xs uppercase">
+                  <tr>
+                    <th class="px-4 py-3 text-left">注文ID</th>
+                    <th class="px-4 py-3 text-left">商品名</th>
+                    <th class="px-4 py-3 text-right">小計</th>
+                    <th class="px-4 py-3 text-right">送料</th>
+                    <th class="px-4 py-3 text-right font-bold">合計</th>
+                    <th class="px-4 py-3 text-right">注文日時</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="order, stat : ${orders}"
+                      th:class="${stat.odd} ? 'bg-white' : 'bg-gray-50'"
+                      class="border-t hover:bg-violet-50 transition-colors duration-100">
+                    <td class="px-4 py-3 text-gray-500"
+                        th:text="'#' + ${order.id}">#001</td>
+                    <td class="px-4 py-3">
+                      <span th:each="detail : ${orderDetailsMap[order.id]}"
+                            th:text="${detail.productName} + ' × ' + ${detail.quantity}"
+                            class="block text-sm text-gray-800">商品名</span>
+                    </td>
+                    <td class="px-4 py-3 text-right"
+                        th:text="'¥' + ${#numbers.formatInteger(order.subtotal, 1, 'COMMA')}">¥0</td>
+                    <td class="px-4 py-3 text-right"
+                        th:text="'¥' + ${#numbers.formatInteger(order.shippingFee, 1, 'COMMA')}">¥0</td>
+                    <td class="px-4 py-3 text-right font-bold"
+                        th:text="'¥' + ${#numbers.formatInteger(order.subtotal + order.shippingFee, 1, 'COMMA')}">¥0</td>
+                    <td class="px-4 py-3 text-right text-gray-500"
+                        th:text="${#temporals.format(order.orderedAt, 'yyyy/MM/dd HH:mm')}">2024/01/01 00:00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div th:if="${#lists.isEmpty(orders)}" class="px-6 py-16 text-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
+                stroke="currentColor" class="h-16 w-16 text-gray-200 mx-auto mb-4">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
+              </svg>
+              <p class="text-gray-400 text-sm">まだ購入履歴がありません</p>
+              <a href="/catalog"
+                 class="mt-4 inline-block bg-amber-400 px-6 py-2 text-sm font-medium hover:bg-yellow-300 transition-colors duration-150">
+                ショッピングを始める
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <footer class="mx-auto w-full max-w-[1200px] justify-between pb-10 flex flex-col lg:flex-row">
+      <div class="ml-5">
+        <img class="mt-10 mb-5" src="/images/company-logo.svg" alt="company logo" />
+        <p>Lorem ipsum dolor sit amet consectetur<br />adipisicing elit.</p>
+        <div class="mt-10 flex gap-3">
+          <a href="https://github.com/bbulakh">
+            <img class="h-5 w-5 cursor-pointer" src="/images/github.svg" alt="github" />
+          </a>
+          <a href="https://t.me/b_bulakh">
+            <img class="h-5 w-5 cursor-pointer" src="/images/telegram.svg" alt="telegram" />
+          </a>
+          <a href="https://www.linkedin.com/in/bogdan-bulakh-393284190/">
+            <img class="h-5 w-5 cursor-pointer" src="/images/linkedin.svg" alt="linkedin" />
+          </a>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="mx-5 mt-10">
+          <p class="font-medium text-gray-500">FEATURES</p>
+          <ul class="text-sm leading-8">
+            <li><a href="#">Marketing</a></li>
+            <li><a href="#">Commerce</a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">Merchandise</a></li>
+          </ul>
+        </div>
+        <div class="mx-5 mt-10">
+          <p class="font-medium text-gray-500">SUPPORT</p>
+          <ul class="text-sm leading-8">
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Docs</a></li>
+            <li><a href="#">Audition</a></li>
+            <li><a href="#">Art Status</a></li>
+          </ul>
+        </div>
+        <div class="mx-5 mt-10">
+          <p class="font-medium text-gray-500">DOCUMENTS</p>
+          <ul class="text-sm leading-8">
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Conditions</a></li>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">License</a></li>
+          </ul>
+        </div>
+        <div class="mx-5 mt-10">
+          <p class="font-medium text-gray-500">DELIVERY</p>
+          <ul class="text-sm leading-8">
+            <li><a href="#">List of countries</a></li>
+            <li><a href="#">Special information</a></li>
+            <li><a href="#">Restrictions</a></li>
+            <li><a href="#">Payment</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <section class="h-11 bg-amber-400">
+      <div class="mx-auto flex max-w-[1200px] items-center justify-between px-4 pt-2">
+        <p>&copy; Bogdan Bulakh, 2023</p>
+        <div class="flex items-center space-x-3">
+          <img class="h-8" src="https://cdn-icons-png.flaticon.com/512/5968/5968299.png" alt="Visa" />
+          <img class="h-8" src="https://cdn-icons-png.flaticon.com/512/349/349228.png" alt="AE" />
+          <img class="h-8" src="https://cdn-icons-png.flaticon.com/512/5968/5968144.png" alt="Apple Pay" />
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <script type="module" src="/assets/js/script.js"></script>
+</body>
+</html>

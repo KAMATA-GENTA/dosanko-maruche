@@ -21,9 +21,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void register(UserForm form) {
 		User user = new User();
-		user.setUserName(form.getUsername()); // UserFormのgetterに合わせる
+		user.setUsername(form.getUsername()); // UserFormのgetterに合わせる
 		user.setEmail(form.getEmail());
-		user.setPassword(passwordEncoder.encode(form.getPassword()));
+		user.setPasswordHash(passwordEncoder.encode(form.getPassword()));
 		userMapper.insert(user);
 	}
 }
