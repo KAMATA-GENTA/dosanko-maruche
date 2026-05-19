@@ -63,24 +63,9 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public String login(@ModelAttribute LoginForm form, Model model) {
-		
-		
-		// ーーー★ ここから確認用コードを追加 ーーー
-				System.out.println("=== ログインデバッグ ===");
-				System.out.println("画面から入力されたメール: " + form.getEmail());
-				System.out.println("画面から入力されたパスワード: " + form.getPassword());
-				// ーーーーーーーーーーーーーーーーーーーーー
 
 		// DBからメールアドレスでユーザを検索する
 		User user = userMapper.findByEmail(form.getEmail());
-		
-		// ーーー★ ここから確認用コードを追加 ーーー
-				System.out.println("DBから見つかったユーザー: " + user);
-				if (user != null) {
-					System.out.println("DBに保存されているパスワード: " + user.getPasswordHash());
-				}
-				System.out.println("========================");
-				// ーーーーーーーーーーーーーーーーーーーーー
 
 		// data.sql のパスワードは平文なので、まず平文で比較する
 		// ※ sign-up から登録したユーザはBCryptハッシュなので matches() で照合
