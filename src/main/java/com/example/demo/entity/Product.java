@@ -8,12 +8,19 @@ import lombok.Data;
 @Data
 public class Product {
 
-	private int productId; // 商品ID (PK)
-	private String productName; // 商品名
-	private String description; // 商品説明
-	private int price; // 価格
-	private int categoryId; // カテゴリID (FK)
-	private String imageUrl; // 画像のURLやファイルパス
-	private int regionId; // 地域ID (FK)
+	private Integer id; // 商品ID
 
+	private String productName; // 商品名
+
+	private String description; // 商品説明
+
+	private Integer price; // 価格
+
+	private Integer categoryId; // カテゴリID
+
+	private String imageUrl; // 商品画像
+
+	private Integer regionId; // 地域ID
+
+	private String regionName; // 地域名
 }

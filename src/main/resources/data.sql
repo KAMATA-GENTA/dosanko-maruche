@@ -26,12 +26,12 @@ VALUES
 -- 札幌
 -- =========================
 (1, 1, '札幌市場直送 いくら醤油漬け', 3980, '札幌中央卸売市場をイメージした濃厚ないくら醤油漬け。','/images/reigon-product/sapporo/s-ikura.jpg'),
-(1, 1, '札幌海鮮ほたてセット', 3280, '甘みのあるほたてを食べやすいセットにしました。', '/images/reigon-product/sapporo/s-hotate.jpg'),
-(1, 2, '札幌近郊じゃがいもセット', 1980, '北海道産じゃがいもを詰め合わせました。', '/images/reigon-product/sapporo/s-jagaimo.jpg'),
-(1, 2, '札幌とうもろこし詰め合わせ', 2480, '甘みの強いとうもろこしセット。', '/images/reigon-product/sapporo/s-toumorokosi.jpg'),
-(1, 3, '札幌味噌だれ豚肉セット', 2980, '札幌味噌をイメージした味付け豚肉。', '/images/reigon-product/sapporo/s-butaniku.jpg'),
-(1, 3, '札幌牛乳仕込みチーズ', 1780, '北海道産牛乳を使用したまろやかチーズ。', '/images/reigon-product/sapporo/s-tizu.jpg'),
-(1, 4, '白い恋人風 ラングドシャ', 1680, '北海道土産をイメージした人気焼き菓子。', '/images/reigon-product/sapporo/s-rangudosya.jpg'),
+(1, 1, 'ほたてセット', 3280, '甘みのあるほたてを食べやすいセットにしました。', '/images/reigon-product/sapporo/s-hotate.jpg'),
+(1, 2, 'じゃがいもセット', 1980, '北海道産じゃがいもを詰め合わせました。', '/images/reigon-product/sapporo/s-jagaimo.jpg'),
+(1, 2, 'とうもろこし詰め合わせ', 2480, '甘みの強いとうもろこしセット。', '/images/reigon-product/sapporo/s-toumorokosi.jpg'),
+(1, 3, '味噌だれ豚肉セット', 2980, '札幌味噌をイメージした味付け豚肉。', '/images/reigon-product/sapporo/s-butaniku.jpg'),
+(1, 3, '牛乳仕込みチーズ', 1780, '北海道産牛乳を使用したまろやかチーズ。', '/images/reigon-product/sapporo/s-tizu.jpg'),
+(1, 4, '白い恋人', 1680, '北海道土産をイメージした人気焼き菓子。', '/images/reigon-product/sapporo/s-rangudosya.jpg'),
 (1, 4, '札幌味噌ラーメンセット', 2200, 'コク深い味噌スープが特徴のラーメン。', '/images/reigon-product/sapporo/s-misoramen.jpg'),
 (1, 4, '札幌スープカレーセット', 2600, 'スパイス香る札幌名物スープカレー。', '/images/reigon-product/sapporo/s-supukare.jpg'),
 (1, 2, '札幌アスパラガス', 2300, 'シャキシャキ食感の北海道産アスパラ。', '/images/reigon-product/sapporo/s-asuparagasu.jpg'),
