@@ -142,4 +142,3 @@ INSERT INTO order_details (order_id, product_id, quantity, price) VALUES
 -- 【注文ID: 7 の明細】
 (7, 9,  1, 2600);   -- 札幌スープカレーセット (商品ID: 9) × 1個
 
-
