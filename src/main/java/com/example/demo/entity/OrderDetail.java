@@ -9,5 +9,4 @@ public class OrderDetail {
 	private Integer productId;
 	private Integer quantity;
 	private Integer price;
-	private String productName; // ← 追加
 }

@@ -185,7 +185,7 @@
                         th:text="'#' + ${order.id}">#001</td>
                     <td class="px-4 py-3">
                       <span th:each="detail : ${orderDetailsMap[order.id]}"
-                            th:text="${detail.productName} + ' × ' + ${detail.quantity}"
+                            th:text="${detail.name} + ' × ' + ${detail.quantity}"
                             class="block text-sm text-gray-800">商品名</span>
                     </td>
                     <td class="px-4 py-3 text-right"
