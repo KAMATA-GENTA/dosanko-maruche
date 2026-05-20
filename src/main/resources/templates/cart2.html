@@ -1,43 +1,43 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>カート</title>
-  <link rel="stylesheet" th:href="@{/css/cart.css}">
-</head>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/_layout}">
+
+<head></head>
+
 <body>
+  <div layout:fragment="content">
+    <div class="cart-container">
 
-  <div class="cart-container">
+      <h1>カート</h1>
 
-    <h1>カート</h1>
+      <table>
+        <tr>
+          <th>商品名</th>
+          <th>価格</th>
+          <th>数量</th>
+          <th>小計</th>
+        </tr>
 
-    <table>
-      <tr>
-        <th>商品名</th>
-        <th>価格</th>
-        <th>数量</th>
-        <th>小計</th>
-      </tr>
+        <tr th:each="item : ${cartItems}">
+          <td th:text="${item.productName}">商品名</td>
+          <td th:text="${item.price} + '円'">0円</td>
+          <td th:text="${item.quantity}">1</td>
+          <td th:text="${item.subtotal} + '円'">0円</td>
+        </tr>
+      </table>
 
-      <tr th:each="item : ${cartItems}">
-        <td th:text="${item.productName}">商品名</td>
-        <td th:text="${item.price} + '円'">0円</td>
-        <td th:text="${item.quantity}">1</td>
-        <td th:text="${item.subtotal} + '円'">0円</td>
-      </tr>
-    </table>
+      <div class="price-box">
+        <p>商品合計：<span th:text="${subtotal} + '円'"></span></p>
+        <p>送料：<span th:text="${shippingFee} + '円'"></span></p>
+        <p class="total">合計：<span th:text="${totalPrice} + '円'"></span></p>
+      </div>
 
-    <div class="price-box">
-      <p>商品合計：<span th:text="${subtotal} + '円'"></span></p>
-      <p>送料：<span th:text="${shippingFee} + '円'"></span></p>
-      <p class="total">合計：<span th:text="${totalPrice} + '円'"></span></p>
+      <a th:href="@{/treasure}" class="purchase-btn">
+        購入へ進む
+      </a>
+
     </div>
-
-    <a th:href="@{/treasure}" class="purchase-btn">
-      購入へ進む
-    </a>
-
   </div>
-
 </body>
+
 </html>

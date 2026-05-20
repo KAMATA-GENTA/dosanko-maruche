@@ -71,7 +71,7 @@
         od.product_id    AS productId,
         od.quantity,
         od.price,
-        p.product_name   AS productName
+        p.product_name   AS name
     FROM order_details od
     JOIN products p ON od.product_id = p.id
     WHERE od.order_id = #{orderId}

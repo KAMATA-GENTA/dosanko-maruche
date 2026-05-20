@@ -1,108 +1,61 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/_layout}">
 
-	<link rel="stylesheet" href="/css/output.css"/>
+<head></head>
 
-    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#207891" />
-    <meta name="msapplication-TileColor" content="#ffc40d" />
-    <meta name="theme-color" content="#ffffff" />
-    <title>Sign Up</title>
-  </head>
+<body>
+  <div layout:fragment="content">
+    <!-- Register card  -->
+    <section class="mx-auto mt-10 w-full flex-grow mb-10 max-w-[1200px] px-5">
+      <div class="container mx-auto border px-5 py-5 shadow-sm md:w-1/2">
+        <div class="">
+          <p class="text-4xl font-bold">CREATE AN ACCOUNT</p>
+          <p>Register for new customer</p>
+        </div>
 
-  <body x-data="{ desktopMenuOpen: false, mobileMenuOpen: false}">
-    <main class="flex flex-col h-screen justify-between">
-      <!-- Header -->
-      <div>
-        <header
-          class="mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between px-5"
-        >
-          <a href="index.html">
-            <img
-              class="cursor-pointer sm:h-auto sm:w-auto"
-              src="./images/company-logo.svg"
-              alt="company logo"
-            />
-          </a>
+        <form class="mt-6 flex flex-col" th:action="@{/sign-up}" th:object="${userForm}" method="post">
 
-          <div class="md:hidden">
-            <button @click="mobileMenuOpen = ! mobileMenuOpen">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="h-8 w-8"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
-              </svg>
-            </button>
+          <label for="username">Full Name</label>
+          <input class="mb-3 mt-3 border px-4 py-2" type="text" id="username" th:field="*{username}"
+            placeholder="Bogdan Bulakh" />
+
+          <label class="mt-3" for="email">Email Address</label>
+          <input class="mt-3 border px-4 py-2" type="email" id="email" th:field="*{email}"
+            placeholder="user@mail.com" />
+
+          <label class="mt-5" for="email">Password</label>
+          <input class="mt-3 border px-4 py-2" type="password" id="password" th:field="*{password}"
+            placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;" />
+
+          <label class="mt-5" for="email">Confirm password</label>
+          <input class="mt-3 border px-4 py-2" type="password" id="confirmPassword"
+            placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;" />
+
+
+          <div class="mt-4 flex gap-2">
+            <input type="checkbox" />
+            <label>
+              I have read and agree with
+              <a href="#" class="text-violet-900">terms &amp; conditions</a>
+            </label>
           </div>
 
-          <form class="hidden h-9 w-2/5 items-center border md:flex">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="mx-3 h-4 w-4"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-              />
-            </svg>
 
-            <input
-              class="hidden w-11/12 outline-none md:block"
-              type="search"
-              placeholder="Search"
-            />
+          <button type="submit" class="my-5 w-full bg-violet-900 py-2 text-white">
+            CREATE ACCOUNT
+          </button>
 
-            <button
-              class="ml-auto h-full bg-amber-400 px-4 hover:bg-yellow-300"
-            >
-              Search
-            </button>
-          </form>
+        </form>
 
-          <div class="hidden gap-3 md:!flex">
-            <a
-              href="wishlist.html"
-              class="flex cursor-pointer flex-col items-center justify-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="h-6 w-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-                />
-              </svg>
+        <p class="text-center text-gray-500">OR SIGN UP WITH</p>
 
-              <p class="text-xs">Wishlist</p>
-            </a>
+        <div class="my-5 flex gap-2">
+          <button class="w-1/2 bg-blue-800 py-2 text-white">FACEBOOK</button>
+          <button class="w-1/2 bg-orange-500 py-2 text-white">GOOGLE</button>
+        </div>
 
+<<<<<<< HEAD
             <a
               href="cart.html"
               class="flex cursor-pointer flex-col items-center justify-center"
@@ -594,8 +547,17 @@
         </section>
 
         <!-- /Menu  -->
+=======
+        <p class="text-center">
+          Already have an account?
+          <a href="login" class="text-violet-900">Login now</a>
+        </p>
+>>>>>>> main
       </div>
+    </section>
+    <!-- /Register Card  -->
 
+<<<<<<< HEAD
       <!-- Register card  -->
       <section class="mx-auto mt-10 w-full flex-grow mb-10 max-w-[1200px] px-5">
         <div class="container mx-auto border px-5 py-5 shadow-sm md:w-1/2">
@@ -786,3 +748,7 @@
     <script type="module" src="assets/js/script.js"></script>
   </body>
 </html>
+=======
+  </div>
+</body>
+>>>>>>> main
