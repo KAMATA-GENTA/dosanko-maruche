@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +41,7 @@ public class RegionController {
             return "redirect:/";
         }
 
+        // ★Listを型に解決できませんというエラー
         List<Product> products;
 
         // カテゴリ未選択の場合は、その地域の商品を取得します。
