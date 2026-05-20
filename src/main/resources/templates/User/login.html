@@ -9,16 +9,15 @@
 <body>
 	<div layout:fragment="content">
 
-		<section class="mx-auto w-full max-w-[1200px] px-5 py-10">
+		<main class="mx-auto w-full max-w-[1200px] px-5 py-10">
+			<section class="grid gap-6 lg:grid-cols-[1fr_430px]">
 
-			<div class="grid gap-6 lg:grid-cols-2">
-
-				<div class="rounded-2xl border border-base-300 bg-base-100 p-8 shadow-sm">
+				<div class="rounded-2xl border border-base-300 bg-base-100 p-8 shadow-sm md:p-11">
 					<div class="badge badge-primary badge-outline mb-5">
 						北海道のおいしさを、もっと身近に
 					</div>
 
-					<h1 class="text-3xl font-black leading-snug text-base-content md:text-4xl">
+					<h1 class="text-3xl font-bold leading-snug text-base-content md:text-4xl">
 						どさん娘マルシェへ<br>
 						おかえりなさい
 					</h1>
@@ -35,8 +34,8 @@
 					</div>
 				</div>
 
-				<div class="rounded-2xl border border-base-300 bg-base-100 p-8 shadow-sm">
-					<h2 class="text-3xl font-black text-base-content">
+				<div class="rounded-2xl border border-base-300 bg-base-100 p-7 shadow-sm md:p-8">
+					<h2 class="text-3xl font-bold text-base-content">
 						ログイン
 					</h2>
 
@@ -44,7 +43,7 @@
 						メールアドレスとパスワードを入力してください。
 					</p>
 
-					<form class="mt-7 flex flex-col gap-4" th:action="@{/login}" th:object="${loginForm}" method="post">
+					<form class="mt-7 grid gap-4" th:action="@{/login}" th:object="${loginForm}" method="post">
 
 						<div class="form-control">
 							<label class="label" for="email">
@@ -54,27 +53,20 @@
 								placeholder="you@example.com">
 						</div>
 
-          <button class="ml-auto h-full bg-neutral px-4 hover:bg-yellow-300">
-            Search
-          </button>
-        </div>
-        <ul class="text-center font-medium">
-          <li class="py-2"><a href="/index">Home</a></li>
-          <li class="py-2"><a href="catalog">Catalog</a></li>
-          <li class="py-2"><a href="about-us">About Us</a></li>
-          <li class="py-2"><a href="contact-us">Contact Us</a></li>
-        </ul>
-      </div>
-    </section>
-    <!-- /Burger menu  -->
+						<div class="form-control">
+							<label class="label" for="password">
+								<span class="label-text font-bold">パスワード</span>
+							</label>
+							<input id="password" class="input input-bordered w-full" th:field="*{password}"
+								type="password" placeholder="パスワードを入力">
+						</div>
 
 						<button class="btn btn-primary mt-3 w-full" type="submit">
 							ログイン
 						</button>
 					</form>
 
-					<div
-						class="mt-5 flex flex-col gap-3 text-sm text-base-content/70 sm:flex-row sm:items-center sm:justify-between">
+					<div class="mt-5 flex justify-between gap-4 text-sm text-base-content/70">
 						<label class="flex items-center gap-2">
 							<input type="checkbox" class="checkbox checkbox-primary checkbox-sm">
 							<span>ログイン状態を保持</span>
@@ -95,50 +87,10 @@
 					</div>
 				</div>
 
-			</div>
+			</section>
+		</main>
 
-		</section>
-
-        <form class="mt-6 flex flex-col" th:action="@{/login}" th:object="${loginForm}" method="post">
-          <label for="email">Email Address</label>
-          <input class="mb-3 mt-3 border px-4 py-2" th:field="*{email}" type="email"
-            placeholder="youremail@domain.com" />
-
-          <label for="email">Password</label>
-          <input class="mt-3 border px-4 py-2" type="password" th:field="*{password}"
-            placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;" />
-          <button class="my-5 w-full bg-neutral py-2 text-white" type="submit">
-            LOGIN
-          </button>
-        </form>
-
-        <div class="mt-4 flex justify-between">
-          <div class="flex gap-2">
-            <input type="checkbox" />
-            <label for="checkbox">Remember me</label>
-          </div>
-          <a href="#" class="text-neutral">Forgot password</a>
-        </div>
-
-
-
-        <p class="text-center text-gray-500">OR LOGIN WITH</p>
-
-        <div class="my-5 flex gap-2">
-          <button class="w-1/2 bg-blue-800 py-2 text-white">FACEBOOK</button>
-          <button class="w-1/2 bg-orange-500 py-2 text-white">GOOGLE</button>
-        </div>
-
-        <p class="text-center">
-          Don`t have account?
-          <a href="sign-up" class="text-neutral">Register now</a>
-        </p>
-      </div>
-    </section>
-    <!-- /Login Card  -->
-
-    <!-- Desktop Footer  -->
-  </div>
+	</div>
 </body>
 
 </html>
