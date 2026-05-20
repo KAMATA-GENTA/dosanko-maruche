@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Product;
+import com.example.demo.enums.Character;
 import com.example.demo.service.ProductService;
 
 @Controller
@@ -19,7 +20,7 @@ public class HomeController {
 		this.productService = productService;
 	}
 
-	@GetMapping({"/", "/index"})
+	@GetMapping({ "/", "/index" })
 	public String home(@RequestParam(required = false) Integer categoryId, Model model) {
 
 		List<Product> products;
@@ -32,6 +33,7 @@ public class HomeController {
 
 		model.addAttribute("products", products);
 		model.addAttribute("selectedCategoryId", categoryId);
+		model.addAttribute("charctors", Character.values());
 
 		return "index";
 	}
