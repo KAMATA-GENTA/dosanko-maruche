@@ -43,8 +43,8 @@ public class HomeController {
 
 		// 各カテゴリのランキング商品を取得する
 		List<RankingProduct> seafoodRanking = productService.getRankingByCategoryId(1);
-		List<RankingProduct> meatRanking = productService.getRankingByCategoryId(2);
-		List<RankingProduct> vegetableRanking = productService.getRankingByCategoryId(3);
+		List<RankingProduct> meatRanking = productService.getRankingByCategoryId(3);
+		List<RankingProduct> vegetableRanking = productService.getRankingByCategoryId(2);
 		List<RankingProduct> souvenirRanking = productService.getRankingByCategoryId(4);
 
 		// ランキング情報を画面に渡す
