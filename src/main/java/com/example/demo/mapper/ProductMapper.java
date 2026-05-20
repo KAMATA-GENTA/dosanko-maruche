@@ -29,4 +29,9 @@ public interface ProductMapper {
 	List<Product> findByRegionIdAndCategoryId(
 			Integer regionId,
 			Integer categoryId);
+
+	//地域別カテゴリ別ランキング
+	List<RankingProduct> findRankingByRegionIdAndCategoryId(
+			Integer regionId,
+			Integer categoryId);
 }

@@ -1,166 +1,204 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
-<!DOCTYPE mapper
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.mapper.ProductMapper">
 
-    <!-- 商品詳細取得 -->
-    <resultMap id="productMap" type="com.example.demo.entity.Product">
-        <id property="id" column="id"/>
-        <result property="regionId" column="region_id"/>
-        <result property="categoryId" column="category_id"/>
-        <result property="name" column="product_name"/>
-        <result property="price" column="price"/>
-        <result property="description" column="description"/>
-        <result property="imageUrl" column="image_url"/>
-    </resultMap>
+	<!-- 商品詳細取得 -->
+	<resultMap id="productMap" type="com.example.demo.entity.Product">
+		<id property="id" column="id" />
+		<result property="regionId" column="region_id" />
+		<result property="categoryId" column="category_id" />
+		<result property="name" column="product_name" />
+		<result property="price" column="price" />
+		<result property="description" column="description" />
+		<result property="imageUrl" column="image_url" />
+	</resultMap>
 
-    <select id="findById"
-        parameterType="int"
-        resultMap="productMap">
-        SELECT * FROM products
-        WHERE id = #{productId}
-    </select>
+	<select id="findById"
+		parameterType="int"
+		resultMap="productMap">
+		SELECT * FROM products
+		WHERE id = #{productId}
+	</select>
 
- <!-- 全商品取得 -->
- <select id="findAll"
-            resultType="com.example.demo.entity.Product">
+	<!-- 全商品取得 -->
+	<select id="findAll"
+		resultType="com.example.demo.entity.Product">
 
-        SELECT
-            id,
-            region_id AS regionId,
-            category_id AS categoryId,
-            product_name AS name,
-            price,
-            description,
-            image_url AS imageUrl,
+		SELECT
+		id,
+		region_id AS regionId,
+		category_id AS categoryId,
+		product_name AS name,
+		price,
+		description,
+		image_url AS imageUrl,
 
-            CASE region_id
-                WHEN 1 THEN '札幌'
-                WHEN 2 THEN '小樽'
-                WHEN 3 THEN '函館'
-                WHEN 4 THEN '北見'
-                WHEN 5 THEN '帯広'
-                WHEN 6 THEN '稚内'
-                ELSE '不明'
-            END AS regionName
+		CASE region_id
+		WHEN 1 THEN '札幌'
+		WHEN 2 THEN '小樽'
+		WHEN 3 THEN '函館'
+		WHEN 4 THEN '北見'
+		WHEN 5 THEN '帯広'
+		WHEN 6 THEN '稚内'
+		ELSE '不明'
+		END AS regionName
 
-        FROM products
+		FROM products
 
-    </select>
+	</select>
 
-    <!-- 地域検索 -->
-    <select id="findByRegionId"
-            parameterType="int"
-            resultType="com.example.demo.entity.Product">
+	<!-- 地域検索 -->
+	<select id="findByRegionId"
+		parameterType="int"
+		resultType="com.example.demo.entity.Product">
 
-        SELECT
-            id,
-            region_id AS regionId,
-            category_id AS categoryId,
-            product_name AS name,
-            price,
-            description,
-            image_url AS imageUrl,
+		SELECT
+		id,
+		region_id AS regionId,
+		category_id AS categoryId,
+		product_name AS name,
+		price,
+		description,
+		image_url AS imageUrl,
 
-            CASE region_id
-                WHEN 1 THEN '札幌'
-                WHEN 2 THEN '小樽'
-                WHEN 3 THEN '函館'
-                WHEN 4 THEN '北見'
-                WHEN 5 THEN '帯広'
-                WHEN 6 THEN '稚内'
-                ELSE '不明'
-            END AS regionName
+		CASE region_id
+		WHEN 1 THEN '札幌'
+		WHEN 2 THEN '小樽'
+		WHEN 3 THEN '函館'
+		WHEN 4 THEN '北見'
+		WHEN 5 THEN '帯広'
+		WHEN 6 THEN '稚内'
+		ELSE '不明'
+		END AS regionName
 
-        FROM products
+		FROM products
 
-        WHERE region_id = #{regionId}
+		WHERE region_id = #{regionId}
 
-    </select>
+	</select>
 
-    <!-- カテゴリ検索 -->
-    <select id="findByCategoryId"
-            parameterType="int"
-            resultType="com.example.demo.entity.Product">
+	<!-- カテゴリ検索 -->
+	<select id="findByCategoryId"
+		parameterType="int"
+		resultType="com.example.demo.entity.Product">
 
-        SELECT
-            id,
-            region_id AS regionId,
-            category_id AS categoryId,
-            product_name AS name,
-            price,
-            description,
-            image_url AS imageUrl,
+		SELECT
+		id,
+		region_id AS regionId,
+		category_id AS categoryId,
+		product_name AS name,
+		price,
+		description,
+		image_url AS imageUrl,
 
-            CASE region_id
-                WHEN 1 THEN '札幌'
-                WHEN 2 THEN '小樽'
-                WHEN 3 THEN '函館'
-                WHEN 4 THEN '北見'
-                WHEN 5 THEN '帯広'
-                WHEN 6 THEN '稚内'
-                ELSE '不明'
-            END AS regionName
+		CASE region_id
+		WHEN 1 THEN '札幌'
+		WHEN 2 THEN '小樽'
+		WHEN 3 THEN '函館'
+		WHEN 4 THEN '北見'
+		WHEN 5 THEN '帯広'
+		WHEN 6 THEN '稚内'
+		ELSE '不明'
+		END AS regionName
 
-        FROM products
+		FROM products
 
-        WHERE category_id = #{categoryId}
-    </select>
-<!--地域詳細カテゴリ検索-->
-<select id="findByRegionIdAndCategoryId"
-	resultType="com.example.demo.entity.Product">
+		WHERE category_id = #{categoryId}
+	</select>
+	<!--地域詳細カテゴリ検索-->
+	<select id="findByRegionIdAndCategoryId"
+		resultType="com.example.demo.entity.Product">
 
-	SELECT *
-	FROM products
-	WHERE region_id = #{regionId}
-	AND category_id = #{categoryId}
+		SELECT
+		id,
+		product_name AS name,
+		region_id,
+		category_id,
+		price,
+		description,
+		image_url AS imageUrl
 
-</select>
+		FROM products
+		WHERE region_id = #{regionId}
+		AND category_id = #{categoryId}
 
-<!-- カテゴリ別ランキングTOP3取得 -->
-    <select id="findRankingByCategoryId"
-            parameterType="int"
-            resultType="com.example.demo.entity.RankingProduct">
+	</select>
 
-        SELECT
-            p.id,
-            p.product_name AS productName,
-            p.price,
-            p.image_url AS imageUrl,
-            p.region_id AS regionId,
+	<!-- カテゴリ別ランキングTOP3取得 -->
+	<select id="findRankingByCategoryId"
+		parameterType="int"
+		resultType="com.example.demo.entity.RankingProduct">
 
-            CASE p.region_id
-                WHEN 1 THEN '札幌'
-                WHEN 2 THEN '小樽'
-                WHEN 3 THEN '函館'
-                WHEN 4 THEN '北見'
-                WHEN 5 THEN '帯広'
-                WHEN 6 THEN '稚内'
-                ELSE '不明'
-            END AS regionName,
+		SELECT
+		p.id,
+		p.product_name AS productName,
+		p.price,
+		p.image_url AS imageUrl,
+		p.region_id AS regionId,
 
-            SUM(od.quantity) AS totalQuantity
+		CASE p.region_id
+		WHEN 1 THEN '札幌'
+		WHEN 2 THEN '小樽'
+		WHEN 3 THEN '函館'
+		WHEN 4 THEN '北見'
+		WHEN 5 THEN '帯広'
+		WHEN 6 THEN '稚内'
+		ELSE '不明'
+		END AS regionName,
 
-        FROM products p
+		SUM(od.quantity) AS totalQuantity
 
-        INNER JOIN order_details od
-            ON p.id = od.product_id
+		FROM products p
 
-        WHERE p.category_id = #{categoryId}
+		INNER JOIN order_details od
+		ON p.id = od.product_id
 
-        GROUP BY
-            p.id,
-            p.product_name,
-            p.price,
-            p.image_url,
-            p.region_id
+		WHERE p.category_id = #{categoryId}
 
-        ORDER BY totalQuantity DESC
+		GROUP BY
+		p.id,
+		p.product_name,
+		p.price,
+		p.image_url,
+		p.region_id
 
-        LIMIT 3
-    </select>
+		ORDER BY totalQuantity DESC
+
+		LIMIT 3
+	</select>
+
+	<!--地域別カテゴリ別ランキング取得-->
+	<select id="findRankingByRegionIdAndCategoryId"
+		resultType="com.example.demo.entity.RankingProduct">
+
+		SELECT
+		p.id,
+		p.product_name AS productName,
+		p.price,
+		p.image_url AS imageUrl,
+		p.region_id AS regionId,
+		COUNT(od.id) AS orderCount
+
+		FROM products p
+
+		LEFT JOIN order_details od
+		ON p.id = od.product_id
+
+		WHERE p.region_id = #{regionId}
+		AND p.category_id = #{categoryId}
+
+		GROUP BY
+		p.id,
+		p.product_name,
+		p.price,
+		p.image_url,
+		p.region_id
+
+		ORDER BY orderCount DESC
+
+		LIMIT 3
+
+	</select>
 
 </mapper>

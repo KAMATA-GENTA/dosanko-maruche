@@ -44,6 +44,19 @@ public class RegionController {
 							categoryId));
 		}
 
+		// カテゴリ別ランキング 地域ごと
+		model.addAttribute("seafoodRanking",
+				productService.getRankingByRegionIdAndCategoryId(region.getId(), 1));
+
+		model.addAttribute("vegetableRanking",
+				productService.getRankingByRegionIdAndCategoryId(region.getId(), 2));
+
+		model.addAttribute("meatRanking",
+				productService.getRankingByRegionIdAndCategoryId(region.getId(), 3));
+
+		model.addAttribute("souvenirRanking",
+				productService.getRankingByRegionIdAndCategoryId(region.getId(), 4));
+
 		// キャラクター画像、地域idの値を渡して進化するかどうかの判定
 		model.addAttribute("characterImage", characterService.getCharacterImageByRegion(region));
 		model.addAttribute("orderDetailCount", characterService.getOrderDetailCountByRegion(region));
