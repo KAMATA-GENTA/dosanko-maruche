@@ -6,7 +6,12 @@
 
 <mapper namespace="com.example.demo.mapper.ProductMapper">
 
-    <!-- 商品詳細取得 -->
+    <!--
+        productsテーブルのカラムをProductクラスのフィールドに対応させる設定です。
+
+        regionName / categoryName はDBから取得しません。
+        ProductServiceで Region enum / Category enum からセットします。
+    -->
     <resultMap id="productMap" type="com.example.demo.entity.Product">
         <id property="id" column="id"/>
         <result property="regionId" column="region_id"/>
@@ -17,138 +22,90 @@
         <result property="imageUrl" column="image_url"/>
     </resultMap>
 
+    <!-- 商品IDに対応する商品を1件取得 -->
     <select id="findById"
-        parameterType="int"
-        resultMap="productMap">
-        SELECT * FROM products
+            parameterType="int"
+            resultMap="productMap">
+        SELECT
+            id,
+            region_id,
+            category_id,
+            product_name,
+            price,
+            description,
+            image_url
+        FROM products
         WHERE id = #{productId}
     </select>
 
     <!-- 全商品取得 -->
     <select id="findAll"
-            resultType="com.example.demo.entity.Product">
-
+            resultMap="productMap">
         SELECT
             id,
-            region_id AS regionId,
-            category_id AS categoryId,
-            product_name AS name,
+            region_id,
+            category_id,
+            product_name,
             price,
             description,
-            image_url AS imageUrl,
-
-            CASE region_id
-                WHEN 1 THEN '札幌'
-                WHEN 2 THEN '小樽'
-                WHEN 3 THEN '函館'
-                WHEN 4 THEN '北見'
-                WHEN 5 THEN '帯広'
-                WHEN 6 THEN '稚内'
-                ELSE '不明'
-            END AS regionName
-
+            image_url
         FROM products
-
     </select>
 
-    <!-- 地域検索 -->
+    <!-- 地域IDに対応する商品一覧を取得 -->
     <select id="findByRegionId"
             parameterType="int"
-            resultType="com.example.demo.entity.Product">
-
+            resultMap="productMap">
         SELECT
             id,
-            region_id AS regionId,
-            category_id AS categoryId,
-            product_name AS name,
+            region_id,
+            category_id,
+            product_name,
             price,
             description,
-            image_url AS imageUrl,
-
-            CASE region_id
-                WHEN 1 THEN '札幌'
-                WHEN 2 THEN '小樽'
-                WHEN 3 THEN '函館'
-                WHEN 4 THEN '北見'
-                WHEN 5 THEN '帯広'
-                WHEN 6 THEN '稚内'
-                ELSE '不明'
-            END AS regionName
-
+            image_url
         FROM products
-
         WHERE region_id = #{regionId}
-
     </select>
 
-    <!-- カテゴリ検索 -->
+    <!-- カテゴリIDに対応する商品一覧を取得 -->
     <select id="findByCategoryId"
             parameterType="int"
-            resultType="com.example.demo.entity.Product">
-
+            resultMap="productMap">
         SELECT
             id,
-            region_id AS regionId,
-            category_id AS categoryId,
-            product_name AS name,
+            region_id,
+            category_id,
+            product_name,
             price,
             description,
-            image_url AS imageUrl,
-
-            CASE region_id
-                WHEN 1 THEN '札幌'
-                WHEN 2 THEN '小樽'
-                WHEN 3 THEN '函館'
-                WHEN 4 THEN '北見'
-                WHEN 5 THEN '帯広'
-                WHEN 6 THEN '稚内'
-                ELSE '不明'
-            END AS regionName
-
+            image_url
         FROM products
-
         WHERE category_id = #{categoryId}
     </select>
+
     <!-- カテゴリ別ランキングTOP3取得 -->
     <select id="findRankingByCategoryId"
             parameterType="int"
             resultType="com.example.demo.entity.RankingProduct">
-
         SELECT
             p.id,
             p.product_name AS productName,
             p.price,
             p.image_url AS imageUrl,
             p.region_id AS regionId,
-
-            CASE p.region_id
-                WHEN 1 THEN '札幌'
-                WHEN 2 THEN '小樽'
-                WHEN 3 THEN '函館'
-                WHEN 4 THEN '北見'
-                WHEN 5 THEN '帯広'
-                WHEN 6 THEN '稚内'
-                ELSE '不明'
-            END AS regionName,
-
             SUM(od.quantity) AS totalQuantity
-
         FROM products p
-
         INNER JOIN order_details od
             ON p.id = od.product_id
-
         WHERE p.category_id = #{categoryId}
-
         GROUP BY
             p.id,
             p.product_name,
             p.price,
             p.image_url,
             p.region_id
-
         ORDER BY totalQuantity DESC
-
         LIMIT 3
     </select>
 </mapper>
