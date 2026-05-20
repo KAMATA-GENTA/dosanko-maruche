@@ -115,6 +115,6 @@ public class ProductController {
 
 		cartService.addToCart(userId, productId, quantity);
 
-		return "redirect:/product/" + productId;
+		return "redirect:/products/" + productId;
 	}
 }
