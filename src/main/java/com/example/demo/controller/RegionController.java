@@ -32,7 +32,17 @@ public class RegionController {
 
 		model.addAttribute("region", region);
 		model.addAttribute("regionName", regionName);
-		model.addAttribute("products", productService.getProductsByRegionIdAndCategoryId(region.getId(), categoryId));
+		model.addAttribute("selectedCategoryId", categoryId);
+
+		if (categoryId == null) {
+			model.addAttribute("products",
+					productService.getProductsByRegionId(region.getId()));
+		} else {
+			model.addAttribute("products",
+					productService.getProductsByRegionIdAndCategoryId(
+							region.getId(),
+							categoryId));
+		}
 
 		// キャラクター画像、地域idの値を渡して進化するかどうかの判定
 		model.addAttribute("characterImage", characterService.getCharacterImageByRegion(region));

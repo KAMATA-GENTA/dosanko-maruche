@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.Map;
+
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import com.example.demo.entity.User;
 import com.example.demo.form.LoginForm;
 import com.example.demo.form.UserForm;
 import com.example.demo.mapper.UserMapper;
+import com.example.demo.service.CartService;
 import com.example.demo.service.UserService;
 
 @Controller
@@ -25,6 +28,9 @@ public class AuthController {
 
 	@Autowired
 	private UserMapper userMapper;
+
+	@Autowired
+	private CartService cartService;
 
 	private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -80,7 +86,14 @@ public class AuthController {
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("username", user.getUsername());
 
-			return "redirect:/";
+			@SuppressWarnings("unchecked")
+			Map<Integer, Integer> guestCart = (Map<Integer, Integer>) session.getAttribute("guestCart");
+
+			cartService.mergeGuestCart(user.getId(), guestCart);
+
+			session.removeAttribute("guestCart");
+
+			return "redirect:/cart";
 		}
 
 		model.addAttribute("error", "メールアドレスまたはパスワードが間違っています。");

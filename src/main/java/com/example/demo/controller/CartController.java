@@ -8,11 +8,14 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.CartDisplayItem;
 import com.example.demo.entity.CartItem;
 import com.example.demo.entity.Product;
 import com.example.demo.mapper.CartMapper;
+import com.example.demo.service.CartService;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.SettlementService;
 
@@ -22,15 +25,18 @@ public class CartController {
 	private final CartMapper cartMapper;
 	private final ProductService productService;
 	private final SettlementService settlementService;
+	private final CartService cartService;
 
 	public CartController(
 			CartMapper cartMapper,
 			ProductService productService,
-			SettlementService settlementService) {
+			SettlementService settlementService,
+			CartService cartService) {
 
 		this.cartMapper = cartMapper;
 		this.productService = productService;
 		this.settlementService = settlementService;
+		this.cartService = cartService;
 	}
 
 	@GetMapping("/cart")
@@ -63,5 +69,22 @@ public class CartController {
 		model.addAttribute("totalPrice", totalPrice);
 
 		return "cart2";
+	}
+
+	@PostMapping("/cart/change")
+	public String changeQuantity(
+			@RequestParam int cartId,
+			@RequestParam int quantity,
+			HttpSession session) {
+
+		Integer userId = (Integer) session.getAttribute("userId");
+
+		if (userId == null) {
+			return "redirect:/login";
+		}
+
+		cartService.changeQuantity(cartId, quantity);
+
+		return "redirect:/cart";
 	}
 }

@@ -1,61 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/_layout}">
+	layout:decorate="~{layouts/_layout}">
 
-<head></head>
+<head>
+	<title>ログイン｜どさん娘マルシェ</title>
+</head>
 
 <body>
-  <div layout:fragment="content">
+	<div layout:fragment="content">
 
-    <!-- Burger menu  -->
-    <section x-show="mobileMenuOpen" @click.outside="mobileMenuOpen = false"
-      class="absolute left-0 right-0 z-50 h-screen w-full bg-white" style="display: none">
-      <div class="mx-auto">
-        <div class="mx-auto flex w-full justify-center gap-3 py-4">
-          <a href="wishlist" class="flex cursor-pointer flex-col items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="h-6 w-6">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-            </svg>
+		<main class="mx-auto w-full max-w-[1200px] px-5 py-10">
+			<section class="grid gap-6 lg:grid-cols-[1fr_430px]">
 
-            <p class="text-xs">Wishlist</p>
-          </a>
+				<div class="rounded-2xl border border-base-300 bg-base-100 p-8 shadow-sm md:p-11">
+					<div class="badge badge-primary badge-outline mb-5">
+						北海道のおいしさを、もっと身近に
+					</div>
 
-          <a href="/cart" class="flex cursor-pointer flex-col items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
-              <path fill-rule="evenodd"
-                d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3zm-3 8.25a3 3 0 106 0v-.75a.75.75 0 011.5 0v.75a4.5 4.5 0 11-9 0v-.75a.75.75 0 011.5 0v.75z"
-                clip-rule="evenodd" />
-            </svg>
+					<h1 class="text-3xl font-bold leading-snug text-base-content md:text-4xl">
+						どさん娘マルシェへ<br>
+						おかえりなさい
+					</h1>
 
-            <p class="text-xs">Cart</p>
-          </a>
+					<p class="mt-5 leading-8 text-base-content/70">
+						ログインすると、購入履歴の確認やカート情報の管理ができます。
+						北海道の特産品を、ゆっくり探していきましょう。
+					</p>
 
-          <a href="account-page" class="relative flex cursor-pointer flex-col items-center justify-center">
-            <span class="absolute bottom-[33px] right-1 flex h-2 w-2">
-              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
-              <span class="relative inline-flex h-2 w-2 rounded-full bg-red-500"></span>
-            </span>
+					<div class="mt-8 grid gap-3 font-bold text-primary">
+						<span>🚚 注文状況を確認できます</span>
+						<span>🛒 カートの商品を保存できます</span>
+						<span>❄ 北海道らしい商品を探せます</span>
+					</div>
+				</div>
 
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="h-6 w-6">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-            </svg>
+				<div class="rounded-2xl border border-base-300 bg-base-100 p-7 shadow-sm md:p-8">
+					<h2 class="text-3xl font-bold text-base-content">
+						ログイン
+					</h2>
 
-            <p class="text-xs">Account</p>
-          </a>
-        </div>
+					<p class="mt-2 text-sm text-base-content/60">
+						メールアドレスとパスワードを入力してください。
+					</p>
 
-        <div class="my-4 mx-5 flex h-9 items-center border">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="mx-3 h-4 w-4">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-          </svg>
+					<form class="mt-7 grid gap-4" th:action="@{/login}" th:object="${loginForm}" method="post">
 
-          <input class="hidden w-11/12 outline-none md:block" type="search" placeholder="Search" />
+						<div class="form-control">
+							<label class="label" for="email">
+								<span class="label-text font-bold">メールアドレス</span>
+							</label>
+							<input id="email" class="input input-bordered w-full" th:field="*{email}" type="email"
+								placeholder="you@example.com">
+						</div>
 
           <button class="ml-auto h-full bg-neutral px-4 hover:bg-yellow-300">
             Search
@@ -71,20 +67,34 @@
     </section>
     <!-- /Burger menu  -->
 
-    <!-- Nav bar -->
-    <!-- hidden on small devices -->
+						<button class="btn btn-primary mt-3 w-full" type="submit">
+							ログイン
+						</button>
+					</form>
 
-  
+					<div class="mt-5 flex justify-between gap-4 text-sm text-base-content/70">
+						<label class="flex items-center gap-2">
+							<input type="checkbox" class="checkbox checkbox-primary checkbox-sm">
+							<span>ログイン状態を保持</span>
+						</label>
 
+						<a href="#" class="font-bold text-primary">
+							パスワードを忘れた方
+						</a>
+					</div>
 
+					<div class="mt-7 border-t border-base-300 pt-5 text-center text-sm text-base-content/60">
+						<p>
+							アカウントをお持ちでない方は
+							<a href="/sign-up" class="font-bold text-primary">
+								新規登録
+							</a>
+						</p>
+					</div>
+				</div>
 
-    <!-- Login card  -->
-    <section class="mx-auto flex-grow w-full mt-10 mb-10 max-w-[1200px] px-5">
-      <div class="container mx-auto border px-5 py-5 shadow-sm md:w-1/2">
-        <div class="">
-          <p class="text-4xl font-bold">LOGIN</p>
-          <p>Welcome back, customer!</p>
-        </div>
+			</section>
+		</main>
 
         <form class="mt-6 flex flex-col" th:action="@{/login}" th:object="${loginForm}" method="post">
           <label for="email">Email Address</label>
