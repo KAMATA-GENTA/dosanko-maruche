@@ -107,6 +107,10 @@ body {
 
   backdrop-filter:
     blur(4px);
+
+  user-select: none;
+
+  cursor: default;
 }
 
 .game-title h1 {
@@ -125,6 +129,10 @@ body {
 
   letter-spacing:
     3px;
+
+  user-select: none;
+
+  cursor: default;
 }
 
 .game-title p {
@@ -140,6 +148,10 @@ body {
 
   text-shadow:
     0 0 10px rgba(255,255,255,0.4);
+
+  user-select: none;
+
+  cursor: default;
 }
 
 /* キャラ */
@@ -172,6 +184,10 @@ body {
 
   animation:
     walkFloat 2.4s ease-in-out infinite;
+
+  user-select: none;
+
+  pointer-events: none;
 }
 
 /* セリフ */
@@ -210,6 +226,10 @@ body {
   box-shadow:
     0 0 20px rgba(255, 216, 117, 0.7),
     inset 0 0 16px rgba(255, 216, 117, 0.25);
+
+  user-select: none;
+
+  cursor: default;
 }
 
 .speech::before {
@@ -302,6 +322,8 @@ body {
     0 0 28px rgba(255, 190, 70, 0.85);
 
   transition: 0.2s;
+
+  user-select: none;
 }
 
 .treasure:hover {
