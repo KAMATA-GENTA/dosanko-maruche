@@ -14,10 +14,12 @@ import com.example.demo.entity.CartItem;
 import com.example.demo.entity.Order;
 import com.example.demo.entity.OrderDetail;
 import com.example.demo.entity.Product;
+import com.example.demo.entity.User;
 import com.example.demo.mapper.CartMapper;
 import com.example.demo.mapper.OrderDetailMapper;
 import com.example.demo.mapper.OrderMapper;
 import com.example.demo.service.ProductService;
+import com.example.demo.service.SettlementService;
 
 @Controller
 public class TreasureController {
@@ -26,17 +28,20 @@ public class TreasureController {
 	private final OrderMapper orderMapper;
 	private final OrderDetailMapper orderDetailMapper;
 	private final ProductService productService;
+	private final SettlementService settlementService;
 
 	public TreasureController(
 			CartMapper cartMapper,
 			OrderMapper orderMapper,
 			OrderDetailMapper orderDetailMapper,
-			ProductService productService) {
+			ProductService productService,
+			SettlementService settlementService) {
 
 		this.cartMapper = cartMapper;
 		this.orderMapper = orderMapper;
 		this.orderDetailMapper = orderDetailMapper;
 		this.productService = productService;
+		this.settlementService = settlementService;
 	}
 
 	@GetMapping("/treasure")
@@ -53,34 +58,24 @@ public class TreasureController {
 			HttpSession session,
 			Model model) {
 
-		Integer userId = (Integer) session.getAttribute("userId");
+		User loginUser = (User) session.getAttribute("loginUser");
 
-		if (userId == null) {
-			userId = 1;
-			session.setAttribute("userId", userId);
+		if (loginUser == null) {
+			return "redirect:/login";
 		}
+
+		int userId = loginUser.getId();
 
 		List<CartItem> cartItems = cartMapper.findByUserId(userId);
 
-		// subtotal計算
-		int subtotal = 0;
-
-		for (CartItem cartItem : cartItems) {
-
-			Product product = productService.findById(cartItem.getProductId());
-
-			subtotal += product.getPrice() * cartItem.getQuantity();
-		}
-
-		int baseShippingFee = 800;
+		int subtotal = settlementService.calcSubtotal(cartItems);
 
 		boolean isHit = "hit".equals(result);
 
-		int finalShippingFee = isHit ? 0 : baseShippingFee;
+		int finalShippingFee = settlementService.calcShippingFee(isHit);
 
-		int totalPrice = subtotal + finalShippingFee;
+		int totalPrice = settlementService.calcTotalPrice(subtotal, finalShippingFee);
 
-		// 注文保存
 		Order order = new Order();
 		order.setUserId(userId);
 		order.setSubtotal(subtotal);
@@ -88,7 +83,6 @@ public class TreasureController {
 
 		orderMapper.insert(order);
 
-		// 注文明細保存
 		for (CartItem cartItem : cartItems) {
 
 			Product product = productService.findById(cartItem.getProductId());
@@ -98,14 +92,11 @@ public class TreasureController {
 			detail.setOrderId(order.getId());
 			detail.setProductId(cartItem.getProductId());
 			detail.setQuantity(cartItem.getQuantity());
-
-			// Productから価格取得
 			detail.setPrice(product.getPrice());
 
 			orderDetailMapper.insert(detail);
 		}
 
-		// カート削除
 		cartMapper.deleteByUserId(userId);
 
 		model.addAttribute("result", result);

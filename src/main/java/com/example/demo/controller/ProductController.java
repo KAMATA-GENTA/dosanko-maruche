@@ -91,16 +91,10 @@ public class ProductController {
 			//			
 			//
 			//		cartService.addToCart(user.getId(), productId, quantity);
-			@SessionAttribute(value = "loginUser", required = false) User user) {
-
-		int userId;
+			@SessionAttribute(value = "userId", required = false) Integer userId) {
 
 		// ★ loginUser が存在するか確認
-		if (user != null) {
-			userId = user.getId();
-
-			// ★ 無い場合はデモ用ユーザーID=1を使う
-		} else {
+		if (userId == null) {
 			userId = 1;
 		}
 
