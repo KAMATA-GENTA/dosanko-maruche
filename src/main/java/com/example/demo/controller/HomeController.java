@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Product;
 import com.example.demo.entity.RankingProduct;
+import com.example.demo.enums.Character;
 import com.example.demo.service.ProductService;
 
 @Controller
@@ -21,7 +22,7 @@ public class HomeController {
 	}
 
 	// ホーム画面を表示する
-	@GetMapping("/")
+	@GetMapping({ "/", "/index" })
 	public String home(
 			@RequestParam(required = false) Integer categoryId,
 			Model model) {
@@ -40,6 +41,7 @@ public class HomeController {
 		model.addAttribute("products", products);
 		// 選択中カテゴリを画面に渡す
 		model.addAttribute("selectedCategoryId", categoryId);
+		model.addAttribute("charctors", Character.values());
 
 		// 各カテゴリのランキング商品を取得する
 		List<RankingProduct> seafoodRanking = productService.getRankingByCategoryId(1);
