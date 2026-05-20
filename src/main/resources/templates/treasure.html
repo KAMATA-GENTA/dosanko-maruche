@@ -1,38 +1,107 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/_layout}">
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org">
 
-<head></head>
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>
+    おたるんの宝箱探検
+  </title>
+
+  <link rel="stylesheet"
+        th:href="@{/css/treasure.css}">
+
+</head>
 
 <body>
-  <div layout:fragment="content">
 
   <main class="game">
 
-    <div class="character-area">
-      <img th:src="@{/images/otarunusiro.png}" class="otarun" alt="探検するおたるん">
+    <!-- タイトル -->
 
-      <div class="speech" id="message">
-        どれにする？
-      </div>
+    <div class="game-title">
+
+      <h1>
+        おたるんの冒険
+      </h1>
+
+      <p>
+        宝箱からあたりを見つければ送料無料！
+      </p>
+
     </div>
 
-    <form th:action="@{/treasure/result}" method="post" id="treasureForm">
+    <!-- キャラ -->
 
-      <div class="treasures">
-        <button type="button" class="treasure" data-index="0">🎁</button>
-        <button type="button" class="treasure" data-index="1">🎁</button>
-        <button type="button" class="treasure" data-index="2">🎁</button>
+    <div class="character-area">
+
+      <img th:src="@{/images/otarunusiro.png}"
+           class="otarun"
+           alt="探検するおたるん">
+
+      <div class="speech"
+           id="message">
+
+        どれにする？
+
       </div>
 
-      <input type="hidden" id="result" name="result">
-      <input type="hidden" id="selectedBox" name="selectedBox">
-      <input type="hidden" id="correctBox" name="correctBox">
+    </div>
+
+    <!-- 宝箱 -->
+
+    <form th:action="@{/treasure/result}"
+          method="post"
+          id="treasureForm">
+
+      <div class="treasures">
+
+        <button type="button"
+                class="treasure"
+                data-index="0">
+
+          🎁
+
+        </button>
+
+        <button type="button"
+                class="treasure"
+                data-index="1">
+
+          🎁
+
+        </button>
+
+        <button type="button"
+                class="treasure"
+                data-index="2">
+
+          🎁
+
+        </button>
+
+      </div>
+
+      <input type="hidden"
+             id="result"
+             name="result">
+
+      <input type="hidden"
+             id="selectedBox"
+             name="selectedBox">
+
+      <input type="hidden"
+             id="correctBox"
+             name="correctBox">
 
     </form>
 
   </main>
-  <script th:src="@{/js/treasure.js}"></script>
-  </div>
+
+  <script th:src="@{/js/treasure.js}">
+  </script>
+
 </body>
 </html>

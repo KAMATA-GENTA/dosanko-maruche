@@ -4,133 +4,346 @@
 
 html,
 body {
+
   margin: 0;
+
   width: 100%;
   height: 100%;
+
   overflow: hidden;
-  font-family: "Yu Gothic", "Meiryo", sans-serif;
+
+  font-family:
+    "Yu Gothic",
+    "Meiryo",
+    sans-serif;
 }
 
 body {
-  background-image: url("/images/haikei.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+
+  background-image:
+    url("/images/haikei.png");
+
+  background-size:
+    cover;
+
+  background-position:
+    center;
+
+  background-repeat:
+    no-repeat;
 }
 
+/* 全体 */
+
 .game {
+
   position: relative;
+
   width: 100vw;
   height: 100vh;
 }
 
+/* 暗めフィルター */
+
 .game::after {
+
   content: "";
+
   position: absolute;
+
   inset: 0;
+
   background:
-    radial-gradient(circle at center, transparent 35%, rgba(0, 0, 0, 0.35) 100%),
-    linear-gradient(to top, rgba(0,0,0,0.45), transparent 45%);
+    radial-gradient(
+      circle at center,
+      transparent 35%,
+      rgba(0, 0, 0, 0.35) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgba(0,0,0,0.45),
+      transparent 45%
+    );
+
   pointer-events: none;
+
   z-index: 1;
 }
 
-.character-area {
+/* タイトル */
+
+.game-title {
+
   position: absolute;
+
+  top: 4vh;
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  z-index: 10;
+
+  padding:
+    18px 42px;
+
+  border:
+    3px solid #ffd875;
+
+  border-radius:
+    28px;
+
+  background:
+    rgba(25, 18, 35, 0.82);
+
+  text-align: center;
+
+  color:
+    #fff3c4;
+
+  box-shadow:
+    0 0 20px rgba(255, 216, 117, 0.7),
+    inset 0 0 16px rgba(255, 216, 117, 0.25);
+
+  backdrop-filter:
+    blur(4px);
+}
+
+.game-title h1 {
+
+  margin: 0;
+
+  font-size:
+    clamp(28px, 3vw, 52px);
+
+  color:
+    #ffe082;
+
+  text-shadow:
+    0 0 12px #ffb300,
+    0 0 24px rgba(255, 179, 0, 0.7);
+
+  letter-spacing:
+    3px;
+}
+
+.game-title p {
+
+  margin-top: 10px;
+  margin-bottom: 0;
+
+  font-size:
+    clamp(14px, 1.2vw, 22px);
+
+  color:
+    #fff8dc;
+
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.4);
+}
+
+/* キャラ */
+
+.character-area {
+
+  position: absolute;
+
   left: 4vw;
   bottom: 2vh;
+
   z-index: 5;
+
   display: flex;
+
   align-items: flex-start;
+
   gap: 16px;
 }
 
 .otarun {
-  width: min(23vw, 300px);
-  filter: drop-shadow(0 0 18px rgba(255, 220, 130, 0.85));
-  animation: walkFloat 2.4s ease-in-out infinite;
+
+  width:
+    min(23vw, 300px);
+
+  filter:
+    drop-shadow(
+      0 0 18px rgba(255, 220, 130, 0.85)
+    );
+
+  animation:
+    walkFloat 2.4s ease-in-out infinite;
 }
 
+/* セリフ */
+
 .speech {
+
   margin-top: 40px;
+
   position: relative;
-  padding: 14px 24px;
-  border: 3px solid #ffd875;
-  border-radius: 24px;
-  background: rgba(25, 18, 35, 0.82);
-  color: #fff3c4;
-  font-size: clamp(17px, 2vw, 26px);
+
+  padding:
+    14px 24px;
+
+  border:
+    3px solid #ffd875;
+
+  border-radius:
+    24px;
+
+  background:
+    rgba(25, 18, 35, 0.82);
+
+  color:
+    #fff3c4;
+
+  font-size:
+    clamp(17px, 2vw, 26px);
+
   font-weight: bold;
+
   white-space: nowrap;
-  text-shadow: 0 0 10px #ff9f1c;
+
+  text-shadow:
+    0 0 10px #ff9f1c;
+
   box-shadow:
     0 0 20px rgba(255, 216, 117, 0.7),
     inset 0 0 16px rgba(255, 216, 117, 0.25);
 }
 
 .speech::before {
+
   content: "";
+
   position: absolute;
+
   left: -16px;
   top: 28px;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-right: 16px solid #ffd875;
+
+  border-top:
+    10px solid transparent;
+
+  border-bottom:
+    10px solid transparent;
+
+  border-right:
+    16px solid #ffd875;
 }
 
 .speech::after {
+
   content: "";
+
   position: absolute;
+
   left: -11px;
   top: 31px;
-  border-top: 7px solid transparent;
-  border-bottom: 7px solid transparent;
-  border-right: 12px solid rgba(25, 18, 35, 0.82);
+
+  border-top:
+    7px solid transparent;
+
+  border-bottom:
+    7px solid transparent;
+
+  border-right:
+    12px solid rgba(25, 18, 35, 0.82);
 }
 
+/* 宝箱 */
+
 .treasures {
+
   position: absolute;
+
   left: 58%;
   bottom: 30vh;
-  transform: translateX(-50%);
+
+  transform:
+    translateX(-50%);
+
   z-index: 4;
+
   display: flex;
-  gap: clamp(26px, 5vw, 70px);
+
+  gap:
+    clamp(26px, 5vw, 70px);
 }
 
 .treasure {
-  width: clamp(95px, 11vw, 150px);
-  height: clamp(95px, 11vw, 150px);
-  border: 4px solid #6b3f14;
-  border-radius: 22px;
+
+  width:
+    clamp(95px, 11vw, 150px);
+
+  height:
+    clamp(95px, 11vw, 150px);
+
+  border:
+    4px solid #6b3f14;
+
+  border-radius:
+    22px;
+
   background:
-    radial-gradient(circle at top, #ffe89a, #bd7628 55%, #4b2308);
-  font-size: clamp(54px, 7vw, 92px);
+    radial-gradient(
+      circle at top,
+      #ffe89a,
+      #bd7628 55%,
+      #4b2308
+    );
+
+  font-size:
+    clamp(54px, 7vw, 92px);
+
   cursor: pointer;
+
   box-shadow:
     0 10px 0 #2e1604,
     0 0 28px rgba(255, 190, 70, 0.85);
+
   transition: 0.2s;
 }
 
 .treasure:hover {
-  transform: translateY(-10px) scale(1.08);
+
+  transform:
+    translateY(-10px)
+    scale(1.08);
+
   box-shadow:
     0 14px 0 #2e1604,
     0 0 45px rgba(255, 231, 130, 1);
 }
 
+/* 当たり */
+
 .treasure.hit {
-  background: radial-gradient(circle, #ffffff, #ffe45c 45%, #ff9f1c);
-  transform: scale(1.18);
+
+  background:
+    radial-gradient(
+      circle,
+      #ffffff,
+      #ffe45c 45%,
+      #ff9f1c
+    );
+
+  transform:
+    scale(1.18);
+
   box-shadow:
     0 0 35px #fff,
     0 0 80px #ffd60a;
 }
 
+/* はずれ */
+
 .treasure.miss {
-  background: linear-gradient(#555, #222);
+
+  background:
+    linear-gradient(#555, #222);
+
   opacity: 0.75;
+
   box-shadow:
     0 8px 0 #111,
     0 0 14px #555;
@@ -140,7 +353,10 @@ body {
   cursor: default;
 }
 
+/* ふわふわ */
+
 @keyframes walkFloat {
+
   0% {
     transform: translateY(0);
   }
