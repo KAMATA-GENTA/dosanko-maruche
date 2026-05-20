@@ -56,7 +56,7 @@ public class HomeController {
         addRankingToModel(model, Category.VEGETABLE);
         addRankingToModel(model, Category.SOUVENIR);
 
-		return "home";
+		return "index";
 	}
 	
 	// 指定カテゴリのランキングをModelに追加する

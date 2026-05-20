@@ -22,27 +22,32 @@
             </button>
 
             <div class="mx-7 flex gap-8">
-                <a class="font-light text-neutral-content duration-100 hover:text-yellow-400 hover:underline"
-                    href="index">Home</a>
-                <a class="font-light text-neutral-content duration-100 hover:text-yellow-400 hover:underline"
+                <a class="font-light text-neutral-content duration-100  hover:underline"
+                    href="/index">Home</a>
+                <a class="font-light text-neutral-content duration-100  hover:underline"
                     href="catalog">Catalog</a>
-                <a class="font-light text-neutral-content duration-100 hover:text-yellow-400 hover:underline"
+                <a class="font-light text-neutral-content duration-100  hover:underline"
                     href="about-us">About
                     Us</a>
-                <a class="font-light text-neutral-content duration-100 hover:text-yellow-400 hover:underline"
+                <a class="font-light text-neutral-content duration-100  hover:underline"
                     href="contact-us">Contact Us</a>
             </div>
 
-            <div class="ml-auto flex gap-4 px-5">
-                <a class="font-light text-neutral-content duration-100 hover:text-yellow-400 hover:underline"
-                    href="login">Login</a>
+			<div class="ml-auto flex gap-4 px-5 items-center">
+			  <span th:if="${isLoggedIn}" class="font-light text-white">
+			    こんにちは、
+			    <a href="/profile-information" class="font-bold text-yellow-400 hover:underline"
+			      th:text="${username} + 'さん'">usernameさん</a>
+			  </span>
+			  <a th:if="${isLoggedIn}" class="font-light text-white duration-100  hover:underline"
+			    href="/logout">Logout</a>
 
-                <span class="text-neutral-content">&#124;</span>
-
-                <a class="font-light text-neutral-content duration-100 hover:text-yellow-400 hover:underline"
-                    href="sign-up">Sign
-                    Up</a>
-            </div>
+			  <a th:unless="${isLoggedIn}" class="font-light text-white duration-100  hover:underline"
+			    href="/login">Login</a>
+			  <span th:unless="${isLoggedIn}" class="text-white">&#124;</span>
+			  <a th:unless="${isLoggedIn}" class="font-light text-white duration-100  hover:underline"
+			    href="/sign-up">Sign Up</a>
+			</div>
         </div>
     </nav>
     <!-- /Nav bar -->
