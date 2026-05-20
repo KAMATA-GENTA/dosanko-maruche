@@ -16,7 +16,7 @@ public class Product {
 
 	private Integer price; // 価格
 
-	private Integer categoryId; // カテゴリID
+	private Integer categoryId; // DBのカテゴリID
 
 	private String imageUrl; // 商品画像
 

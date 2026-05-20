@@ -1,5 +1,12 @@
 package com.example.demo.controller;
 
-public class TestController {
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
+@Controller
+public class TestController {
+	@GetMapping("/catalog")
+	public String test() {
+		return "catalog";
+	}
 }
