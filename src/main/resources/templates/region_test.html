@@ -7,7 +7,7 @@
 </head>
 
 
-<body>
+<body th:style="'background-color:' + ${region.backgroundColor}">
 	<header class="header">
 		<div class="header-menu">
 			<a href="/login">ログイン</a>
@@ -15,14 +15,14 @@
 			<a href="/cart">カート</a>
 		</div>
 		</header>
-		
+			
+
 <h1 th:text="${region.name}">地域名</h1>
+<img th:src="@{'/images/' + ${region.regionImage}}"alt="地域画像"class="region-image">
 
-<img th:src="@{'/images/' + ${region.regionImage}}" alt="地域画像" width="100%">
+<p th:text="${region.description}"></p>
 
-<p th:text="${region.description}">
-    地域説明
-</p>
+
 <img th:src="@{'/images/Character/' + ${characterImage}}" alt="キャラクター画像" width="300">
 <section class="ranking-section">
 
@@ -152,5 +152,5 @@
 </section>
 
 
-</body>
+</bodyth:style="'background-color:' + ${region.backgroundColor}">>
 </html>
