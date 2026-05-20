@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8" />
-  <title>登録結果</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/_layout}">
+
+<head></head>
+
 <body>
-  <header th:replace="layout/_header :: header"></header>
-
-  <main>
-  <h1>登録結果</h1>
-  <ul>
-  <li>名前：[[${name}]]</li>
-  <li>メール：[[${email}]]</li>
-  <li>パスワード：[[${password}]]</li>
-  </ul>
-  <a href="/register">▶ 戻る</a>
-  </main>
-
-  <footer th:replace="layout/_footer :: footer"></footer>
+  <div layout:fragment="content">
+    <main>
+      <h1>登録結果</h1>
+      <ul>
+        <li>名前：[[${name}]]</li>
+        <li>メール：[[${email}]]</li>
+        <li>パスワード：[[${password}]]</li>
+      </ul>
+      <a href="/register">▶ 戻る</a>
+    </main>
+  </div>
 </body>
+
 </html>
