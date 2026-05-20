@@ -1,20 +1,20 @@
---usersテーブル　ここにデータいれとかないと動かなくなるもの多いので、デモでデータの挿入をしていますが、最終的には消します
-INSERT INTO users (
-    username,
-    email,
-    password_hash
-)
-VALUES
-(
-    'tanaka',
-    'tanaka@example.com',
-    'password123'
-),
-(
-    'sato',
-    'sato@example.com',
-    'password456'
-);
+----usersテーブル　ここにデータいれとかないと動かなくなるもの多いので、デモでデータの挿入をしていますが、最終的には消します
+--INSERT INTO users (
+--    username,
+--    email,
+--    password_hash
+--)
+--VALUES
+--(
+--    'tanaka',
+--    'tanaka@example.com',
+--    'password123'
+--),
+--(
+--    'sato',
+--    'sato@example.com',
+--    'password456'
+--);
 
 -- products 初期データ
 
