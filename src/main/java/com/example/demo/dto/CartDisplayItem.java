@@ -13,6 +13,10 @@ public class CartDisplayItem {
 		this.product = product;
 	}
 
+	public int getCartId() {
+		return cartItem.getId();
+	}
+
 	public int getProductId() {
 		return cartItem.getProductId();
 	}

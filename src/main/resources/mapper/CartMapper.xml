@@ -22,19 +22,27 @@
     <select id="findByUserId"
             resultType="com.example.demo.entity.CartItem">
         SELECT
-            ci.id AS id,
-            ci.user_id AS userId,
-            ci.product_id AS productId,
-            ci.quantity AS quantity
-        FROM cart_items ci
-        WHERE ci.user_id = #{userId}
-        ORDER BY ci.id
+            id AS id,
+            user_id AS userId,
+            product_id AS productId,
+            quantity AS quantity
+        FROM cart_items
+        WHERE user_id = #{userId}
+        ORDER BY id
     </select>
 
-    <delete id="deleteByUserId">
-        DELETE FROM cart_items
+    <select id="findByUserIdAndProductId"
+            resultType="com.example.demo.entity.CartItem">
+        SELECT
+            id AS id,
+            user_id AS userId,
+            product_id AS productId,
+            quantity AS quantity
+        FROM cart_items
         WHERE user_id = #{userId}
-    </delete>
+          AND product_id = #{productId}
+        LIMIT 1
+    </select>
 
     <update id="updateQuantity">
         UPDATE cart_items
@@ -45,6 +53,11 @@
     <delete id="delete">
         DELETE FROM cart_items
         WHERE id = #{cartId}
+    </delete>
+
+    <delete id="deleteByUserId">
+        DELETE FROM cart_items
+        WHERE user_id = #{userId}
     </delete>
 
 </mapper>

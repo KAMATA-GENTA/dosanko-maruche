@@ -21,6 +21,10 @@ public interface CartMapper {
 			@Param("productId") int productId,
 			@Param("quantity") int quantity);
 
+	CartItem findByUserIdAndProductId(
+			@Param("userId") int userId,
+			@Param("productId") int productId);
+
 	void updateQuantity(
 			@Param("cartId") int cartId,
 			@Param("quantity") int quantity);
