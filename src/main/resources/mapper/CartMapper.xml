@@ -1,81 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.mapper.CartMapper">
 
-    <!-- カート追加 -->
     <insert id="insert">
-
-        INSERT INTO cart_items(
+        INSERT INTO cart_items (
             user_id,
             product_id,
             quantity
         )
-        VALUES(
+        VALUES (
             #{userId},
             #{productId},
             #{quantity}
         )
-
     </insert>
 
-    <!-- ユーザーのカート一覧取得 -->
     <select id="findByUserId"
-            parameterType="int"
             resultType="com.example.demo.entity.CartItem">
-
         SELECT
-            ci.id,
-            ci.user_id,
-            ci.product_id,
-            ci.quantity,
-            p.product_name,
-            p.price,
-            p.image_url
+            ci.id AS id,
+            ci.user_id AS userId,
+            ci.product_id AS productId,
+            ci.quantity AS quantity
         FROM cart_items ci
-        JOIN products p
-            ON ci.product_id = p.id
         WHERE ci.user_id = #{userId}
         ORDER BY ci.id
-
     </select>
 
-    <delete id="deleteByUserId"
-            parameterType="int">
+    <delete id="deleteByUserId">
         DELETE FROM cart_items
         WHERE user_id = #{userId}
-
-        <!-- DELETE FROM cart_items
-        WHERE user_id = #{userId}
-            id,
-            user_id,
-            product_id,
-            quantity
-        FROM cart_items
-        WHERE user_id = #{userId} -->
-
     </delete>
-    
 
-    <!-- 数量更新 -->
     <update id="updateQuantity">
-
         UPDATE cart_items
         SET quantity = #{quantity}
         WHERE id = #{cartId}
-
     </update>
 
-    <!-- カート削除 -->
     <delete id="delete">
-
         DELETE FROM cart_items
         WHERE id = #{cartId}
-
     </delete>
 
 </mapper>

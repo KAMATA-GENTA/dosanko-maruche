@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/_layout}">
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/_layout}">
 
 <head></head>
 
@@ -27,9 +29,9 @@
       </table>
 
       <div class="price-box">
-        <p>商品合計：<span th:text="${subtotal} + '円'"></span></p>
-        <p>送料：<span th:text="${shippingFee} + '円'"></span></p>
-        <p class="total">合計：<span th:text="${totalPrice} + '円'"></span></p>
+        <p>商品合計：<span th:text="${subtotal} + '円'">0円</span></p>
+        <p>送料：<span th:text="${shippingFee} + '円'">0円</span></p>
+        <p>合計：<span th:text="${totalPrice} + '円'">0円</span></p>
       </div>
 
       <a th:href="@{/treasure}" class="purchase-btn">
