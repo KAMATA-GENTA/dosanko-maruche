@@ -30,9 +30,7 @@ public class CartController {
 
 		List<CartItem> cartItems = cartMapper.findByUserId(userId);
 
-		int subtotal = cartItems.stream()
-				.mapToInt(CartItem::getSubtotal)
-				.sum();
+		int subtotal = cartItems.stream().mapToInt(CartItem::getSubtotal).sum();
 
 		int shippingFee = 800;
 

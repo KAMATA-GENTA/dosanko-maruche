@@ -16,9 +16,9 @@ public class CharacterService {
 	}
 
 	public String getCharacterImageByRegion(Region region) {
-		int count = orderDetailMapper.countByRegionId(region.getRegion_id());
+		int count = orderDetailMapper.countByRegionId(region.getId());
 
-		Character character = region.getCharaImage();
+		Character character = region.getCharacter();
 
 		if (count >= 10) {
 			return character.getAdultImageUrl();
@@ -30,6 +30,6 @@ public class CharacterService {
 	}
 
 	public int getOrderDetailCountByRegion(Region region) {
-		return orderDetailMapper.countByRegionId(region.getRegion_id());
+		return orderDetailMapper.countByRegionId(region.getId());
 	}
 }

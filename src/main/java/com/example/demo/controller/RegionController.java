@@ -5,8 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.entity.Product;
 import com.example.demo.enums.Region;
 import com.example.demo.service.CharacterService;
 import com.example.demo.service.ProductService;
@@ -32,10 +32,9 @@ public class RegionController {
 
 		model.addAttribute("region", region);
 		model.addAttribute("regionName", regionName);
-		model.addAttribute("products",
-				productService.getProductsByRegionIdAndCategoryId(region.getRegion_id(), categoryId));
+		model.addAttribute("products", productService.getProductsByRegionIdAndCategoryId(region.getId(), categoryId));
 
-		//キャラクター画像、地域idの値を渡して進化するかどうかの判定
+		// キャラクター画像、地域idの値を渡して進化するかどうかの判定
 		model.addAttribute("characterImage", characterService.getCharacterImageByRegion(region));
 		model.addAttribute("orderDetailCount", characterService.getOrderDetailCountByRegion(region));
 

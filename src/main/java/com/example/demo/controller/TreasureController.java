@@ -24,10 +24,7 @@ public class TreasureController {
 	private final OrderMapper orderMapper;
 	private final OrderDetailMapper orderDetailMapper;
 
-	public TreasureController(
-			CartMapper cartMapper,
-			OrderMapper orderMapper,
-			OrderDetailMapper orderDetailMapper) {
+	public TreasureController(CartMapper cartMapper, OrderMapper orderMapper, OrderDetailMapper orderDetailMapper) {
 
 		this.cartMapper = cartMapper;
 		this.orderMapper = orderMapper;
@@ -41,11 +38,7 @@ public class TreasureController {
 
 	@Transactional
 	@PostMapping("/treasure/result")
-	public String receiveTreasureResult(
-			String result,
-			int selectedBox,
-			int correctBox,
-			HttpSession session,
+	public String receiveTreasureResult(String result, int selectedBox, int correctBox, HttpSession session,
 			Model model) {
 
 		Integer userId = (Integer) session.getAttribute("userId");
@@ -57,9 +50,7 @@ public class TreasureController {
 
 		List<CartItem> cartItems = cartMapper.findByUserId(userId);
 
-		int subtotal = cartItems.stream()
-				.mapToInt(CartItem::getSubtotal)
-				.sum();
+		int subtotal = cartItems.stream().mapToInt(CartItem::getSubtotal).sum();
 
 		int baseShippingFee = 800;
 

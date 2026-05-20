@@ -13,16 +13,12 @@ public interface CartMapper {
 	List<CartItem> findByUserId(Integer userId);
 
 	void deleteByUserId(Integer userId);
+
 	// カート追加
-	void insert(@Param("userId") int userId,
-			@Param("productId") int productId,
-			@Param("quantity") int quantity);
-
-
+	void insert(@Param("userId") int userId, @Param("productId") int productId, @Param("quantity") int quantity);
 
 	// 数量更新
-	void updateQuantity(@Param("cartId") int cartId,
-			@Param("quantity") int quantity);
+	void updateQuantity(@Param("cartId") int cartId, @Param("quantity") int quantity);
 
 	// 削除
 	void delete(int cartId);
