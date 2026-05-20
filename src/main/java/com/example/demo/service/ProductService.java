@@ -37,8 +37,17 @@ public class ProductService {
 		return productMapper.findById(productId);
 	}
 
+	//フィルタリング
+	public List<Product> getProductsByRegionIdAndCategoryId(
+			Integer regionId,
+			Integer categoryId) {
+
+		return productMapper.findByRegionIdAndCategoryId(regionId, categoryId);
+	}
+
 	// カテゴリ別ランキングTOP3を取得
 	public List<RankingProduct> getRankingByCategoryId(Integer categoryId) {
 		return productMapper.findRankingByCategoryId(categoryId);
 	}
+
 }

@@ -17,11 +17,15 @@
         <result property="imageUrl" column="image_url"/>
     </resultMap>
 
+    <!-- 商品詳細 -->
     <select id="findById"
-        parameterType="int"
-        resultMap="productMap">
-        SELECT * FROM products
+            parameterType="int"
+            resultMap="productMap">
+
+        SELECT *
+        FROM products
         WHERE id = #{productId}
+
     </select>
 
     <!-- 全商品取得 -->
@@ -108,7 +112,20 @@
         FROM products
 
         WHERE category_id = #{categoryId}
+
     </select>
+
+    <!-- 地域＋カテゴリ検索 -->
+    <select id="findByRegionIdAndCategoryId"
+            resultType="com.example.demo.entity.Product">
+
+        SELECT *
+        FROM products
+        WHERE region_id = #{regionId}
+        AND category_id = #{categoryId}
+
+    </select>
+
     <!-- カテゴリ別ランキングTOP3取得 -->
     <select id="findRankingByCategoryId"
             parameterType="int"
@@ -150,5 +167,7 @@
         ORDER BY totalQuantity DESC
 
         LIMIT 3
+
     </select>
+
 </mapper>

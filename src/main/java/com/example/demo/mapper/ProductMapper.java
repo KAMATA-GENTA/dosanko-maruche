@@ -24,4 +24,9 @@ public interface ProductMapper {
 
 	// カテゴリ別ランキングTOP3を取得
 	List<RankingProduct> findRankingByCategoryId(Integer categoryId);
+
+	//地域idとcategory_idの取得
+	List<Product> findByRegionIdAndCategoryId(
+			Integer regionId,
+			Integer categoryId);
 }
