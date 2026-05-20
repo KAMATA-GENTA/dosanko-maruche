@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.CartItem;
@@ -26,6 +28,18 @@ public class CartService {
 		int newQuantity = existingItem.getQuantity() + quantity;
 
 		cartMapper.updateQuantity(existingItem.getId(), newQuantity);
+	}
+
+	public void mergeGuestCart(int userId, Map<Integer, Integer> guestCart) {
+
+		if (guestCart == null || guestCart.isEmpty()) {
+			return;
+		}
+
+		for (Integer productId : guestCart.keySet()) {
+			int quantity = guestCart.get(productId);
+			addToCart(userId, productId, quantity);
+		}
 	}
 
 	public void changeQuantity(int cartId, int quantity) {
