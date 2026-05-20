@@ -93,7 +93,7 @@ public class AuthController {
 
 			session.removeAttribute("guestCart");
 
-			return "redirect:/cart";
+			return "redirect:/my-page";
 		}
 
 		model.addAttribute("error", "メールアドレスまたはパスワードが間違っています。");

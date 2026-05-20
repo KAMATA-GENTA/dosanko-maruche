@@ -34,19 +34,19 @@
             </div>
 
 			<div class="ml-auto flex gap-4 px-5 items-center">
-			  <span th:if="${isLoggedIn}" class="font-light text-white">
+			  <span th:if="${session.username != null}" class="font-light text-white">
 			    こんにちは、
 			    <a href="/profile-information" class="font-bold text-yellow-400 hover:underline"
-			      th:text="${username} + 'さん'">usernameさん</a>
+			       th:text="${session.username} + 'さん'">usernameさん</a>
 			  </span>
-			  <a th:if="${isLoggedIn}" class="font-light text-white duration-100  hover:underline"
-			    href="/logout">Logout</a>
+			  
+			  <a class="font-light text-white duration-100 hover:underline" href="/cart">Cart</a>
 
-			  <a th:unless="${isLoggedIn}" class="font-light text-white duration-100  hover:underline"
-			    href="/login">Login</a>
-			  <span th:unless="${isLoggedIn}" class="text-white">&#124;</span>
-			  <a th:unless="${isLoggedIn}" class="font-light text-white duration-100  hover:underline"
-			    href="/sign-up">Sign Up</a>
+			  <a th:if="${session.username == null}" class="font-light text-white duration-100 hover:underline"
+			     href="/login">Login</a>
+			  <span th:if="${session.username == null}" class="text-white">&#124;</span>
+			  <a th:if="${session.username == null}" class="font-light text-white duration-100 hover:underline"
+			     href="/sign-up">Sign Up</a>
 			</div>
         </div>
     </nav>
