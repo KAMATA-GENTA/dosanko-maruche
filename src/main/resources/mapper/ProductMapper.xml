@@ -22,7 +22,6 @@
         <result property="imageUrl" column="image_url"/>
     </resultMap>
 
-<<<<<<< HEAD
     <!-- 商品IDに対応する商品を1件取得 -->
     <select id="findById"
             parameterType="int"
@@ -35,14 +34,6 @@
             price,
             description,
             image_url
-=======
-    <!-- 商品詳細 -->
-    <select id="findById"
-            parameterType="int"
-            resultMap="productMap">
-
-        SELECT *
->>>>>>> origin/main
         FROM products
         WHERE id = #{productId}
 
