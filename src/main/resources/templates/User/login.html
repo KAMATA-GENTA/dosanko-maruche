@@ -9,15 +9,16 @@
 <body>
 	<div layout:fragment="content">
 
-		<main class="mx-auto w-full max-w-[1200px] px-5 py-10">
-			<section class="grid gap-6 lg:grid-cols-[1fr_430px]">
+		<section class="mx-auto w-full max-w-[1200px] px-5 py-10">
 
-				<div class="rounded-2xl border border-base-300 bg-base-100 p-8 shadow-sm md:p-11">
+			<div class="grid gap-6 lg:grid-cols-2">
+
+				<div class="rounded-2xl border border-base-300 bg-base-100 p-8 shadow-sm">
 					<div class="badge badge-primary badge-outline mb-5">
 						北海道のおいしさを、もっと身近に
 					</div>
 
-					<h1 class="text-3xl font-bold leading-snug text-base-content md:text-4xl">
+					<h1 class="text-3xl font-black leading-snug text-base-content md:text-4xl">
 						どさん娘マルシェへ<br>
 						おかえりなさい
 					</h1>
@@ -34,8 +35,8 @@
 					</div>
 				</div>
 
-				<div class="rounded-2xl border border-base-300 bg-base-100 p-7 shadow-sm md:p-8">
-					<h2 class="text-3xl font-bold text-base-content">
+				<div class="rounded-2xl border border-base-300 bg-base-100 p-8 shadow-sm">
+					<h2 class="text-3xl font-black text-base-content">
 						ログイン
 					</h2>
 
@@ -43,7 +44,7 @@
 						メールアドレスとパスワードを入力してください。
 					</p>
 
-					<form class="mt-7 grid gap-4" th:action="@{/login}" th:object="${loginForm}" method="post">
+					<form class="mt-7 flex flex-col gap-4" th:action="@{/login}" th:object="${loginForm}" method="post">
 
 						<div class="form-control">
 							<label class="label" for="email">
@@ -66,7 +67,8 @@
 						</button>
 					</form>
 
-					<div class="mt-5 flex justify-between gap-4 text-sm text-base-content/70">
+					<div
+						class="mt-5 flex flex-col gap-3 text-sm text-base-content/70 sm:flex-row sm:items-center sm:justify-between">
 						<label class="flex items-center gap-2">
 							<input type="checkbox" class="checkbox checkbox-primary checkbox-sm">
 							<span>ログイン状態を保持</span>
@@ -87,8 +89,9 @@
 					</div>
 				</div>
 
-			</section>
-		</main>
+			</div>
+
+		</section>
 
 	</div>
 </body>
