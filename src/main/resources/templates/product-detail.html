@@ -1,138 +1,179 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/_layout}">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/_layout}">
 
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="/css/output.css" />
-	<title>Insert title here</title>
-	<style>
-		.star-rating {
-			position: relative;
-			display: inline-block;
-			font-size: 20px;
-			line-height: 1;
-			color: #ddd;
-			/* 空星 */
-		}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/output.css" />
+    <title>商品詳細</title>
 
-		.star-rating::before {
-			content: "★★★★★";
-		}
+    <style>
+        .star-rating {
+            position: relative;
+            display: inline-block;
+            font-size: 20px;
+            line-height: 1;
+            color: #ddd;
+        }
 
-		.star-rating::after {
-			content: "★★★★★";
-			position: absolute;
-			left: 0;
-			top: 0;
-			width: var(--rating-percent);
-			overflow: hidden;
-			color: gold;
-			white-space: nowrap;
-		}
-	</style>
+        .star-rating::before {
+            content: "★★★★★";
+        }
+
+        .star-rating::after {
+            content: "★★★★★";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: var(--rating-percent);
+            overflow: hidden;
+            color: gold;
+            white-space: nowrap;
+        }
+    </style>
 </head>
 
 <body>
-	<div layout:fragment="content">
+<div layout:fragment="content">
 
-		<h1 th:text="${product.name}"></h1>
+    <!-- 商品名 -->
+    <h1 th:text="${product.name}">商品名</h1>
 
-		<img th:src="${product.imageUrl}">
+    <!-- 商品画像 -->
+    <img th:src="${product.imageUrl}" alt="商品画像">
 
-		<p>価格: <span th:text="${product.price}"></span>円</p>
-		<p>送料: 800円</p>
+    <!-- enumからProductServiceでセットされた地域名 -->
+    <p>
+        地域:
+        <span th:text="${product.regionName}">地域名</span>
+    </p>
 
-		<p th:text="${product.description}"></p>
+    <!-- enumからProductServiceでセットされたカテゴリ名 -->
+    <p>
+        カテゴリ:
+        <span th:text="${product.categoryName}">カテゴリ名</span>
+    </p>
 
-		<!-- 平均星表示 -->
-		<div style="display:flex; align-items:center; gap:10px;">
+    <!-- 価格 -->
+    <p>
+        価格:
+        <span th:text="${product.price}">0</span>円
+    </p>
 
-			<span class="star-rating" th:style="'--rating-percent:' + (${averageRating} * 20) + '%'">
-			</span>
+    <p>送料: 800円</p>
 
-			<span th:text="${averageRating}"></span>
+    <!-- 商品説明 -->
+    <p th:text="${product.description}">商品説明</p>
 
-		</div>
+    <!-- 平均星表示 -->
+    <div style="display:flex; align-items:center; gap:10px;">
 
-		<a href="#review-section">レビューはこちら</a>
+        <!-- averageRatingを星の幅に変換して表示 -->
+        <span class="star-rating"
+              th:style="'--rating-percent:' + (${averageRating} * 20) + '%'">
+        </span>
 
-		<!-- カート追加 -->
-		<form th:action="@{/product/{id}/cart(id=${product.id})}" method="post">
-			<input type="number" name="quantity" value="1" min="1">
-			<button type="submit">カートに追加</button>
-		</form>
+        <span th:text="${averageRating}">0.0</span>
 
-		<hr>
+    </div>
 
-		<h2 id="review-section">レビュー</h2>
+    <a href="#review-section">レビューはこちら</a>
 
-		<!-- レビューの並び替え・星の数フィルタ -->
-		<form th:action="@{/product/{id}(id=${product.id})}" method="get">
-			<label for="sort">並び順</label>
-			<select id="sort" name="sort">
-				<option value="new" th:selected="${selectedSort == 'new'}">新しい順</option>
-				<option value="old" th:selected="${selectedSort == 'old'}">古い順</option>
-				<option value="high" th:selected="${selectedSort == 'high'}">評価が高い順</option>
-				<option value="low" th:selected="${selectedSort == 'low'}">評価が低い順</option>
-			</select>
+    <!-- カート追加 -->
+    <form th:action="@{/products/{id}/cart(id=${product.id})}" method="post">
+        <input type="number" name="quantity" value="1" min="1">
+        <button type="submit">カートに追加</button>
+    </form>
 
-			<label for="rating">星の数</label>
-			<select id="rating" name="rating">
-				<option value="" th:selected="${selectedRating == null}">すべて</option>
-				<option value="5" th:selected="${selectedRating == 5}">★5</option>
-				<option value="4" th:selected="${selectedRating == 4}">★4</option>
-				<option value="3" th:selected="${selectedRating == 3}">★3</option>
-				<option value="2" th:selected="${selectedRating == 2}">★2</option>
-				<option value="1" th:selected="${selectedRating == 1}">★1</option>
-			</select>
+    <hr>
 
-			<button type="submit">表示を変更</button>
-			<a th:href="@{/product/{id}(id=${product.id})}">条件をリセット</a>
-		</form>
+    <h2 id="review-section">レビュー</h2>
 
-		<div th:if="${#lists.isEmpty(reviews)}">
-			<p>条件に合うレビューはありません。</p>
-		</div>
+    <!-- レビューの並び替え・星の数フィルタ -->
+    <form th:action="@{/products/{id}(id=${product.id})}" method="get">
 
-		<div th:each="review : ${reviews}">
-			<p>
-				投稿者：
-				<span th:text="${review.username != null ? review.username : 'ゲスト'}"></span>
-			</p>
+        <label for="sort">並び順</label>
+        <select id="sort" name="sort">
+            <option value="new" th:selected="${selectedSort == 'new'}">新しい順</option>
+            <option value="old" th:selected="${selectedSort == 'old'}">古い順</option>
+            <option value="high" th:selected="${selectedSort == 'high'}">評価が高い順</option>
+            <option value="low" th:selected="${selectedSort == 'low'}">評価が低い順</option>
+        </select>
 
-			<div>
-				<span th:each="i : ${#numbers.sequence(1,5)}">
-					<span th:text="${i <= review.rating ? '★' : '☆'}"></span>
-				</span>
-			</div>
+        <label for="rating">星の数</label>
+        <select id="rating" name="rating">
+            <option value="" th:selected="${selectedRating == null}">すべて</option>
+            <option value="5" th:selected="${selectedRating == 5}">★5</option>
+            <option value="4" th:selected="${selectedRating == 4}">★4</option>
+            <option value="3" th:selected="${selectedRating == 3}">★3</option>
+            <option value="2" th:selected="${selectedRating == 2}">★2</option>
+            <option value="1" th:selected="${selectedRating == 1}">★1</option>
+        </select>
 
-			<!-- レビュー投稿日表示：既存のcreated_atを使うためDB設計の変更は不要 -->
-			<p th:if="${review.createdAt != null}">
-				投稿日：<span th:text="${#temporals.format(review.createdAt, 'M月d日')}"></span>
-			</p>
+        <button type="submit">表示を変更</button>
 
-			<p th:text="${review.comment}"></p>
-		</div>
+        <a th:href="@{/products/{id}(id=${product.id})}">
+            条件をリセット
+        </a>
+    </form>
 
-		<hr>
+    <!-- レビューが0件の場合 -->
+    <div th:if="${#lists.isEmpty(reviews)}">
+        <p>条件に合うレビューはありません。</p>
+    </div>
 
-		<h3>レビュー投稿</h3>
+    <!-- レビュー一覧 -->
+    <div th:each="review : ${reviews}">
 
-		<form th:action="@{/product/{id}/review(id=${product.id})}" method="post" th:object="${reviewForm}">
-			<select th:field="*{rating}">
-				<option value="1">★1</option>
-				<option value="2">★2</option>
-				<option value="3">★3</option>
-				<option value="4">★4</option>
-				<option value="5">★5</option>
-			</select>
+        <p>
+            投稿者：
+            <span th:text="${review.username != null ? review.username : 'ゲスト'}">
+                ゲスト
+            </span>
+        </p>
 
-			<textarea th:field="*{comment}" placeholder="レビューを入力してください"></textarea>
+        <div>
+            <span th:each="i : ${#numbers.sequence(1,5)}">
+                <span th:text="${i <= review.rating ? '★' : '☆'}"></span>
+            </span>
+        </div>
 
-			<button type="submit">投稿</button>
-		</form>
-	</div>
+        <p th:if="${review.createdAt != null}">
+            投稿日：
+            <span th:text="${#temporals.format(review.createdAt, 'M月d日')}">
+                投稿日
+            </span>
+        </p>
+
+        <p th:text="${review.comment}">レビューコメント</p>
+    </div>
+
+    <hr>
+
+    <h3>レビュー投稿</h3>
+
+    <!-- レビュー投稿 -->
+    <form th:action="@{/products/{id}/review(id=${product.id})}"
+          method="post"
+          th:object="${reviewForm}">
+
+        <select th:field="*{rating}">
+            <option value="1">★1</option>
+            <option value="2">★2</option>
+            <option value="3">★3</option>
+            <option value="4">★4</option>
+            <option value="5">★5</option>
+        </select>
+
+        <textarea th:field="*{comment}"
+                  placeholder="レビューを入力してください">
+        </textarea>
+
+        <button type="submit">投稿</button>
+    </form>
+
+</div>
 </body>
 
 </html>
