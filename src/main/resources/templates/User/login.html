@@ -53,19 +53,13 @@
 								placeholder="you@example.com">
 						</div>
 
-          <button class="ml-auto h-full bg-neutral px-4 hover:bg-yellow-300">
-            Search
-          </button>
-        </div>
-        <ul class="text-center font-medium">
-          <li class="py-2"><a href="/index">Home</a></li>
-          <li class="py-2"><a href="catalog">Catalog</a></li>
-          <li class="py-2"><a href="about-us">About Us</a></li>
-          <li class="py-2"><a href="contact-us">Contact Us</a></li>
-        </ul>
-      </div>
-    </section>
-    <!-- /Burger menu  -->
+						<div class="form-control">
+							<label class="label" for="password">
+								<span class="label-text font-bold">パスワード</span>
+							</label>
+							<input id="password" class="input input-bordered w-full" th:field="*{password}"
+								type="password" placeholder="パスワードを入力">
+						</div>
 
 						<button class="btn btn-primary mt-3 w-full" type="submit">
 							ログイン
@@ -96,46 +90,7 @@
 			</section>
 		</main>
 
-        <form class="mt-6 flex flex-col" th:action="@{/login}" th:object="${loginForm}" method="post">
-          <label for="email">Email Address</label>
-          <input class="mb-3 mt-3 border px-4 py-2" th:field="*{email}" type="email"
-            placeholder="youremail@domain.com" />
-
-          <label for="email">Password</label>
-          <input class="mt-3 border px-4 py-2" type="password" th:field="*{password}"
-            placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;" />
-          <button class="my-5 w-full bg-neutral py-2 text-white" type="submit">
-            LOGIN
-          </button>
-        </form>
-
-        <div class="mt-4 flex justify-between">
-          <div class="flex gap-2">
-            <input type="checkbox" />
-            <label for="checkbox">Remember me</label>
-          </div>
-          <a href="#" class="text-neutral">Forgot password</a>
-        </div>
-
-
-
-        <p class="text-center text-gray-500">OR LOGIN WITH</p>
-
-        <div class="my-5 flex gap-2">
-          <button class="w-1/2 bg-blue-800 py-2 text-white">FACEBOOK</button>
-          <button class="w-1/2 bg-orange-500 py-2 text-white">GOOGLE</button>
-        </div>
-
-        <p class="text-center">
-          Don`t have account?
-          <a href="sign-up" class="text-neutral">Register now</a>
-        </p>
-      </div>
-    </section>
-    <!-- /Login Card  -->
-
-    <!-- Desktop Footer  -->
-  </div>
+	</div>
 </body>
 
 </html>
