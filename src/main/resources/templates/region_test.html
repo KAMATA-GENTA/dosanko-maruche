@@ -1,149 +1,403 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layouts/_layout}">
+	layout:decorate="~{layouts/_layout}">
 
 <head>
-    <link rel="stylesheet" href="/css/regions.css">
+	<style>
+		:root {
+			--sky-main: #2f7dd3;
+			--sky-dark: #1e5fa8;
+			--sky-soft: #eff8ff;
+			--sky-border: #d7eaff;
+			--text-main: #142033;
+			--text-sub: #526173;
+		}
+
+		.region-page {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 32px 20px 64px;
+			color: var(--text-main);
+		}
+
+		.region-hero {
+			background: rgba(255, 255, 255, 0.96);
+			border: 1px solid var(--sky-border);
+			border-radius: 20px;
+			box-shadow: 0 14px 32px rgba(43, 107, 173, 0.08);
+			overflow: hidden;
+			margin-bottom: 34px;
+		}
+
+		.region-image {
+			width: 100%;
+			height: 280px;
+			object-fit: cover;
+			display: block;
+		}
+
+		.region-info {
+			display: grid;
+			grid-template-columns: 1fr 220px;
+			gap: 24px;
+			align-items: center;
+			padding: 28px;
+		}
+
+		.region-title {
+			margin: 0;
+			font-size: 34px;
+			font-weight: 900;
+			color: #132236;
+		}
+
+		.region-description {
+			margin-top: 14px;
+			color: var(--text-sub);
+			font-size: 16px;
+			line-height: 1.9;
+		}
+
+		.character-image {
+			width: 180px;
+			height: 180px;
+			object-fit: contain;
+			justify-self: center;
+			filter: drop-shadow(0 14px 20px rgba(37, 91, 145, 0.12));
+		}
+
+		.section-title {
+			margin: 0 0 22px;
+			font-size: 28px;
+			font-weight: 900;
+			color: var(--sky-main);
+		}
+
+		.ranking-section,
+		.category-section,
+		.regionProduct-section {
+			margin-top: 42px;
+		}
+
+		.ranking-area {
+			display: grid;
+			gap: 24px;
+		}
+
+		.ranking-block {
+			background: rgba(255, 255, 255, 0.96);
+			border: 1px solid var(--sky-border);
+			border-radius: 20px;
+			box-shadow: 0 14px 32px rgba(43, 107, 173, 0.08);
+			padding: 24px;
+		}
+
+		.ranking-block h2 {
+			margin: 0 0 18px;
+			font-size: 22px;
+			font-weight: 900;
+			color: var(--sky-main);
+		}
+
+		.card-list {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 20px;
+		}
+
+		.product-card {
+			background: #ffffff;
+			border: 1px solid var(--sky-border);
+			border-radius: 18px;
+			overflow: hidden;
+			box-shadow: 0 8px 22px rgba(43, 107, 173, 0.06);
+			transition: 0.18s ease;
+		}
+
+		.product-card:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 14px 28px rgba(43, 107, 173, 0.1);
+		}
+
+		.rank-badge {
+			display: inline-flex;
+			margin: 14px 14px 0;
+			padding: 7px 12px;
+			border-radius: 999px;
+			background: linear-gradient(135deg, #3587e5, #1f6fc7);
+			color: #ffffff;
+			font-size: 14px;
+			font-weight: 900;
+		}
+
+		.product-image,
+		.product-card img {
+			width: 100%;
+			height: 180px;
+			object-fit: cover;
+			display: block;
+			background: linear-gradient(145deg, #ffffff, #f1f9ff);
+		}
+
+		.product-name,
+		.product-card h3 {
+			margin: 14px 16px 6px;
+			font-size: 17px;
+			font-weight: 900;
+			color: #132236;
+			line-height: 1.5;
+		}
+
+		.product-area,
+		.product-card p:not(.price) {
+			margin: 0 16px;
+			color: var(--text-sub);
+			font-size: 14px;
+		}
+
+		.product-price,
+		.price {
+			margin: 10px 16px 0;
+			color: var(--sky-main);
+			font-size: 21px;
+			font-weight: 900;
+		}
+
+		.product-card a {
+			display: block;
+			margin: 16px;
+			padding: 12px 14px;
+			border-radius: 12px;
+			text-align: center;
+			background: linear-gradient(135deg, #3587e5, #1f6fc7);
+			color: #ffffff;
+			font-weight: 900;
+			text-decoration: none;
+			box-shadow: 0 10px 22px rgba(47, 125, 211, 0.18);
+			transition: 0.18s ease;
+		}
+
+		.product-card a:hover {
+			transform: translateY(-1px);
+			background: linear-gradient(135deg, #2476d4, #155da9);
+		}
+
+		.category-list {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 12px;
+		}
+
+		.category-card {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			padding: 12px 22px;
+			border: 1px solid var(--sky-border);
+			border-radius: 999px;
+			background: #ffffff;
+			color: var(--sky-main);
+			font-size: 15px;
+			font-weight: 900;
+			text-decoration: none;
+			transition: 0.18s ease;
+		}
+
+		.category-card:hover,
+		.category-card.active {
+			background: linear-gradient(135deg, #3587e5, #1f6fc7);
+			color: #ffffff;
+			border-color: transparent;
+		}
+
+		.product-list {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+			gap: 22px;
+		}
+
+		@media (max-width: 900px) {
+			.region-info {
+				grid-template-columns: 1fr;
+			}
+
+			.character-image {
+				width: 150px;
+				height: 150px;
+			}
+
+			.card-list {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		@media (max-width: 640px) {
+			.region-page {
+				padding: 24px 14px 48px;
+			}
+
+			.region-image {
+				height: 200px;
+			}
+
+			.region-info {
+				padding: 22px;
+			}
+
+			.region-title {
+				font-size: 28px;
+			}
+
+			.section-title {
+				font-size: 24px;
+			}
+		}
+	</style>
 </head>
 
+<body>
+	<div layout:fragment="content">
+		<main class="region-page">
+
+			<section class="region-hero">
+				<img class="region-image" th:src="@{'/images/' + ${region.regionImage}}" alt="地域画像">
+
+				<div class="region-info">
+					<div>
+						<h1 class="region-title" th:text="${region.name}">
+							地域名
+						</h1>
+
+						<p class="region-description" th:text="${region.description}">
+							地域説明
+						</p>
+					</div>
+
+					<img class="character-image" th:src="@{'/images/Character/' + ${region.character.childImageUrl}}"
+						alt="キャラクター画像">
+				</div>
+			</section>
 
 
+			<section class="ranking-section">
+				<h1 class="section-title">カテゴリ別ランキング</h1>
 
-<body th:style="'background-color:' + ${region.backgroundColor}">
-    <div layout:fragment="content">
+				<div class="ranking-area">
 
+					<div class="ranking-block">
+						<h2>海産物ランキング</h2>
 
-        <h1 th:text="${region.name}">地域名</h1>
-        <img th:src="@{'/images/' + ${region.regionImage}}" alt="地域画像" class="region-image">
-		
-            <img th:src="@{'/images/Character/' + ${characterImage}}" alt="キャラクター画像" width="300">
-        
+						<div class="card-list">
+							<div class="product-card">
+								<div class="rank-badge">1位</div>
+								<img src="/images/products/kaisen.jpg" alt="商品画像" class="product-image">
+								<div class="product-name">海鮮丼セット</div>
+								<div class="product-area">函館</div>
+								<div class="product-price">¥3,500</div>
+							</div>
 
-                <p th:text="${region.description}">
-                    地域説明
-                </p>
-                <section class="ranking-section">
+							<div class="product-card">
+								<div class="rank-badge">2位</div>
+								<img src="/images/products/hotate.jpg" alt="商品画像" class="product-image">
+								<div class="product-name">ホタテセット</div>
+								<div class="product-area">稚内</div>
+								<div class="product-price">¥2,800</div>
+							</div>
 
-                    <h1 class="ranking-title">カテゴリ別ランキング</h1>
+							<div class="product-card">
+								<div class="rank-badge">3位</div>
+								<img src="/images/products/kani.jpg" alt="商品画像" class="product-image">
+								<div class="product-name">カニ詰め合わせ</div>
+								<div class="product-area">小樽</div>
+								<div class="product-price">¥5,000</div>
+							</div>
+						</div>
+					</div>
 
-                    <div class="ranking-area">
+					<div class="ranking-block">
+						<h2>畜産物ランキング</h2>
 
-                        <div class="ranking-block">
-                            <h2>海産物ランキング</h2>
+						<div class="card-list">
+							<div class="product-card">
+								<div class="rank-badge">1位</div>
+								<img src="/images/products/jingisukan.jpg" alt="商品画像" class="product-image">
+								<div class="product-name">ジンギスカン</div>
+								<div class="product-area">帯広</div>
+								<div class="product-price">¥2,980</div>
+							</div>
+						</div>
+					</div>
 
-                            <div class="card-list">
-                                <div class="product-card">
-                                    <div class="rank-badge">1位</div>
-                                    <img src="/images/products/kaisen.jpg" alt="商品画像" class="product-image">
-                                    <div class="product-name">海鮮丼セット</div>
-                                    <div class="product-area">函館</div>
-                                    <div class="product-price">¥3,500</div>
-                                </div>
-
-                                <div class="product-card">
-                                    <div class="rank-badge">2位</div>
-                                    <img src="/images/products/hotate.jpg" alt="商品画像" class="product-image">
-                                    <div class="product-name">ホタテセット</div>
-                                    <div class="product-area">稚内</div>
-                                    <div class="product-price">¥2,800</div>
-                                </div>
-
-                                <div class="product-card">
-                                    <div class="rank-badge">3位</div>
-                                    <img src="/images/products/kani.jpg" alt="商品画像" class="product-image">
-                                    <div class="product-name">カニ詰め合わせ</div>
-                                    <div class="product-area">小樽</div>
-                                    <div class="product-price">¥5,000</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="ranking-block">
-                            <h2>畜産物ランキング</h2>
-
-                            <div class="card-list">
-                                <div class="product-card">
-                                    <div class="rank-badge">1位</div>
-                                    <img src="/images/products/jingisukan.jpg" alt="商品画像" class="product-image">
-                                    <div class="product-name">ジンギスカン</div>
-                                    <div class="product-area">帯広</div>
-                                    <div class="product-price">¥2,980</div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </section>
+				</div>
+			</section>
 
 
+			<section class="category-section">
+				<h2 class="section-title">カテゴリから探す</h2>
 
-                <!-- 商品カテゴリ -->
-                <section class="category-section">
-                    <h2>カテゴリから探す</h2>
+				<div class="category-list">
 
-                    <div class="category-list">
+					<a th:href="@{/region/{regionName}(regionName=${regionName})} + '#regionProduct-section'"
+						class="category-card" th:classappend="${selectedCategoryId == null} ? ' active'">
+						すべて
+					</a>
 
-                        <a th:href="@{/region/{regionName}(regionName=${regionName})} + '#regionProduct-section'"
-                            class="category-card"
-							th:classappend="${selectedCategoryId == null} ? ' active'">
-                            すべて
-                        </a>
+					<a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=1)} + '#regionProduct-section'"
+						class="category-card" th:classappend="${selectedCategoryId == 1} ? ' active'">
+						海産物
+					</a>
 
-                        <a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=1)} + '#regionProduct-section'"
-                            class="category-card" th:classappend="${selectedCategoryId == 1} ? ' active'">
-                            海産物
-                        </a>
+					<a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=2)} + '#regionProduct-section'"
+						class="category-card" th:classappend="${selectedCategoryId == 2} ? ' active'">
+						畜産物
+					</a>
 
-                        <a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=3)} + '#regionProduct-section'"
-                            class="category-card" th:classappend="${selectedCategoryId == 3} ? ' active'">
-                            畜産物
-                        </a>
+					<a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=3)} + '#regionProduct-section'"
+						class="category-card" th:classappend="${selectedCategoryId == 3} ? ' active'">
+						農産物
+					</a>
 
-                        <a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=2)} + '#regionProduct-section'"
-                            class="category-card" th:classappend="${selectedCategoryId == 2} ? ' active'">
-                            農産物
-                        </a>
+					<a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=4)} + '#regionProduct-section'"
+						class="category-card" th:classappend="${selectedCategoryId == 4} ? ' active'">
+						お土産
+					</a>
 
-                        <a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=4)} + '#regionProduct-section'"
-                            class="category-card" th:classappend="${selectedCategoryId == 4} ? ' active'">
-                            お土産
-                        </a>
-                    </div>
-                </section>
+				</div>
+			</section>
 
 
-                <!-- 商品一覧 -->
-                <section class="regionProduct-section" id="regionProduct-section">
-                    <h2>商品一覧</h2>
+			<section class="regionProduct-section" id="regionProduct-section">
+				<h2 class="section-title">商品一覧</h2>
 
-                    <div class="product-list">
+				<div class="product-list">
 
-                        <div class="product-card" th:each="product : ${products}">
+					<div class="product-card" th:each="product : ${products}">
 
-                            <img th:src="${product.imageUrl}" alt="商品画像">
+						<img th:src="${product.imageUrl}" alt="商品画像">
 
-                            <h3 th:text="${product.name}">
-                                商品名
-                            </h3>
+						<h3 th:text="${product.name}">
+							商品名
+						</h3>
 
+						<p th:text="'地域ID：' + ${product.regionId}">
+							地域
+						</p>
 
-                            <p class="price" th:text="'¥' + ${product.price}">
-                                ¥0
-                            </p>
+						<p class="price" th:text="'¥' + ${product.price}">
+							¥0
+						</p>
 
-                            <a th:href="@{/products/{id}(id=${product.id})}">
-                                詳細を見る
-                            </a>
+						<a th:href="@{/products/{id}(id=${product.id})}">
+							詳細を見る
+						</a>
 
-                        </div>
+					</div>
 
-                    </div>
-                </section>
+				</div>
+			</section>
 
-            </section>
-    </div>
-
+		</main>
+	</div>
 </body>
 
 </html>
