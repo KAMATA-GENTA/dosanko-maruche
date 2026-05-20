@@ -59,11 +59,7 @@ public class TreasureController {
 
 	@Transactional
 	@PostMapping("/treasure/result")
-	public String receiveTreasureResult(
-			String result,
-			int selectedBox,
-			int correctBox,
-			HttpSession session,
+	public String receiveTreasureResult(String result, int selectedBox, int correctBox, HttpSession session,
 			Model model) {
 
 		Integer userId = (Integer) session.getAttribute("userId");
@@ -75,6 +71,7 @@ public class TreasureController {
 		List<CartItem> cartItems = cartMapper.findByUserId(userId);
 
 		List<CartDisplayItem> displayItems = new ArrayList<>();
+
 
 		for (CartItem cartItem : cartItems) {
 

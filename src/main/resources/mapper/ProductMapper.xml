@@ -24,19 +24,6 @@
         WHERE id = #{productId}
     </select>
 
-    <!-- 全商品取得 -->
-    <select id="findAll"
-            resultType="com.example.demo.entity.Product">
-
-        SELECT
-            id,
-            region_id AS regionId,
-            category_id AS categoryId,
-            product_name AS name,
-            price,
-            description,
-            image_url AS imageUrl,
-
  <!-- 全商品取得 -->
  <select id="findAll"
             resultType="com.example.demo.entity.Product">
