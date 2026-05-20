@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/_layout}">
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/_layout}">
 
-<head></head>
+<head>
+  <title>カート</title>
+</head>
 
 <body>
   <div layout:fragment="content">
@@ -10,7 +14,11 @@
 
       <h1>カート</h1>
 
-      <table>
+      <div th:if="${#lists.isEmpty(cartItems)}">
+        <p>カートは空です</p>
+      </div>
+
+      <table th:if="${!#lists.isEmpty(cartItems)}">
         <tr>
           <th>商品名</th>
           <th>価格</th>
@@ -21,18 +29,36 @@
         <tr th:each="item : ${cartItems}">
           <td th:text="${item.productName}">商品名</td>
           <td th:text="${item.price} + '円'">0円</td>
-          <td th:text="${item.quantity}">1</td>
+
+          <td>
+            <form th:action="@{/cart/change}" method="post" style="display:inline;">
+              <input type="hidden" name="cartId" th:value="${item.cartId}">
+              <input type="hidden" name="quantity" th:value="${item.quantity - 1}">
+              <button type="submit">−</button>
+            </form>
+
+            <span th:text="${item.quantity}">1</span>
+
+            <form th:action="@{/cart/change}" method="post" style="display:inline;">
+              <input type="hidden" name="cartId" th:value="${item.cartId}">
+              <input type="hidden" name="quantity" th:value="${item.quantity + 1}">
+              <button type="submit">＋</button>
+            </form>
+          </td>
+
           <td th:text="${item.subtotal} + '円'">0円</td>
         </tr>
       </table>
 
-      <div class="price-box">
-        <p>商品合計：<span th:text="${subtotal} + '円'"></span></p>
-        <p>送料：<span th:text="${shippingFee} + '円'"></span></p>
-        <p class="total">合計：<span th:text="${totalPrice} + '円'"></span></p>
+      <div class="price-box" th:if="${!#lists.isEmpty(cartItems)}">
+        <p>商品合計：<span th:text="${subtotal} + '円'">0円</span></p>
+        <p>送料：<span th:text="${shippingFee} + '円'">0円</span></p>
+        <p>合計：<span th:text="${totalPrice} + '円'">0円</span></p>
       </div>
 
-      <a th:href="@{/treasure}" class="purchase-btn">
+      <a th:if="${!#lists.isEmpty(cartItems)}"
+         th:href="@{/treasure}"
+         class="purchase-btn">
         購入へ進む
       </a>
 
