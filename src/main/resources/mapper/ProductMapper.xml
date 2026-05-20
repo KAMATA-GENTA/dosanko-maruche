@@ -25,6 +25,92 @@
 
 </select>
 
+ <!-- 全商品取得 -->
+ <select id="findAll"
+            resultType="com.example.demo.entity.Product">
+
+        SELECT
+            id,
+            region_id AS regionId,
+            category_id AS categoryId,
+            product_name AS name,
+            price,
+            description,
+            image_url AS imageUrl,
+
+            CASE region_id
+                WHEN 1 THEN '札幌'
+                WHEN 2 THEN '小樽'
+                WHEN 3 THEN '函館'
+                WHEN 4 THEN '北見'
+                WHEN 5 THEN '帯広'
+                WHEN 6 THEN '稚内'
+                ELSE '不明'
+            END AS regionName
+
+        FROM products
+
+    </select>
+
+    <!-- 地域検索 -->
+    <select id="findByRegionId"
+            parameterType="int"
+            resultType="com.example.demo.entity.Product">
+
+        SELECT
+            id,
+            region_id AS regionId,
+            category_id AS categoryId,
+            product_name AS name,
+            price,
+            description,
+            image_url AS imageUrl,
+
+            CASE region_id
+                WHEN 1 THEN '札幌'
+                WHEN 2 THEN '小樽'
+                WHEN 3 THEN '函館'
+                WHEN 4 THEN '北見'
+                WHEN 5 THEN '帯広'
+                WHEN 6 THEN '稚内'
+                ELSE '不明'
+            END AS regionName
+
+        FROM products
+
+        WHERE region_id = #{regionId}
+
+    </select>
+
+    <!-- カテゴリ検索 -->
+    <select id="findByCategoryId"
+            parameterType="int"
+            resultType="com.example.demo.entity.Product">
+
+        SELECT
+            id,
+            region_id AS regionId,
+            category_id AS categoryId,
+            product_name AS name,
+            price,
+            description,
+            image_url AS imageUrl,
+
+            CASE region_id
+                WHEN 1 THEN '札幌'
+                WHEN 2 THEN '小樽'
+                WHEN 3 THEN '函館'
+                WHEN 4 THEN '北見'
+                WHEN 5 THEN '帯広'
+                WHEN 6 THEN '稚内'
+                ELSE '不明'
+            END AS regionName
+
+        FROM products
+
+        WHERE category_id = #{categoryId}
+        
+<!--地域詳細カテゴリ検索-->
 <select id="findByRegionIdAndCategoryId"
 	resultType="com.example.demo.entity.Product">
 
@@ -34,5 +120,48 @@
 	AND category_id = #{categoryId}
 
 </select>
+
+<!-- カテゴリ別ランキングTOP3取得 -->
+    <select id="findRankingByCategoryId"
+            parameterType="int"
+            resultType="com.example.demo.entity.RankingProduct">
+
+        SELECT
+            p.id,
+            p.product_name AS productName,
+            p.price,
+            p.image_url AS imageUrl,
+            p.region_id AS regionId,
+
+            CASE p.region_id
+                WHEN 1 THEN '札幌'
+                WHEN 2 THEN '小樽'
+                WHEN 3 THEN '函館'
+                WHEN 4 THEN '北見'
+                WHEN 5 THEN '帯広'
+                WHEN 6 THEN '稚内'
+                ELSE '不明'
+            END AS regionName,
+
+            SUM(od.quantity) AS totalQuantity
+
+        FROM products p
+
+        INNER JOIN order_details od
+            ON p.id = od.product_id
+
+        WHERE p.category_id = #{categoryId}
+
+        GROUP BY
+            p.id,
+            p.product_name,
+            p.price,
+            p.image_url,
+            p.region_id
+
+        ORDER BY totalQuantity DESC
+
+        LIMIT 3
+    </select>
 
 </mapper>
