@@ -55,6 +55,6 @@ public class HomeController {
 		model.addAttribute("vegetableRanking", vegetableRanking);
 		model.addAttribute("souvenirRanking", souvenirRanking);
 
-		return "home";
+		return "index";
 	}
 }
