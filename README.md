@@ -3,22 +3,29 @@
 
 ## Getting Started
 ### javaが見えているか確認する
-```shell
+```bash
 java --version
 ```
 見えていない場合
 eclipseを使っていて、javaが見つからない場合、
 以下のコマンドを実行してから上記のコマンドを実行してください。
 各々のjavaのpathを入れてください
-```shell
+```bash
 export JAVA_HOME="/c/pleiades/2025-12/java/21"
 export PATH="$JAVA_HOME/bin:$PATH"
 ```
 ### installする
 プロジェクトルートで以下のコマンドを実行してください
-```shell
+```bash
 ./mvnw generate-resources
 ```
+### tailwincssをwatchする
+frontendディレクトリに移動して
+```bash
+export PATH="$(pwd)/node:$PATH"
+npm run tailwind-watch
+```
+
 
 ### フォルダ構成
 ### DBスキーマ
