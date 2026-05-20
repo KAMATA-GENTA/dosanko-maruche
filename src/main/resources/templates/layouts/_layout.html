@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<link rel="stylesheet" href="/css/output.css" />
+
+	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+
+	<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+	<link rel="manifest" href="/site.webmanifest" />
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#207891" />
+	<meta name="msapplication-TileColor" content="#ffc40d" />
+
+	<title>どさん娘マルシェ</title>
+</head>
+
+<body x-data="{ desktopMenuOpen: false, mobileMenuOpen: false }">
+	<!-- Header -->
+	<div layout:replace="~{layouts/_header::header}"></div>
+	<!-- /Header -->
+
+	<!-- Menu -->
+	<div layout:replace="~{layouts/_menu::menu}"></div>
+	<!-- /Menu -->
+	 
+	<!-- Burger menu -->
+	<div layout:replace="~{layouts/_burger-menu::burger-menu}"></div>
+	<!-- /Burger menu -->
+
+	<!-- Nav bar -->
+	<div layout:replace="~{layouts/_nav::nav}"></div>
+	<!-- /Nav bar -->
+
+	<!-- Content -->
+	<div layout:fragment="content"></div>
+	<!-- /Content -->
+
+	<!-- Desktop Footer  -->
+	<div layout:replace="~{layouts/_footer::footer}"></div>
+	<!-- /Desktop Footer  -->
+
+	<!-- Payment and copyright  -->
+	<div layout:replace="~{layouts/_payments::payments}"></div>
+	<!-- /Payment and copyright  -->
+	</div>
+</body>
+
+</html>

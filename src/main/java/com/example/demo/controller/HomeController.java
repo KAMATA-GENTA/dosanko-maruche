@@ -19,7 +19,7 @@ public class HomeController {
 		this.productService = productService;
 	}
 
-	@GetMapping("/")
+	@GetMapping({"/", "/index"})
 	public String home(@RequestParam(required = false) Integer categoryId, Model model) {
 
 		List<Product> products;
@@ -33,6 +33,6 @@ public class HomeController {
 		model.addAttribute("products", products);
 		model.addAttribute("selectedCategoryId", categoryId);
 
-		return "home";
+		return "index";
 	}
 }

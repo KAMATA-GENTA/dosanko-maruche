@@ -1,6 +1,10 @@
-@import "tailwindcss" source('../src/main/resources/templates/**/*.{html,js,css}');
+@import "tailwindcss";
+@source '../src/main/resources/templates/**/*.{html,js,css}';
+@source './*.css';
+
+
 @plugin "daisyui"{
-    themes: valentine --default,forest;
+    themes: valentine --default,forest,caffe,valentine;
 }
 
 .swiper-slide {
