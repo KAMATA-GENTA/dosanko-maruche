@@ -20,7 +20,7 @@ import com.example.demo.service.ProductService;
 import com.example.demo.service.ReviewService;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
 
 	private final ProductService productService;
@@ -35,54 +35,79 @@ public class ProductController {
 		this.cartService = cartService;
 	}
 
-	// 商品詳細表示
+	// 商品詳細画面を表示する
+	// 例: /products/1にアクセスされたときに商品IDが1の詳細を表示する
 	@GetMapping("/{productId}")
 	public String showProductDetail(@PathVariable int productId,
 			@RequestParam(name = "sort", defaultValue = "new") String sort,
 			@RequestParam(name = "rating", required = false) Integer rating,
 			Model model) {
 
+		// 商品IDをもとに商品情報を1件取得する
 		Product product = productService.findById(productId);
+		
+		// 商品のレビュー平均評価を取得する
 		Double averageRating = reviewService.getAverageRating(productId);
 
+		// レビューの並び順を正常な値に整える
 		String selectedSort = reviewService.normalizeSort(sort);
+		
+		// レビューの星評価フィルターを正常な値に整える
 		Integer selectedRating = reviewService.normalizeRating(rating);
+		
+		// 商品ID、並び順、星評価フィルターをもとにレビュー一覧を取得する
 		List<Review> reviews = reviewService.findByProduct(productId, selectedSort, selectedRating);
 
+		// 商品情報を画面に渡す
 		model.addAttribute("product", product);
+		
+		// 平均評価を画面に渡す
 		model.addAttribute("averageRating", averageRating);
+		
+		// レビュー一覧を画面に渡す
 		model.addAttribute("reviews", reviews);
+		
+		// レビュー投稿フォーム用の空のReviewオブジェクトを画面に渡す
 		model.addAttribute("reviewForm", new Review());
 
-		// レビューの表示条件を画面に戻すために使う
+		// 現在選択されている並び順を画面に戻す
 		model.addAttribute("selectedSort", selectedSort);
+		
+		// 現在選択されている星評価フィルターを画面に戻す
 		model.addAttribute("selectedRating", selectedRating);
 
 		return "product-detail";
 	}
 
-	// レビュー投稿
+	
+	// レビューを投稿する
+	// 例: /products/1/review にPOSTされたときに、商品ID1にレビューを登録する
 	@PostMapping("/{productId}/review")
 	public String postReview(@PathVariable int productId,
 			@ModelAttribute("reviewForm") Review review,
 			@SessionAttribute(value = "loginUser", required = false) User user) {
 
+		// 投稿されたレビューに商品IDをセットする
 		review.setProductId(productId);
 
-		// ログイン機能が完成している場合はログイン中ユーザーのIDを使う。
-		// まだ未ログインで動作確認する場合は、data.sqlに存在するユーザーID=1で登録する。
+		// ログインしている場合はログイン中ユーザーのIDを使う
 		if (user != null) {
 			review.setUserId(user.getId());
+			// ログイン機能が未完成、または未ログインで動作確認する場合はデモ用ユーザーID=1を使う
 		} else {
 			review.setUserId(1);
 		}
 
+		// レビューを保存する
 		reviewService.save(review);
 
-		return "redirect:/product/" + productId + "#review-section";
+		// 商品詳細画面のレビュー欄へ戻る
+		return "redirect:/products/" + productId + "#review-section";
 	}
 
-	// カート追加
+	
+	// 商品をカートに追加する
+	// 例: /products/1/cart にPOSTされたときに、商品ID1をカートへ追加する
 	@PostMapping("/{productId}/cart")
 	public String addToCart(@PathVariable int productId,
 			@RequestParam int quantity,
@@ -95,18 +120,19 @@ public class ProductController {
 
 		int userId;
 
-		// ★ loginUser が存在するか確認
+		// ログインしている場合はログイン中ユーザーのIDを使う
 		if (user != null) {
 			userId = user.getId();
 
-			// ★ 無い場合はデモ用ユーザーID=1を使う
+			// 未ログインで動作確認する場合はデモ用ユーザーID=1を使う
 		} else {
 			userId = 1;
 		}
 
-		// ★ user.getId() を userId に変更
+		// 商品ID、ユーザーID、数量をもとにカートへ追加する
 		cartService.addToCart(userId, productId, quantity);
 
-		return "redirect:/product/{productId}";
+		// カート追加後、商品詳細画面に戻る
+		return "redirect:/products/{productId}";
 	}
 }

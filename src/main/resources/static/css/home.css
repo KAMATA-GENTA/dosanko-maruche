@@ -134,6 +134,20 @@ section h2 {
     border-radius: 10px;
 }
 
+.ranking-card a {
+    display: inline-block;
+
+    margin-top: 10px;
+
+    background-color: #ff7f50;
+    color: white;
+
+    padding: 10px 15px;
+
+    border-radius: 5px;
+}
+
+
 .rank {
     display: inline-block;
 
@@ -190,6 +204,7 @@ section h2 {
     color: white;
     font-weight: bold;
 }
+
 
 /* =========================
    商品一覧
