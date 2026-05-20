@@ -7,9 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Product;
+import com.example.demo.enums.Category;
 import com.example.demo.enums.Region;
 import com.example.demo.service.ProductService;
 
@@ -24,42 +24,39 @@ public class RegionController {
 	}
 
 	// 地域詳細ページ
-	@GetMapping("/{regionName}")
-	public String showRegion(@PathVariable String regionName, @RequestParam(required = false) Integer categoryId,
-			Model model) {
+    @GetMapping("/{regionId}")
+    public String showRegion(
+            @PathVariable Integer regionId,
+            Integer categoryId,
+            Model model) {
 
-		Region region = null;
+        // URLの地域IDからRegion enumを取得します。
+        Region region = Region.fromId(regionId);
 
-		if (regionName.equals("sapporo")) {
-			region = Region.Sapporo;
+        // 存在しない地域IDの場合はトップページへ戻します。
+        if (region == null) {
+            return "redirect:/";
+        }
 
-		} else if (regionName.equals("hakodate")) {
-			region = Region.Hakodate;
+        List<Product> products;
 
-		} else if (regionName.equals("wakkanai")) {
-			region = Region.Wakkanai;
+        // カテゴリ未選択の場合は、その地域の商品を取得します。
+        if (categoryId == null) {
+            products = productService.getProductsByRegionId(regionId);
+        } else {
+            // カテゴリ選択時は、地域の商品を取得してからカテゴリIDで絞り込みます。
+            products = productService.getProductsByRegionId(regionId)
+                    .stream()
+                    .filter(product -> categoryId.equals(product.getCategoryId()))
+                    .toList();
+        }
 
-		} else if (regionName.equals("kitami")) {
-			region = Region.Kitami;
+        model.addAttribute("region", region);
+        model.addAttribute("regionId", regionId);
+        model.addAttribute("products", products);
+        model.addAttribute("selectedCategoryId", categoryId);
+        model.addAttribute("categories", Category.values());
 
-		} else if (regionName.equals("obihiro")) {
-			region = Region.Obihiro;
-		}
-
-		List<Product> products;
-
-		if (categoryId == null) {
-			products = productService.getAllProducts();
-		} else {
-			products = productService.getProductsByCategoryId(categoryId);
-		}
-
-		model.addAttribute("region", region);
-		model.addAttribute("regionName", regionName);
-		model.addAttribute("products", products);
-		model.addAttribute("selectedCategoryId", categoryId);
-
-		return "region_test";
-	}
-
+        return "region_test";
+    }
 }
