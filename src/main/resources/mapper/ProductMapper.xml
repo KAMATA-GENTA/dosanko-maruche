@@ -37,6 +37,19 @@
             description,
             image_url AS imageUrl,
 
+ <!-- 全商品取得 -->
+ <select id="findAll"
+            resultType="com.example.demo.entity.Product">
+
+        SELECT
+            id,
+            region_id AS regionId,
+            category_id AS categoryId,
+            product_name AS name,
+            price,
+            description,
+            image_url AS imageUrl,
+
             CASE region_id
                 WHEN 1 THEN '札幌'
                 WHEN 2 THEN '小樽'
@@ -109,7 +122,18 @@
 
         WHERE category_id = #{categoryId}
     </select>
-    <!-- カテゴリ別ランキングTOP3取得 -->
+<!--地域詳細カテゴリ検索-->
+<select id="findByRegionIdAndCategoryId"
+	resultType="com.example.demo.entity.Product">
+
+	SELECT *
+	FROM products
+	WHERE region_id = #{regionId}
+	AND category_id = #{categoryId}
+
+</select>
+
+<!-- カテゴリ別ランキングTOP3取得 -->
     <select id="findRankingByCategoryId"
             parameterType="int"
             resultType="com.example.demo.entity.RankingProduct">
@@ -151,4 +175,5 @@
 
         LIMIT 3
     </select>
+
 </mapper>
