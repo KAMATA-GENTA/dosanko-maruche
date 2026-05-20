@@ -3,10 +3,11 @@ package com.example.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.example.demo.dto.CartDisplayItem;
 import com.example.demo.entity.CartItem;
@@ -22,16 +23,20 @@ public class CartController {
 	private final ProductService productService;
 	private final SettlementService settlementService;
 
-	public CartController(CartMapper cartMapper, ProductService productService, SettlementService settlementService) {
+	public CartController(
+			CartMapper cartMapper,
+			ProductService productService,
+			SettlementService settlementService) {
+
 		this.cartMapper = cartMapper;
 		this.productService = productService;
 		this.settlementService = settlementService;
 	}
 
 	@GetMapping("/cart")
-	public String showCart(
-			Model model,
-			@SessionAttribute(value = "userId", required = false) Integer userId) {
+	public String showCart(Model model, HttpSession session) {
+
+		Integer userId = (Integer) session.getAttribute("userId");
 
 		if (userId == null) {
 			return "redirect:/login";
@@ -46,9 +51,11 @@ public class CartController {
 			displayItems.add(new CartDisplayItem(cartItem, product));
 		}
 
-		int subtotal = settlementService.calcSubtotal(cartItems);
-		int shippingFee = settlementService.getBaseShippingFee();
-		int totalPrice = settlementService.calcTotalPrice(subtotal, shippingFee);
+		boolean isFreeShipping = false;
+
+		int subtotal = settlementService.calcSubTotal(displayItems);
+		int shippingFee = settlementService.calcShippingFee(isFreeShipping);
+		int totalPrice = settlementService.calcTotalPrice(displayItems, isFreeShipping);
 
 		model.addAttribute("cartItems", displayItems);
 		model.addAttribute("subtotal", subtotal);

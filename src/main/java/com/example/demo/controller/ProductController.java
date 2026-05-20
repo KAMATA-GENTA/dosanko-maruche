@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.example.demo.entity.Product;
 import com.example.demo.entity.Review;
-import com.example.demo.entity.User;
 import com.example.demo.service.CartService;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.ReviewService;
@@ -27,17 +28,19 @@ public class ProductController {
 	private final ReviewService reviewService;
 	private final CartService cartService;
 
-	public ProductController(ProductService productService,
+	public ProductController(
+			ProductService productService,
 			ReviewService reviewService,
 			CartService cartService) {
+
 		this.productService = productService;
 		this.reviewService = reviewService;
 		this.cartService = cartService;
 	}
 
-	// 商品詳細表示
 	@GetMapping("/{productId}")
-	public String showProductDetail(@PathVariable int productId,
+	public String showProductDetail(
+			@PathVariable int productId,
 			@RequestParam(name = "sort", defaultValue = "new") String sort,
 			@RequestParam(name = "rating", required = false) Integer rating,
 			Model model) {
@@ -47,60 +50,54 @@ public class ProductController {
 
 		String selectedSort = reviewService.normalizeSort(sort);
 		Integer selectedRating = reviewService.normalizeRating(rating);
-		List<Review> reviews = reviewService.findByProduct(productId, selectedSort, selectedRating);
+
+		List<Review> reviews = reviewService.findByProduct(
+				productId,
+				selectedSort,
+				selectedRating);
 
 		model.addAttribute("product", product);
 		model.addAttribute("averageRating", averageRating);
 		model.addAttribute("reviews", reviews);
 		model.addAttribute("reviewForm", new Review());
-
-		// レビューの表示条件を画面に戻すために使う
 		model.addAttribute("selectedSort", selectedSort);
 		model.addAttribute("selectedRating", selectedRating);
 
 		return "product-detail";
 	}
 
-	// レビュー投稿
 	@PostMapping("/{productId}/review")
-	public String postReview(@PathVariable int productId,
+	public String postReview(
+			@PathVariable int productId,
 			@ModelAttribute("reviewForm") Review review,
-			@SessionAttribute(value = "loginUser", required = false) User user) {
+			@SessionAttribute(value = "userId", required = false) Integer userId) {
+
+		if (userId == null) {
+			return "redirect:/login";
+		}
 
 		review.setProductId(productId);
-
-		// ログイン機能が完成している場合はログイン中ユーザーのIDを使う。
-		// まだ未ログインで動作確認する場合は、data.sqlに存在するユーザーID=1で登録する。
-		if (user != null) {
-			review.setUserId(user.getId());
-		} else {
-			review.setUserId(1);
-		}
+		review.setUserId(userId);
 
 		reviewService.save(review);
 
 		return "redirect:/product/" + productId + "#review-section";
 	}
 
-	// カート追加
 	@PostMapping("/{productId}/cart")
-	public String addToCart(@PathVariable int productId,
+	public String addCart(
+			@PathVariable int productId,
 			@RequestParam int quantity,
-			////			@SessionAttribute("loginUser") User user) { testo用コメントアウト
-			//			
-			//			
-			//
-			//		cartService.addToCart(user.getId(), productId, quantity);
-			@SessionAttribute(value = "userId", required = false) Integer userId) {
+			HttpSession session) {
 
-		// ★ loginUser が存在するか確認
+		Integer userId = (Integer) session.getAttribute("userId");
+
 		if (userId == null) {
-			userId = 1;
+			return "redirect:/login";
 		}
 
-		// ★ user.getId() を userId に変更
 		cartService.addToCart(userId, productId, quantity);
 
-		return "redirect:/product/{productId}";
+		return "redirect:/product/" + productId;
 	}
 }

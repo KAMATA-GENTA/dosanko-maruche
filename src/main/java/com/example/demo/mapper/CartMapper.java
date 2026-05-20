@@ -10,20 +10,21 @@ import com.example.demo.entity.CartItem;
 @Mapper
 public interface CartMapper {
 
-	List<CartItem> findByUserId(Integer userId);
+	List<CartItem> findByUserId(
+			@Param("userId") Integer userId);
 
-	void deleteByUserId(Integer userId);
-	// カート追加
-	void insert(@Param("userId") int userId,
+	void deleteByUserId(
+			@Param("userId") Integer userId);
+
+	void insert(
+			@Param("userId") int userId,
 			@Param("productId") int productId,
 			@Param("quantity") int quantity);
 
-
-
-	// 数量更新
-	void updateQuantity(@Param("cartId") int cartId,
+	void updateQuantity(
+			@Param("cartId") int cartId,
 			@Param("quantity") int quantity);
 
-	// 削除
-	void delete(int cartId);
+	void delete(
+			@Param("cartId") int cartId);
 }

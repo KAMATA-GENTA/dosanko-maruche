@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.servlet.http.HttpSession;
@@ -10,11 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.dto.CartDisplayItem;
 import com.example.demo.entity.CartItem;
 import com.example.demo.entity.Order;
 import com.example.demo.entity.OrderDetail;
 import com.example.demo.entity.Product;
-import com.example.demo.entity.User;
 import com.example.demo.mapper.CartMapper;
 import com.example.demo.mapper.OrderDetailMapper;
 import com.example.demo.mapper.OrderMapper;
@@ -45,7 +46,14 @@ public class TreasureController {
 	}
 
 	@GetMapping("/treasure")
-	public String showTreasureGame() {
+	public String showTreasureGame(HttpSession session) {
+
+		Integer userId = (Integer) session.getAttribute("userId");
+
+		if (userId == null) {
+			return "redirect:/login";
+		}
+
 		return "treasure";
 	}
 
@@ -58,34 +66,46 @@ public class TreasureController {
 			HttpSession session,
 			Model model) {
 
-		User loginUser = (User) session.getAttribute("loginUser");
+		Integer userId = (Integer) session.getAttribute("userId");
 
-		if (loginUser == null) {
+		if (userId == null) {
 			return "redirect:/login";
 		}
 
-		int userId = loginUser.getId();
-
 		List<CartItem> cartItems = cartMapper.findByUserId(userId);
 
-		int subtotal = settlementService.calcSubtotal(cartItems);
+		List<CartDisplayItem> displayItems = new ArrayList<>();
 
-		boolean isHit = "hit".equals(result);
+		for (CartItem cartItem : cartItems) {
 
-		int finalShippingFee = settlementService.calcShippingFee(isHit);
+			Product product = productService.findById(cartItem.getProductId());
 
-		int totalPrice = settlementService.calcTotalPrice(subtotal, finalShippingFee);
+			displayItems.add(
+					new CartDisplayItem(cartItem, product));
+		}
+
+		boolean isFreeShipping = "hit".equals(result);
+
+		int subtotal = settlementService.calcSubTotal(displayItems);
+
+		int shippingFee = settlementService.calcShippingFee(isFreeShipping);
+
+		int totalPrice = settlementService.calcTotalPrice(
+				displayItems,
+				isFreeShipping);
 
 		Order order = new Order();
+
 		order.setUserId(userId);
 		order.setSubtotal(subtotal);
-		order.setShippingFee(finalShippingFee);
+		order.setShippingFee(shippingFee);
 
 		orderMapper.insert(order);
 
 		for (CartItem cartItem : cartItems) {
 
-			Product product = productService.findById(cartItem.getProductId());
+			Product product = productService.findById(
+					cartItem.getProductId());
 
 			OrderDetail detail = new OrderDetail();
 
@@ -101,7 +121,7 @@ public class TreasureController {
 
 		model.addAttribute("result", result);
 		model.addAttribute("subtotal", subtotal);
-		model.addAttribute("shippingFee", finalShippingFee);
+		model.addAttribute("shippingFee", shippingFee);
 		model.addAttribute("totalPrice", totalPrice);
 
 		return "purchase-complete";
