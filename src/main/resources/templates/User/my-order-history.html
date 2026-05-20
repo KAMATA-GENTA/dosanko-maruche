@@ -113,7 +113,7 @@
 
               <button
                 type="submit"
-                class="ml-auto h-full bg-amber-400 px-4 hover:bg-yellow-300"
+                class="ml-auto h-full bg-neutral px-4 hover:bg-yellow-300"
               >
                 Search
               </button>
@@ -131,13 +131,13 @@
         <!-- Nav bar -->
         <!-- hidden on small devices -->
 
-        <nav class="relative bg-violet-900">
+        <nav class="relative bg-neutral">
           <div
             class="mx-auto hidden h-12 w-full max-w-[1200px] items-center md:flex"
           >
             <button
               @click="desktopMenuOpen = ! desktopMenuOpen"
-              class="ml-5 flex h-full w-40 cursor-pointer items-center justify-center bg-amber-400"
+              class="ml-5 flex h-full w-40 cursor-pointer items-center justify-center bg-neutral"
             >
               <div class="flex justify-around" href="#">
                 <svg
@@ -161,22 +161,22 @@
 
             <div class="mx-7 flex gap-8">
               <a
-                class="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
+                class="font-light text-white duration-100  hover:underline"
                 href="/index"
                 >Home</a
               >
               <a
-                class="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
+                class="font-light text-white duration-100  hover:underline"
                 href="catalog"
                 >Catalog</a
               >
               <a
-                class="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
+                class="font-light text-white duration-100  hover:underline"
                 href="about-us"
                 >About Us</a
               >
               <a
-                class="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
+                class="font-light text-white duration-100  hover:underline"
                 href="contact-us"
                 >Contact Us</a
               >
@@ -192,16 +192,16 @@
 			       th:text="${username} + 'さん'">usernameさん</a>
 			  </span>
 			  <a th:if="${isLoggedIn}"
-			     class="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
+			     class="font-light text-white duration-100  hover:underline"
 			     href="/logout">Logout</a>
 
 			  <!-- 未ログインのとき -->
 			  <a th:unless="${isLoggedIn}"
-			     class="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
+			     class="font-light text-white duration-100  hover:underline"
 			     href="/login">Login</a>
 			  <span th:unless="${isLoggedIn}" class="text-white">&#124;</span>
 			  <a th:unless="${isLoggedIn}"
-			     class="font-light text-white duration-100 hover:text-yellow-400 hover:underline"
+			     class="font-light text-white duration-100  hover:underline"
 			     href="/sign-up">Sign Up</a>
 
 			</div>
@@ -220,7 +220,7 @@
             <div class="w-[300px] border-r">
               <ul class="px-5">
                 <li
-                  class="active:blue-900 flex items-center gap-2 bg-amber-400 py-2 px-3 active:bg-amber-400"
+                  class="active:blue-900 flex items-center gap-2 bg-neutral py-2 px-3 active:bg-neutral"
                 >
                   <img
                     width="15px"
@@ -248,7 +248,7 @@
                 </li>
 
                 <li
-                  class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-amber-400"
+                  class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-neutral"
                 >
                   <img
                     width="15px"
@@ -276,7 +276,7 @@
                 </li>
 
                 <li
-                  class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-amber-400"
+                  class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-neutral"
                 >
                   <img
                     width="15px"
@@ -304,7 +304,7 @@
                 </li>
 
                 <li
-                  class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-amber-400"
+                  class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-neutral"
                 >
                   <img
                     width="15px"
@@ -332,7 +332,7 @@
                 </li>
 
                 <li
-                  class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-amber-400"
+                  class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-neutral"
                 >
                   <img
                     width="15px"
@@ -360,7 +360,7 @@
                 </li>
 
                 <li
-                  class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-amber-400"
+                  class="active:blue-900 flex items-center gap-2 py-2 px-3 hover:bg-neutral-100 active:bg-neutral"
                 >
                   <img
                     width="15px"
@@ -521,17 +521,17 @@
                   >
                   <a
                     href="profile-information"
-                    class="text-gray-500 duration-100 hover:text-yellow-400"
+                    class="text-gray-500 duration-100 "
                     >Profile information</a
                   >
                   <a
                     href="manage-address"
-                    class="text-gray-500 duration-100 hover:text-yellow-400"
+                    class="text-gray-500 duration-100 "
                     >Manage Addresses</a
                   >
                   <a
                     href="change-password"
-                    class="text-gray-500 duration-100 hover:text-yellow-400"
+                    class="text-gray-500 duration-100 "
                     >Change password</a
                   >
                 </div>
@@ -544,7 +544,7 @@
               <div class="flex flex-col gap-2">
                 <a
                   href="my-order-history"
-                  class="flex items-center gap-2 font-medium text-violet-900"
+                  class="flex items-center gap-2 font-medium text-neutral"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -573,7 +573,7 @@
               <div class="flex flex-col gap-2">
                 <a
                   href="payment-methods"
-                  class="flex items-center gap-2 font-medium active:text-violet-900"
+                  class="flex items-center gap-2 font-medium active:text-neutral"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -601,7 +601,7 @@
               <div class="flex flex-col gap-2">
                 <a
                   href="wishlist"
-                  class="flex items-center gap-2 font-medium active:text-violet-900"
+                  class="flex items-center gap-2 font-medium active:text-neutral"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -629,7 +629,7 @@
               <div class="flex flex-col gap-2">
                 <a
                   href="#"
-                  class="flex items-center gap-2 font-medium active:text-violet-900"
+                  class="flex items-center gap-2 font-medium active:text-neutral"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -669,7 +669,7 @@
                 </div>
               </div>
               <p class="text-sm text-gray-400">22/06/2023</p>
-              <p class="py-3 text-xl font-bold text-violet-900">$620</p>
+              <p class="py-3 text-xl font-bold text-neutral">$620</p>
               <div class="mt-2 flex w-full items-center justify-between">
                 <div class="flex items-center justify-center">
                   <a
@@ -694,7 +694,7 @@
                 </div>
               </div>
               <p class="text-sm text-gray-400">20/05/2023</p>
-              <p class="py-3 text-xl font-bold text-violet-900">$320</p>
+              <p class="py-3 text-xl font-bold text-neutral">$320</p>
               <div class="mt-2 flex w-full items-center justify-between">
                 <div class="flex items-center justify-center">
                   <a
@@ -719,7 +719,7 @@
                 </div>
               </div>
               <p class="text-sm text-gray-400">03/03/2022</p>
-              <p class="py-3 text-xl font-bold text-violet-900">$2500</p>
+              <p class="py-3 text-xl font-bold text-neutral">$2500</p>
               <div class="mt-2 flex w-full items-center justify-between">
                 <div class="flex items-center justify-center">
                   <a
@@ -744,7 +744,7 @@
                 </div>
               </div>
               <p class="text-sm text-gray-400">31/01/20</p>
-              <p class="py-3 text-xl font-bold text-violet-900">$1700</p>
+              <p class="py-3 text-xl font-bold text-neutral">$1700</p>
               <div class="mt-2 flex w-full items-center justify-between">
                 <div class="flex items-center justify-center">
                   <a
@@ -789,7 +789,7 @@
                   >
                 </td>
                 <td class="text-center align-middle">
-                  <a href="order-overview" class="bg-amber-400 px-4 py-2"
+                  <a href="order-overview" class="bg-neutral px-4 py-2"
                     ><button class="text-center">View</button></a
                   >
                 </td>
@@ -809,7 +809,7 @@
                   >
                 </td>
                 <td class="text-center align-middle">
-                  <a href="order-overview" class="bg-amber-400 px-4 py-2"
+                  <a href="order-overview" class="bg-neutral px-4 py-2"
                     ><button class="text-center">View</button></a
                   >
                 </td>
@@ -828,7 +828,7 @@
                   >
                 </td>
                 <td class="text-center align-middle">
-                  <a href="order-overview" class="bg-amber-400 px-4 py-2"
+                  <a href="order-overview" class="bg-neutral px-4 py-2"
                     ><button class="text-center">View</button></a
                   >
                 </td>
@@ -847,7 +847,7 @@
                   >
                 </td>
                 <td class="text-center align-middle">
-                  <a href="order-overview" class="bg-amber-400 px-4 py-2"
+                  <a href="order-overview" class="bg-neutral px-4 py-2"
                     ><button class="text-center">View</button></a
                   >
                 </td>
