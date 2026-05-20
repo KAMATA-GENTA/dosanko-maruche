@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.RankingProduct;
 import com.example.demo.enums.Character;
+import com.example.demo.enums.Category;
+import com.example.demo.enums.Region;
 import com.example.demo.service.ProductService;
 
 @Controller
@@ -42,19 +44,26 @@ public class HomeController {
 		// 選択中カテゴリを画面に渡す
 		model.addAttribute("selectedCategoryId", categoryId);
 		model.addAttribute("charctors", Character.values());
+		// HTMLで地域リンクをenumから作るために渡す
+        model.addAttribute("regions", Region.values());
+        // HTMLでカテゴリリンクをenumから作るために渡す
+        model.addAttribute("categories", Category.values());
 
-		// 各カテゴリのランキング商品を取得する
-		List<RankingProduct> seafoodRanking = productService.getRankingByCategoryId(1);
-		List<RankingProduct> meatRanking = productService.getRankingByCategoryId(3);
-		List<RankingProduct> vegetableRanking = productService.getRankingByCategoryId(2);
-		List<RankingProduct> souvenirRanking = productService.getRankingByCategoryId(4);
 
-		// ランキング情報を画面に渡す
-		model.addAttribute("seafoodRanking", seafoodRanking);
-		model.addAttribute("meatRanking", meatRanking);
-		model.addAttribute("vegetableRanking", vegetableRanking);
-		model.addAttribute("souvenirRanking", souvenirRanking);
+     // カテゴリIDを直書きせず、Category enumから取得する
+        addRankingToModel(model, Category.SEAFOOD);
+        addRankingToModel(model, Category.MEAT);
+        addRankingToModel(model, Category.VEGETABLE);
+        addRankingToModel(model, Category.SOUVENIR);
 
 		return "home";
 	}
+	
+	// 指定カテゴリのランキングをModelに追加する
+    private void addRankingToModel(Model model, Category category) {
+        List<RankingProduct> rankingProducts =
+                productService.getRankingByCategoryId(category.getId());
+
+        model.addAttribute(category.getRankingModelName(), rankingProducts);
+    }
 }
