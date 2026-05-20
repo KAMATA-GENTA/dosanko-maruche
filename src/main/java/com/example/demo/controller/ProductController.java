@@ -42,18 +42,17 @@ public class ProductController {
 	public String showProductDetail(
 			@PathVariable int productId,
 			@RequestParam(name = "sort", defaultValue = "new") String sort,
-			@RequestParam(name = "rating", required = false) Integer rating,
-			Model model) {
+			@RequestParam(name = "rating", required = false) Integer rating, Model model) {
 
 		// 商品IDをもとに商品情報を1件取得する
 		Product product = productService.findById(productId);
-		
+
 		// 商品のレビュー平均評価を取得する
 		Double averageRating = reviewService.getAverageRating(productId);
 
 		// レビューの並び順を正常な値に整える
 		String selectedSort = reviewService.normalizeSort(sort);
-		
+
 		// レビューの星評価フィルターを正常な値に整える
 		Integer selectedRating = reviewService.normalizeRating(rating);
 
@@ -64,17 +63,17 @@ public class ProductController {
 
 		// 商品情報を画面に渡す
 		model.addAttribute("product", product);
-		
+
 		// 平均評価を画面に渡す
 		model.addAttribute("averageRating", averageRating);
-		
+
 		// レビュー一覧を画面に渡す
 		model.addAttribute("reviews", reviews);
-		
+
 		// レビュー投稿フォーム用の空のReviewオブジェクトを画面に渡す
 		model.addAttribute("reviewForm", new Review());
 		model.addAttribute("selectedSort", selectedSort);
-		
+
 		// 現在選択されている星評価フィルターを画面に戻す
 		model.addAttribute("selectedRating", selectedRating);
 
@@ -116,6 +115,6 @@ public class ProductController {
 
 		cartService.addToCart(userId, productId, quantity);
 
-		return "redirect:/product/" + productId;
+		return "redirect:/products/" + productId;
 	}
 }

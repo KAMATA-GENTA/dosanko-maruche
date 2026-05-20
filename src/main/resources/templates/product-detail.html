@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/_layout}">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/_layout}">
 
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="/css/output.css" />
-	<title>Insert title here</title>
+	<title>商品詳細</title>
+
 	<style>
 		.star-rating {
 			position: relative;
@@ -13,7 +15,6 @@
 			font-size: 20px;
 			line-height: 1;
 			color: #ddd;
-			/* 空星 */
 		}
 
 		.star-rating::before {
@@ -40,7 +41,11 @@
 
 		<img th:src="${product.imageUrl}">
 
-		<p>価格: <span th:text="${product.price}"></span>円</p>
+		<p>
+			価格:
+			<span th:text="${product.price}"></span>円
+		</p>
+
 		<p>送料: 800円</p>
 
 		<p th:text="${product.description}"></p>
@@ -48,7 +53,8 @@
 		<!-- 平均星表示 -->
 		<div style="display:flex; align-items:center; gap:10px;">
 
-			<span class="star-rating" th:style="'--rating-percent:' + (${averageRating} * 20) + '%'">
+			<span class="star-rating"
+			      th:style="'--rating-percent:' + (${averageRating} * 20) + '%'">
 			</span>
 
 			<span th:text="${averageRating}"></span>
@@ -58,37 +64,98 @@
 		<a href="#review-section">レビューはこちら</a>
 
 		<!-- カート追加 -->
-		<form th:action="@{/product/{id}/cart(id=${product.id})}" method="post">
-			<input type="number" name="quantity" value="1" min="1">
-			<button type="submit">カートに追加</button>
+		<form th:action="@{/products/{id}/cart(id=${product.id})}"
+		      method="post">
+
+			<input type="number"
+			       name="quantity"
+			       value="1"
+			       min="1">
+
+			<button type="submit">
+				カートに追加
+			</button>
+
 		</form>
 
 		<hr>
 
 		<h2 id="review-section">レビュー</h2>
 
-		<!-- レビューの並び替え・星の数フィルタ -->
-		<form th:action="@{/product/{id}(id=${product.id})}" method="get">
+		<!-- レビュー並び替え -->
+		<form th:action="@{/products/{id}(id=${product.id})}"
+		      method="get">
+
 			<label for="sort">並び順</label>
+
 			<select id="sort" name="sort">
-				<option value="new" th:selected="${selectedSort == 'new'}">新しい順</option>
-				<option value="old" th:selected="${selectedSort == 'old'}">古い順</option>
-				<option value="high" th:selected="${selectedSort == 'high'}">評価が高い順</option>
-				<option value="low" th:selected="${selectedSort == 'low'}">評価が低い順</option>
+
+				<option value="new"
+				        th:selected="${selectedSort == 'new'}">
+					新しい順
+				</option>
+
+				<option value="old"
+				        th:selected="${selectedSort == 'old'}">
+					古い順
+				</option>
+
+				<option value="high"
+				        th:selected="${selectedSort == 'high'}">
+					評価が高い順
+				</option>
+
+				<option value="low"
+				        th:selected="${selectedSort == 'low'}">
+					評価が低い順
+				</option>
+
 			</select>
 
 			<label for="rating">星の数</label>
+
 			<select id="rating" name="rating">
-				<option value="" th:selected="${selectedRating == null}">すべて</option>
-				<option value="5" th:selected="${selectedRating == 5}">★5</option>
-				<option value="4" th:selected="${selectedRating == 4}">★4</option>
-				<option value="3" th:selected="${selectedRating == 3}">★3</option>
-				<option value="2" th:selected="${selectedRating == 2}">★2</option>
-				<option value="1" th:selected="${selectedRating == 1}">★1</option>
+
+				<option value=""
+				        th:selected="${selectedRating == null}">
+					すべて
+				</option>
+
+				<option value="5"
+				        th:selected="${selectedRating == 5}">
+					★5
+				</option>
+
+				<option value="4"
+				        th:selected="${selectedRating == 4}">
+					★4
+				</option>
+
+				<option value="3"
+				        th:selected="${selectedRating == 3}">
+					★3
+				</option>
+
+				<option value="2"
+				        th:selected="${selectedRating == 2}">
+					★2
+				</option>
+
+				<option value="1"
+				        th:selected="${selectedRating == 1}">
+					★1
+				</option>
+
 			</select>
 
-			<button type="submit">表示を変更</button>
-			<a th:href="@{/product/{id}(id=${product.id})}">条件をリセット</a>
+			<button type="submit">
+				表示を変更
+			</button>
+
+			<a th:href="@{/products/{id}(id=${product.id})}">
+				条件をリセット
+			</a>
+
 		</form>
 
 		<div th:if="${#lists.isEmpty(reviews)}">
@@ -96,42 +163,64 @@
 		</div>
 
 		<div th:each="review : ${reviews}">
+
 			<p>
 				投稿者：
-				<span th:text="${review.username != null ? review.username : 'ゲスト'}"></span>
+				<span th:text="${review.username != null ? review.username : 'ゲスト'}">
+				</span>
 			</p>
 
 			<div>
+
 				<span th:each="i : ${#numbers.sequence(1,5)}">
-					<span th:text="${i <= review.rating ? '★' : '☆'}"></span>
+
+					<span th:text="${i <= review.rating ? '★' : '☆'}">
+					</span>
+
 				</span>
+
 			</div>
 
-			<!-- レビュー投稿日表示：既存のcreated_atを使うためDB設計の変更は不要 -->
 			<p th:if="${review.createdAt != null}">
-				投稿日：<span th:text="${#temporals.format(review.createdAt, 'M月d日')}"></span>
+
+				投稿日：
+				<span th:text="${#temporals.format(review.createdAt, 'M月d日')}">
+				</span>
+
 			</p>
 
 			<p th:text="${review.comment}"></p>
+
 		</div>
 
 		<hr>
 
 		<h3>レビュー投稿</h3>
 
-		<form th:action="@{/product/{id}/review(id=${product.id})}" method="post" th:object="${reviewForm}">
+		<form th:action="@{/products/{id}/review(id=${product.id})}"
+		      method="post"
+		      th:object="${reviewForm}">
+
 			<select th:field="*{rating}">
+
 				<option value="1">★1</option>
 				<option value="2">★2</option>
 				<option value="3">★3</option>
 				<option value="4">★4</option>
 				<option value="5">★5</option>
+
 			</select>
 
-			<textarea th:field="*{comment}" placeholder="レビューを入力してください"></textarea>
+			<textarea th:field="*{comment}"
+			          placeholder="レビューを入力してください">
+			</textarea>
 
-			<button type="submit">投稿</button>
+			<button type="submit">
+				投稿
+			</button>
+
 		</form>
+
 	</div>
 </body>
 

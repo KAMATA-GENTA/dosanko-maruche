@@ -18,56 +18,57 @@ public class CartItem {
 	//	public Integer getId() {
 	//		return id;
 	//	}
+
 	//
-	//	public void setId(Integer id) {
-	//		this.id = id;
-	//	}
+	// public void setId(Integer id) {
+	// this.id = id;
+	// }
 	//
-	//	public Integer getUserId() {
-	//		return userId;
-	//	}
+	// public Integer getUserId() {
+	// return userId;
+	// }
 	//
-	//	public void setUserId(Integer userId) {
-	//		this.userId = userId;
-	//	}
+	// public void setUserId(Integer userId) {
+	// this.userId = userId;
+	// }
 	//
-	//	public Integer getProductId() {
-	//		return productId;
-	//	}
+	// public Integer getProductId() {
+	// return productId;
+	// }
 	//
-	//	public void setProductId(Integer productId) {
-	//		this.productId = productId;
-	//	}
+	// public void setProductId(Integer productId) {
+	// this.productId = productId;
+	// }
 	//
-	//	public String getProductName() {
-	//		return productName;
-	//	}
+	// public String getProductName() {
+	// return productName;
+	// }
 	//
-	//	public void setProductName(String productName) {
-	//		this.productName = productName;
-	//	}
+	// public void setProductName(String productName) {
+	// this.productName = productName;
+	// }
 	//
-	//	public Integer getPrice() {
-	//		return price;
-	//	}
+	// public Integer getPrice() {
+	// return price;
+	// }
 	//
-	//	public void setPrice(Integer price) {
-	//		this.price = price;
-	//	}
+	// public void setPrice(Integer price) {
+	// this.price = price;
+	// }
 	//
-	//	public Integer getQuantity() {
-	//		return quantity;
-	//	}
+	// public Integer getQuantity() {
+	// return quantity;
+	// }
 	//
-	//	public void setQuantity(Integer quantity) {
-	//		this.quantity = quantity;
-	//	}
+	// public void setQuantity(Integer quantity) {
+	// this.quantity = quantity;
+	// }
 	//
-	//	public String getImageUrl() {
-	//		return imageUrl;
-	//	}
+	// public String getImageUrl() {
+	// return imageUrl;
+	// }
 	//
-	//	public void setImageUrl(String imageUrl) {
-	//		this.imageUrl = imageUrl;
-	//	}
+	// public void setImageUrl(String imageUrl) {
+	// this.imageUrl = imageUrl;
+	// }
 }
