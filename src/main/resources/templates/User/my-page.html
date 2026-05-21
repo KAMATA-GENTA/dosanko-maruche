@@ -1,143 +1,148 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/_layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/_layout}">
 
 <head>
-    <title>マイページ｜どさん娘マルシェ</title>
+  <title>マイページ｜どさん娘マルシェ</title>
 </head>
 
 <body>
-<div layout:fragment="content">
+  <div layout:fragment="content">
 
     <main class="mx-auto w-full max-w-[1200px] px-5 py-10 flex-grow">
 
-        <div class="mb-8 border-b pb-4">
-            <h1 class="text-3xl font-bold text-base-content">マイページ</h1>
-            <p class="text-base-content/60 text-sm mt-1">アカウント情報・購入履歴を確認できます</p>
-        </div>
+      <div class="mb-8 border-b pb-4">
+        <h1 class="text-3xl font-bold text-base-content">マイページ</h1>
+        <p class="text-base-content/60 text-sm mt-1">アカウント情報・購入履歴を確認できます</p>
+      </div>
 
-        <section class="grid gap-6 lg:grid-cols-[300px_1fr]">
+      <section class="grid gap-6 lg:grid-cols-[300px_1fr]">
 
-            <aside class="grid gap-6">
+        <aside class="grid gap-6">
 
-                <div class="rounded-2xl border border-base-300 bg-base-100 p-6 shadow-sm">
-                    <div class="border-b border-base-300 pb-6 text-center">
-                        <div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-primary text-3xl font-black text-primary-content shadow-sm">
-                            <span th:text="${#strings.substring(user.username, 0, 1)}">U</span>
-                        </div>
-                        <p class="text-lg font-black text-base-content" th:text="${user.username}">
-                            ユーザー名
-                        </p>
-                        <p class="mt-1 break-all text-sm text-base-content/60" th:text="${user.email}">
-                            email@example.com
-                        </p>
-                    </div>
+          <div class="rounded-2xl border border-base-300 bg-base-100 p-6 shadow-sm">
+            <div class="border-b border-base-300 pb-6 text-center">
+              <div
+                class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-primary text-3xl font-black text-primary-content shadow-sm">
+                <span th:text="${#strings.substring(user.username, 0, 1)}">U</span>
+              </div>
+              <p class="text-lg font-black text-base-content" th:text="${user.username}">
+                ユーザー名
+              </p>
+              <p class="mt-1 break-all text-sm text-base-content/60" th:text="${user.email}">
+                email@example.com
+              </p>
+            </div>
 
-                    <div class="grid gap-4 pt-5">
-                        <div>
-                            <p class="text-xs font-black tracking-wide text-base-content/50">お名前</p>
-                            <p class="mt-1 break-all font-bold text-base-content" th:text="${user.username}">
-                                山田 太郎
-                            </p>
-                        </div>
-                        <div>
-                            <p class="text-xs font-black tracking-wide text-base-content/50">メールアドレス</p>
-                            <p class="mt-1 break-all font-bold text-base-content" th:text="${user.email}">
-                                yamada@example.com
-                            </p>
-                        </div>
-                    </div>
+            <div class="grid gap-4 pt-5">
+              <div>
+                <p class="text-xs font-black tracking-wide text-base-content/50">お名前</p>
+                <p class="mt-1 break-all font-bold text-base-content" th:text="${user.username}">
+                  山田 太郎
+                </p>
+              </div>
+              <div>
+                <p class="text-xs font-black tracking-wide text-base-content/50">メールアドレス</p>
+                <p class="mt-1 break-all font-bold text-base-content" th:text="${user.email}">
+                  yamada@example.com
+                </p>
+              </div>
+            </div>
 
-                    <div class="mt-6 border-t border-base-300 pt-5">
-                        <a href="/logout" class="btn btn-primary w-full">
-                            ログアウト
-                        </a>
-                    </div>
+            <div class="mt-6 border-t border-base-300 pt-5">
+              <a href="/logout" class="btn btn-primary w-full">
+                ログアウト
+              </a>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-base-300 bg-base-100 p-6 shadow-sm">
+            <h2 class="mb-5 text-lg font-black text-base-content">
+              地域別購入回数
+            </h2>
+            <div class="grid gap-4" th:if="${not #lists.isEmpty(regionCounts)}">
+              <div th:each="rc : ${regionCounts}">
+                <div class="mb-2 flex justify-between gap-3 text-sm">
+                  <span class="font-bold text-base-content" th:text="${rc.regionName}">地域名</span>
+                  <span class="font-black text-primary" th:text="${rc.count} + '回'">0回</span>
                 </div>
+                <progress class="progress progress-primary w-full"
+                  th:value="${rc.count * 20 > 100 ? 100 : rc.count * 20}" max="100">
+                </progress>
+              </div>
+            </div>
+            <p th:if="${#lists.isEmpty(regionCounts)}" class="text-sm text-base-content/60">
+              購入データがありません
+            </p>
+          </div>
 
-                <div class="rounded-2xl border border-base-300 bg-base-100 p-6 shadow-sm">
-                    <h2 class="mb-5 text-lg font-black text-base-content">
-                        地域別購入回数
-                    </h2>
-                    <div class="grid gap-4" th:if="${not #lists.isEmpty(regionCounts)}">
-                        <div th:each="rc : ${regionCounts}">
-                            <div class="mb-2 flex justify-between gap-3 text-sm">
-                                <span class="font-bold text-base-content" th:text="${rc.regionName}">地域名</span>
-                                <span class="font-black text-primary" th:text="${rc.count} + '回'">0回</span>
-                            </div>
-                            <progress class="progress progress-primary w-full"
-                                      th:value="${rc.count * 20 > 100 ? 100 : rc.count * 20}"
-                                      max="100">
-                            </progress>
-                        </div>
-                    </div>
-                    <p th:if="${#lists.isEmpty(regionCounts)}" class="text-sm text-base-content/60">
-                        購入データがありません
-                    </p>
-                </div>
+        </aside>
+        <section class="overflow-hidden rounded-2xl border border-base-300 bg-base-100 shadow-sm">
+          <div class="flex items-center justify-between gap-4 border-b border-base-300 px-6 py-5">
+            <h2 class="text-xl font-black text-base-content">
+              購入履歴
+            </h2>
+          </div>
 
-            </aside>
-            <section class="overflow-hidden rounded-2xl border border-base-300 bg-base-100 shadow-sm">
-                <div class="flex items-center justify-between gap-4 border-b border-base-300 px-6 py-5">
-                    <h2 class="text-xl font-black text-base-content">
-                        購入履歴
-                    </h2>
-                </div>
+          <div th:if="${not #lists.isEmpty(orders)}" class="overflow-x-auto">
+            <table class="table">
+              <thead class="bg-base-200 text-xs">
+                <tr>
+                  <th>注文ID</th>
+                  <th>商品名</th>
+                  <th class="text-right">小計</th>
+                  <th class="text-right">送料</th>
+                  <th class="text-right">合計</th>
+                  <th class="text-right">注文日時</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="order : ${orders}">
+                  <td class="whitespace-nowrap font-bold text-base-content/60" th:text="'#' + ${order.id}">
+                    #001
+                  </td>
+                  <td>
+                    <span th:each="detail : ${orderDetailsMap[order.id]}"
+                      th:text="${detail.name} + ' × ' + ${detail.quantity}"
+                      class="block leading-7 font-bold text-base-content">
+                      商品名
+                    </span>
+                  </td>
+                  <td class="text-right" th:text="'¥' + ${#numbers.formatInteger(order.subtotal, 1, 'COMMA')}">
+                    ¥0
+                  </td>
+                  <td class="text-right" th:text="'¥' + ${#numbers.formatInteger(order.shippingFee, 1, 'COMMA')}">
+                    ¥0
+                  </td>
+                  <td class="text-right font-black text-primary"
+                    th:text="'¥' + ${#numbers.formatInteger(order.subtotal + order.shippingFee, 1, 'COMMA')}">
+                    ¥0
+                  </td>
+                  <td class="text-right whitespace-nowrap"
+                    th:text="${#temporals.format(order.orderedAt, 'yyyy/MM/dd HH:mm')}">
+                    2024/01/01 00:00
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-                <div th:if="${not #lists.isEmpty(orders)}" class="overflow-x-auto">
-                    <table class="table">
-                        <thead class="bg-base-200 text-xs">
-                        <tr>
-                            <th>注文ID</th>
-                            <th>商品名</th>
-                            <th class="text-right">小計</th>
-                            <th class="text-right">送料</th>
-                            <th class="text-right">合計</th>
-                            <th class="text-right">注文日時</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="order : ${orders}">
-                            <td class="whitespace-nowrap font-bold text-base-content/60" th:text="'#' + ${order.id}">
-                                #001
-                            </td>
-                            <td>
-                                <span th:each="detail : ${orderDetailsMap[order.id]}"
-                                      th:text="${detail.name} + ' × ' + ${detail.quantity}"
-                                      class="block leading-7 font-bold text-base-content">
-                                    商品名
-                                </span>
-                            </td>
-                            <td class="text-right" th:text="'¥' + ${#numbers.formatInteger(order.subtotal, 1, 'COMMA')}">
-                                ¥0
-                            </td>
-                            <td class="text-right" th:text="'¥' + ${#numbers.formatInteger(order.shippingFee, 1, 'COMMA')}">
-                                ¥0
-                            </td>
-                            <td class="text-right font-black text-primary" th:text="'¥' + ${#numbers.formatInteger(order.subtotal + order.shippingFee, 1, 'COMMA')}">
-                                ¥0
-                            </td>
-                            <td class="text-right whitespace-nowrap" th:text="${#temporals.format(order.orderedAt, 'yyyy/MM/dd HH:mm')}">
-                                2024/01/01 00:00
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+          <div th:if="${#lists.isEmpty(orders)}" class="px-6 py-16 text-center">
+            <div
+              class="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-base-200 text-3xl text-primary">
+              🛒
+            </div>
+            <p class="text-sm text-base-content/60">
+              まだ購入履歴がありません
+            </p>
+            <a href="/" class="btn btn-primary mt-5">
+              ショッピングを始める
+            </a>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+</body>
 
-                <div th:if="${#lists.isEmpty(orders)}" class="px-6 py-16 text-center">
-                    <div class="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-base-200 text-3xl text-primary">
-                        🛒
-                    </div>
-                    <p class="text-sm text-base-content/60">
-                        まだ購入履歴がありません
-                    </p>
-                    <a href="/" class="btn btn-primary mt-5">
-                        ショッピングを始める
-                    </a>
-                </div>
-            </section>
-            </section>
-        <footer class="mt-14 border-t border-base-300 py-7 text-center text-sm text-base-content/60">
-            <p>© どさん娘マルシェ
+</html>
