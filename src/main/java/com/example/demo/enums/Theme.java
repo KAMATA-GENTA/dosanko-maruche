@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum Theme {
-	WINTER("winter");
+	WINTER("winter"), HAKODATE("hakodate"), OTARU("otaru");
 
 	private String name;
 }
