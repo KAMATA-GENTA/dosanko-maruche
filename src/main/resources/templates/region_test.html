@@ -14,21 +14,25 @@
 	<div layout:fragment="content">
 
 
+		<div class="region-visual">
+			<img th:src="@{'/images/' + ${region.regionImage}}" alt="地域画像" class="region-image">
 
-		<img th:src="@{'/images/' + ${region.regionImage}}" alt="地域画像" class="region-image">
+			<div class="description-bubble">
+				<p id="regionDescription" th:text="${region.description}">
+					地域説明
+				</p>
+				
+				
+				<span class="speech-tail"></span>
+			</div>
+			<img th:src="@{'/images/Character/' + ${characterImage}}" alt="キャラクター画像" class="character-image">
+		</div>
 
-		<img th:src="@{'/images/Character/' + ${characterImage}}" alt="キャラクター画像" width="300">
-
-
-		<p th:text="${region.description}">
-			地域説明
-		</p>
 		<section class="ranking-section">
 
 			<!-- カテゴリ別ランキング -->
 			<section class="ranking-section">
 
-				<h2>カテゴリ別ランキング</h2>
 
 				<div class="ranking-carousel">
 
@@ -196,6 +200,19 @@
 		</section>
 	</div>
 
+	<!--地域説明の吹き出し-->
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const bubble = document.querySelector(".description-bubble");
+			const description = document.getElementById("regionDescription");
+
+			if (description && description.textContent.trim() !== "") {
+				bubble.style.display = "block";
+			} else {
+				bubble.style.display = "none";
+			}
+		});
+	</script>
 </body>
 
 </html>
