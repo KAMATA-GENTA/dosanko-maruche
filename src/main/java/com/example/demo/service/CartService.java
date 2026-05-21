@@ -51,4 +51,8 @@ public class CartService {
 
 		cartMapper.updateQuantity(cartId, quantity);
 	}
+
+	public void deleteCartItem(int cartId) {
+		cartMapper.delete(cartId);
+	}
 }
