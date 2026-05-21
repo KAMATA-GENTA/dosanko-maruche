@@ -1,218 +1,280 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/_layout}">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/_layout}">
 
 <head>
-	<link rel="stylesheet" href="/css/regions.css">
+    <meta charset="UTF-8">
+    <title>地域詳細</title>
+    <link rel="stylesheet" href="/css/regions.css">
 </head>
 
-
-
-<body>
-
 <body th:style="'background-color:' + ${region.backgroundColor}">
-	<div layout:fragment="content">
 
+<div layout:fragment="content">
 
-		<div class="region-visual">
-			<img th:src="@{'/images/' + ${region.regionImage}}" alt="地域画像" class="region-image">
+    <!-- 地域ビジュアル -->
+    <div class="region-visual">
 
-			<div class="description-bubble">
-				<p id="regionDescription" th:text="${region.description}">
-					地域説明
+        <!-- Region enumから地域画像を表示 -->
+        <img th:src="@{'/images/' + ${region.regionImage}}"
+             alt="地域画像"
+             class="region-image">
+
+        <!-- Region enumから地域説明を表示 -->
+        <div class="description-bubble">
+            <p id="regionDescription"
+               th:text="${region.description}">
+                地域説明
+            </p>
+
+            <span class="speech-tail"></span>
+        </div>
+
+        <!-- CharacterServiceで判定したキャラクター画像を表示 -->
+        <img th:src="@{'/images/Character/' + ${characterImage}}"
+             alt="キャラクター画像"
+             class="character-image">
+
+    </div>
+
+    <!-- ランキング表示 -->
+    <section class="ranking-section">
+
+        <div class="ranking-carousel">
+
+            <!-- 海産物ランキング -->
+            <div class="ranking-category">
+                <h3>海産物ランキング</h3>
+
+                <div class="ranking-list">
+                    <div class="ranking-card"
+                         th:each="product, stat : ${seafoodRanking}">
+
+                        <span class="rank"
+                              th:text="${stat.index + 1} + '位'">
+                            1位
+                        </span>
+
+                        <img th:src="${product.imageUrl}" alt="商品画像">
+
+                        <h4 th:text="${product.productName}">
+                            商品名
+                        </h4>
+
+                        <p th:text="${product.regionName}">
+                            地域名
+                        </p>
+
+                        <p class="price"
+                           th:text="'¥' + ${product.price}">
+                            ¥0
+                        </p>
+
+                        <a th:href="@{/products/{id}(id=${product.id})}">
+                            詳細を見る
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 畜産物ランキング -->
+            <div class="ranking-category">
+                <h3>畜産物ランキング</h3>
+
+                <div class="ranking-list">
+                    <div class="ranking-card"
+                         th:each="product, stat : ${meatRanking}">
+
+                        <span class="rank"
+                              th:text="${stat.index + 1} + '位'">
+                            1位
+                        </span>
+
+                        <img th:src="${product.imageUrl}" alt="商品画像">
+
+                        <h4 th:text="${product.productName}">
+                            商品名
+                        </h4>
+
+                        <p th:text="${product.regionName}">
+                            地域名
+                        </p>
+
+                        <p class="price"
+                           th:text="'¥' + ${product.price}">
+                            ¥0
+                        </p>
+
+                        <a th:href="@{/products/{id}(id=${product.id})}">
+                            詳細を見る
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 農産物ランキング -->
+            <div class="ranking-category">
+                <h3>農産物ランキング</h3>
+
+                <div class="ranking-list">
+                    <div class="ranking-card"
+                         th:each="product, stat : ${vegetableRanking}">
+
+                        <span class="rank"
+                              th:text="${stat.index + 1} + '位'">
+                            1位
+                        </span>
+
+                        <img th:src="${product.imageUrl}" alt="商品画像">
+
+                        <h4 th:text="${product.productName}">
+                            商品名
+                        </h4>
+
+                        <p th:text="${product.regionName}">
+                            地域名
+                        </p>
+
+                        <p class="price"
+                           th:text="'¥' + ${product.price}">
+                            ¥0
+                        </p>
+
+                        <a th:href="@{/products/{id}(id=${product.id})}">
+                            詳細を見る
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- お土産ランキング -->
+            <div class="ranking-category">
+                <h3>お土産ランキング</h3>
+
+                <div class="ranking-list">
+                    <div class="ranking-card"
+                         th:each="product, stat : ${souvenirRanking}">
+
+                        <span class="rank"
+                              th:text="${stat.index + 1} + '位'">
+                            1位
+                        </span>
+
+                        <img th:src="${product.imageUrl}" alt="商品画像">
+
+                        <h4 th:text="${product.productName}">
+                            商品名
+                        </h4>
+
+                        <p th:text="${product.regionName}">
+                            地域名
+                        </p>
+
+                        <p class="price"
+                           th:text="'¥' + ${product.price}">
+                            ¥0
+                        </p>
+
+                        <a th:href="@{/products/{id}(id=${product.id})}">
+                            詳細を見る
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 商品カテゴリ -->
+    <section class="category-section">
+        <h2>カテゴリから探す</h2>
+
+        <div class="category-list">
+
+            <!--
+                「すべて」リンク。
+                URLは /region/wakkanai のように地域名で作る。
+            -->
+            <a th:href="@{/region/{regionName}(regionName=${region.urlName})} + '#regionProduct-section'"
+               class="category-card"
+               th:classappend="${selectedCategoryId == null} ? ' active'">
+                すべて
+            </a>
+
+            <!--
+                Category enumからカテゴリリンクを作る。
+                categoryIdはクエリパラメータとして渡す。
+                例: /region/wakkanai?categoryId=1#regionProduct-section
+            -->
+            <a th:each="category : ${categories}"
+               th:href="@{/region/{regionName}(regionName=${region.urlName}, categoryId=${category.id})} + '#regionProduct-section'"
+               class="category-card"
+               th:classappend="${selectedCategoryId == category.id} ? ' active'"
+               th:text="${category.name}">
+                カテゴリ名
+            </a>
+
+        </div>
+    </section>
+
+    <!-- 商品一覧 -->
+    <section class="regionProduct-section"
+             id="regionProduct-section">
+
+        <h2>商品一覧</h2>
+
+        <div class="product-list">
+
+            <!-- RegionControllerから渡されたproductsを表示 -->
+            <div class="product-card"
+                 th:each="product : ${products}">
+
+                <img th:src="${product.imageUrl}"
+                     alt="商品画像">
+
+                <h3 th:text="${product.name}">
+                    商品名
+                </h3>
+
+				<p th:text="${T(com.example.demo.enums.Region).getNameById(product.regionId)}">
+				    地域名
 				</p>
-				
-				
-				<span class="speech-tail"></span>
-			</div>
-			<img th:src="@{'/images/Character/' + ${characterImage}}" alt="キャラクター画像" class="character-image">
-		</div>
 
-		<section class="ranking-section">
+				<p th:text="${T(com.example.demo.enums.Category).getNameById(product.categoryId)}">
+				    カテゴリ名
+				</p>
 
-			<!-- カテゴリ別ランキング -->
-			<section class="ranking-section">
+                <p class="price"
+                   th:text="'¥' + ${product.price}">
+                    ¥0
+                </p>
 
+                <a th:href="@{/products/{id}(id=${product.id})}">
+                    詳細を見る
+                </a>
 
-				<div class="ranking-carousel">
+            </div>
 
-					<div class="ranking-category">
-						<h3>海産物ランキング</h3>
+        </div>
+    </section>
 
-						<div class="ranking-list">
-							<div class="ranking-card" th:each="product, stat : ${seafoodRanking}">
+</div>
 
-								<span class="rank" th:text="${stat.index + 1} + '位'">1位</span>
+<!-- 地域説明が空なら吹き出しを非表示にする -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const bubble = document.querySelector(".description-bubble");
+        const description = document.getElementById("regionDescription");
 
-								<img th:src="${product.imageUrl}" alt="商品画像">
+        if (description && description.textContent.trim() !== "") {
+            bubble.style.display = "block";
+        } else {
+            bubble.style.display = "none";
+        }
+    });
+</script>
 
-								<h4 th:text="${product.productName}">商品名</h4>
-
-								<p th:text="${product.regionName}">地域名</p>
-
-								<p class="price" th:text="'¥' + ${product.price}">¥0</p>
-
-								<a th:href="@{/products/{id}(id=${product.id})}">
-									詳細を見る
-								</a>
-
-							</div>
-						</div>
-					</div>
-
-					<div class="ranking-category">
-						<h3>畜産物ランキング</h3>
-
-						<div class="ranking-list">
-							<div class="ranking-card" th:each="product, stat : ${meatRanking}">
-
-								<span class="rank" th:text="${stat.index + 1} + '位'">1位</span>
-
-								<img th:src="${product.imageUrl}" alt="商品画像">
-
-								<h4 th:text="${product.productName}">商品名</h4>
-
-								<p th:text="${product.regionName}">地域名</p>
-
-								<p class="price" th:text="'¥' + ${product.price}">¥0</p>
-
-								<a th:href="@{/products/{id}(id=${product.id})}">
-									詳細を見る
-								</a>
-
-							</div>
-						</div>
-					</div>
-
-					<div class="ranking-category">
-						<h3>農産物ランキング</h3>
-
-						<div class="ranking-list">
-							<div class="ranking-card" th:each="product, stat : ${vegetableRanking}">
-
-								<span class="rank" th:text="${stat.index + 1} + '位'">1位</span>
-
-								<img th:src="${product.imageUrl}" alt="商品画像">
-
-								<h4 th:text="${product.productName}">商品名</h4>
-
-								<p th:text="${product.regionName}">地域名</p>
-
-								<p class="price" th:text="'¥' + ${product.price}">¥0</p>
-
-								<a th:href="@{/products/{id}(id=${product.id})}">
-									詳細を見る
-								</a>
-
-							</div>
-						</div>
-					</div>
-
-					<div class="ranking-category">
-						<h3>お土産ランキング</h3>
-
-						<div class="ranking-list">
-							<div class="ranking-card" th:each="product, stat : ${souvenirRanking}">
-
-								<span class="rank" th:text="${stat.index + 1} + '位'">1位</span>
-
-								<img th:src="${product.imageUrl}" alt="商品画像">
-
-								<h4 th:text="${product.productName}">商品名</h4>
-
-								<p th:text="${product.regionName}">地域名</p>
-
-								<p class="price" th:text="'¥' + ${product.price}">¥0</p>
-
-								<a th:href="@{/products/{id}(id=${product.id})}">
-									詳細を見る
-								</a>
-
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-
-
-			<!-- 商品カテゴリ -->
-			<section class="category-section">
-				<h2>カテゴリから探す</h2>
-
-				<div class="category-list">
-
-					<a th:href="@{/region/{regionName}(regionName=${regionName})} + '#regionProduct-section'"
-						class="category-card" th:classappend="${selectedCategoryId == null} ? ' active'">
-						すべて
-					</a>
-
-					<a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=1)} + '#regionProduct-section'"
-						class="category-card" th:classappend="${selectedCategoryId == 1} ? ' active'">
-						海産物
-					</a>
-
-					<a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=3)} + '#regionProduct-section'"
-						class="category-card" th:classappend="${selectedCategoryId == 3} ? ' active'">
-						畜産物
-					</a>
-
-					<a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=2)} + '#regionProduct-section'"
-						class="category-card" th:classappend="${selectedCategoryId == 2} ? ' active'">
-						農産物
-					</a>
-
-					<a th:href="@{/region/{regionName}(regionName=${regionName}, categoryId=4)} + '#regionProduct-section'"
-						class="category-card" th:classappend="${selectedCategoryId == 4} ? ' active'">
-						お土産
-					</a>
-				</div>
-			</section>
-
-
-			<!-- 商品一覧 -->
-			<section class="regionProduct-section" id="regionProduct-section">
-				<h2>商品一覧</h2>
-
-				<div class="product-list">
-
-					<div class="product-card" th:each="product : ${products}">
-
-						<img th:src="${product.imageUrl}" alt="商品画像">
-
-						<h3 th:text="${product.name}">
-							商品名
-						</h3>
-
-
-						<p class="price" th:text="'¥' + ${product.price}">
-							¥0
-						</p>
-
-						<a th:href="@{/products/{id}(id=${product.id})}">
-							詳細を見る
-						</a>
-
-					</div>
-
-				</div>
-			</section>
-
-		</section>
-	</div>
-
-	<!--地域説明の吹き出し-->
-	<script>
-		document.addEventListener("DOMContentLoaded", function () {
-			const bubble = document.querySelector(".description-bubble");
-			const description = document.getElementById("regionDescription");
-
-			if (description && description.textContent.trim() !== "") {
-				bubble.style.display = "block";
-			} else {
-				bubble.style.display = "none";
-			}
-		});
-	</script>
 </body>
 
 </html>

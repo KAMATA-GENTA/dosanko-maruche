@@ -6,85 +6,107 @@ import lombok.Getter;
 /**
  * 地域情報を管理するenumクラス
  *
- * DBにregionsテーブルを作らない代わりに、Java側で地域IDと地域名などをまとめて管理する
- * productsテーブルには region_id だけを保存し、画面に表示する地域名はこのenumから取得する
+ * URLでは /region/wakkanai のように文字列を使い、
+ * DB検索では products.region_id に対応するIDを使う。
  */
 @AllArgsConstructor
 @Getter
 public enum Region {
 
-	Sapporo(1, "札幌", "北海道の中心都市です。市町村の魅力度ランキング調査でも毎年上位にランクインしていて、海鮮だけでなく、スープカレーなども有名です", "Sapporo.png",
-			Character.SapporoChan, "#dff5ff"), Hakodate(2, "函館", "海鮮が有名です。また、夜景の名所として函館山や五稜郭が知られています", "Hakodate.png",
-					Character.HakodateChan,
-					"#1b2b52"), Kitami(3, "北見", "玉ねぎの生産量・出荷量、白花豆の生産量が日本一となっており、ホタテ漁が盛んで「ホタテ養殖発祥の地」にもなっています",
-							"Kitami.png", Character.KitamiChan, "#fff1cc"), Wakkanai(
-									4, "稚内", "北海道最北の都市です。タコしゃぶなどが有名で、ご当地グルメとしてチャーメンも人気です", "Wakkanai.png",
-									Character.WakkanaiChan, "#d9f2ff"), Otaru(5, "小樽",
-											"歴史的な石造りの倉庫群が残る「小樽運河」をはじめ、ガラス工芸品、オルゴール、そして新鮮な海鮮を楽しめる観光地です", "Otaru.png",
-											Character.OtaruChan, "#d6f0ff"), Obihiro(6, "帯広",
-													"道東で最大の人口を擁する、十勝地方の中心都市です。豚丼がとても有名です", "Obihiro.png",
-													Character.ObihiroChan, "#ffe0cc");
+    /*
+     * 第1引数: DBのproducts.region_idと対応するID
+     * 第2引数: URL用の地域名
+     * 第3引数: 画面に表示する地域名
+     * 第4引数: 地域説明
+     * 第5引数: 地域画像ファイル名
+     * 第6引数: 地域キャラクター
+     * 第7引数: 背景色
+     */
+    SAPPORO(1, "sapporo", "札幌",
+            "北海道の中心都市です。市町村の魅力度ランキング調査でも毎年上位にランクインしていて、海鮮だけでなく、スープカレーなども有名です",
+            "Sapporo.png", Character.SapporoChan, "#dff5ff"),
 
-	// DBのproducts.region_idと対応するID
-	private final Integer id;
+    OTARU(2, "otaru", "小樽",
+            "歴史的な石造りの倉庫群が残る「小樽運河」をはじめ、ガラス工芸品、オルゴール、そして新鮮な海鮮を楽しめる観光地です",
+            "Otaru.png", Character.OtaruChan, "#d6f0ff"),
 
-	// 画面に表示する地域名
-	private final String name;
+    HAKODATE(3, "hakodate", "函館",
+            "海鮮が有名です。また、夜景の名所として函館山や五稜郭が知られています",
+            "Hakodate.png", Character.HakodateChan, "#1b2b52"),
 
-	// 地域紹介文
-	private final String description;
+    KITAMI(4, "kitami", "北見",
+            "玉ねぎの生産量・出荷量、白花豆の生産量が日本一となっており、ホタテ漁が盛んで「ホタテ養殖発祥の地」にもなっています",
+            "Kitami.png", Character.KitamiChan, "#fff1cc"),
 
-	// 地域画像ファイル名
-	private final String regionImage;
+    OBIHIRO(5, "obihiro", "帯広",
+            "道東で最大の人口を擁する、十勝地方の中心都市です。豚丼がとても有名です",
+            "Obihiro.png", Character.ObihiroChan, "#ffe0cc"),
 
-	// 地域キャラクター
-	private final Character character;
+    WAKKANAI(6, "wakkanai", "稚内",
+            "北海道最北の都市です。タコしゃぶなどが有名で、ご当地グルメとしてチャーメンも人気です",
+            "Wakkanai.png", Character.WakkanaiChan, "#d9f2ff");
 
-	private final String backgroundColor;
+    // DBのproducts.region_idと対応するID
+    private final Integer id;
 
-	/**
-	 * 地域IDからRegion enumを探すメソッド
-	 *
-	 * productsテーブルから取得したregion_idを使って、該当するRegionを返す
-	 *
-	 * @param id 地域ID
-	 * @return 該当するRegion。見つからない場合はnull。
-	 */
-	public static Region fromId(Integer id) {
+    // URL用の地域名。例: /region/wakkanai
+    private final String urlName;
 
-		// idがnullの場合は探せないためnullを返す
-		if (id == null) {
-			return null;
-		}
+    // 画面に表示する地域名。例: 稚内
+    private final String name;
 
-		// Region enumに定義されている全地域を1つずつ確認する
-		for (Region region : Region.values()) {
+    // 地域紹介文
+    private final String description;
 
-			// enumのidと引数のidが一致したら、その地域を返す
-			if (region.getId().equals(id)) {
-				return region;
-			}
-		}
+    // 地域画像ファイル名
+    private final String regionImage;
 
-		// 一致する地域がない場合はnullを返す
-		return null;
-	}
+    // 地域キャラクター
+    private final Character character;
 
-	/**
-	 * 地域IDから地域名だけを取得するメソッド
-	 *
-	 * 画面表示ではRegionそのものではなく、札幌、小樽などの名前だけ必要なことが多いため用意している
-	 *
-	 * @param id 地域ID
-	 * @return 地域名。見つからない場合は「不明」。
-	 */
-	public static String getNameById(Integer id) {
+    // 地域ページの背景色
+    private final String backgroundColor;
 
-		// 地域IDからRegion enumを取得
-		Region region = fromId(id);
+    /**
+     * DBの地域IDからRegionを取得する。
+     */
+    public static Region fromId(Integer id) {
+        if (id == null) {
+            return null;
+        }
 
-		// Regionが見つかった場合は地域名を返す
-		// 見つからなかった場合は画面でエラーにならないように「不明」を返す
-		return region != null ? region.getName() : "不明";
-	}
+        for (Region region : Region.values()) {
+            if (region.getId().equals(id)) {
+                return region;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * URLの地域名からRegionを取得する。
+     * 例: "wakkanai" → WAKKANAI
+     */
+    public static Region fromUrlName(String urlName) {
+        if (urlName == null) {
+            return null;
+        }
+
+        for (Region region : Region.values()) {
+            if (region.getUrlName().equalsIgnoreCase(urlName)) {
+                return region;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * 地域IDから表示用の地域名を取得する。
+     */
+    public static String getNameById(Integer id) {
+        Region region = fromId(id);
+        return region != null ? region.getName() : "不明";
+    }
 }
