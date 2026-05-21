@@ -40,4 +40,23 @@ public class CartDisplayItem {
 	public String getImageUrl() {
 		return product.getImageUrl();
 	}
+
+	public String getRegionName() {
+		switch (product.getRegionId()) {
+		case 1:
+			return "札幌";
+		case 2:
+			return "函館";
+		case 3:
+			return "北見";
+		case 4:
+			return "稚内";
+		case 5:
+			return "小樽";
+		case 6:
+			return "帯広";
+		default:
+			return "不明";
+		}
+	}
 }
