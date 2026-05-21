@@ -18,64 +18,81 @@ import com.example.demo.service.ProductService;
 @RequestMapping("/region")
 public class RegionController {
 
-	private final ProductService productService;
-	private final CharacterService characterService;
+    private final ProductService productService;
+    private final CharacterService characterService;
 
-	public RegionController(ProductService productService, CharacterService characterService) {
-		this.productService = productService;
-		this.characterService = characterService;
-	}
+    public RegionController(ProductService productService, CharacterService characterService) {
+        this.productService = productService;
+        this.characterService = characterService;
+    }
 
-	// 地域詳細ページ
-    @GetMapping("/{regionId}")
+    /**
+     * 地域詳細ページ
+     *
+     * URLは /region/wakkanai のように地域名で受け取る。
+     * ただし、DB検索にはregion_idが必要なので、Region enumからIDを取得して使う。
+     */
+    @GetMapping("/{regionName}")
     public String showRegion(
-            @PathVariable Integer regionId,
+            @PathVariable String regionName,
             Integer categoryId,
             Model model) {
 
-        // URLの地域IDからRegion enumを取得します。
-        Region region = Region.fromId(regionId);
+        // URLの地域名からRegion enumを取得する
+        Region region = Region.fromUrlName(regionName);
 
-        // 存在しない地域IDの場合はトップページへ戻します。
+        // 存在しない地域名の場合はトップページへ戻す
         if (region == null) {
             return "redirect:/";
         }
 
-        // ★Listを型に解決できませんというエラー
         List<Product> products;
 
-        // カテゴリ未選択の場合は、その地域の商品を取得します。
+        // カテゴリ未選択の場合は、その地域の商品をすべて取得する
         if (categoryId == null) {
-    		products = productService.getProductsByRegionId(region.getId());
-		} else {
-    	// カテゴリ選択時は、地域の商品を取得してからカテゴリIDで絞り込みます。
-    	products = productService.getProductsByRegionId(region.getId())
-            .stream()
-            .filter(product -> categoryId.equals(product.getCategoryId()))
-            .toList();
-		}
-		// カテゴリ別ランキング 地域ごと
-		model.addAttribute("seafoodRanking",
-        	productService.getRankingByRegionIdAndCategoryId(region.getId(), 1));
+            products = productService.getProductsByRegionId(region.getId());
+        } else {
+            // カテゴリ選択時は、その地域の商品を取得してからカテゴリIDで絞り込む
+            products = productService.getProductsByRegionId(region.getId())
+                    .stream()
+                    .filter(product -> categoryId.equals(product.getCategoryId()))
+                    .toList();
+        }
 
-		model.addAttribute("vegetableRanking",
-        	productService.getRankingByRegionIdAndCategoryId(region.getId(), 2));
-
-		model.addAttribute("meatRanking",
-        	productService.getRankingByRegionIdAndCategoryId(region.getId(), 3));
-
-		model.addAttribute("souvenirRanking",
-        	productService.getRankingByRegionIdAndCategoryId(region.getId(), 4));
-
-		// キャラクター画像、地域idの値を渡して進化するかどうかの判定
-		model.addAttribute("characterImage", characterService.getCharacterImageByRegion(region));
-		model.addAttribute("orderDetailCount", characterService.getOrderDetailCountByRegion(region));
-
+        // 地域ページ表示用
         model.addAttribute("region", region);
-        model.addAttribute("regionId", regionId);
+
+        // URL生成用。region.urlNameでも使えるが、HTML側で使いやすいように渡す
+        model.addAttribute("regionName", region.getUrlName());
+
+        // 商品一覧
         model.addAttribute("products", products);
+
+        // 選択中カテゴリ
         model.addAttribute("selectedCategoryId", categoryId);
+
+        // Category enumからカテゴリ一覧を渡す
         model.addAttribute("categories", Category.values());
+
+        // 地域別・カテゴリ別ランキング
+        model.addAttribute("seafoodRanking",
+                productService.getRankingByRegionIdAndCategoryId(region.getId(), 1));
+
+        model.addAttribute("vegetableRanking",
+                productService.getRankingByRegionIdAndCategoryId(region.getId(), 2));
+
+        model.addAttribute("meatRanking",
+                productService.getRankingByRegionIdAndCategoryId(region.getId(), 3));
+
+        model.addAttribute("souvenirRanking",
+                productService.getRankingByRegionIdAndCategoryId(region.getId(), 4));
+
+        // キャラクター表示
+        model.addAttribute("characterImage",
+                characterService.getCharacterImageByRegion(region));
+
+        model.addAttribute("orderDetailCount",
+                characterService.getOrderDetailCountByRegion(region));
 
         return "region_test";
     }

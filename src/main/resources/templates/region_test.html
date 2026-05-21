@@ -6,7 +6,6 @@
 <head>
     <meta charset="UTF-8">
     <title>地域詳細</title>
-
     <link rel="stylesheet" href="/css/regions.css">
 </head>
 
@@ -17,42 +16,38 @@
     <!-- 地域ビジュアル -->
     <div class="region-visual">
 
-        <!-- 地域画像 -->
+        <!-- Region enumから地域画像を表示 -->
         <img th:src="@{'/images/' + ${region.regionImage}}"
              alt="地域画像"
              class="region-image">
 
-        <!-- 地域説明 -->
+        <!-- Region enumから地域説明を表示 -->
         <div class="description-bubble">
-
             <p id="regionDescription"
                th:text="${region.description}">
                 地域説明
             </p>
 
             <span class="speech-tail"></span>
-
         </div>
 
-        <!-- キャラクター画像 -->
+        <!-- CharacterServiceで判定したキャラクター画像を表示 -->
         <img th:src="@{'/images/Character/' + ${characterImage}}"
              alt="キャラクター画像"
              class="character-image">
 
     </div>
 
-    <!-- ランキング -->
+    <!-- ランキング表示 -->
     <section class="ranking-section">
 
         <div class="ranking-carousel">
 
-            <!-- 海産物 -->
+            <!-- 海産物ランキング -->
             <div class="ranking-category">
-
                 <h3>海産物ランキング</h3>
 
                 <div class="ranking-list">
-
                     <div class="ranking-card"
                          th:each="product, stat : ${seafoodRanking}">
 
@@ -79,20 +74,15 @@
                         <a th:href="@{/products/{id}(id=${product.id})}">
                             詳細を見る
                         </a>
-
                     </div>
-
                 </div>
-
             </div>
 
-            <!-- 畜産物 -->
+            <!-- 畜産物ランキング -->
             <div class="ranking-category">
-
                 <h3>畜産物ランキング</h3>
 
                 <div class="ranking-list">
-
                     <div class="ranking-card"
                          th:each="product, stat : ${meatRanking}">
 
@@ -119,20 +109,15 @@
                         <a th:href="@{/products/{id}(id=${product.id})}">
                             詳細を見る
                         </a>
-
                     </div>
-
                 </div>
-
             </div>
 
-            <!-- 農産物 -->
+            <!-- 農産物ランキング -->
             <div class="ranking-category">
-
                 <h3>農産物ランキング</h3>
 
                 <div class="ranking-list">
-
                     <div class="ranking-card"
                          th:each="product, stat : ${vegetableRanking}">
 
@@ -159,20 +144,15 @@
                         <a th:href="@{/products/{id}(id=${product.id})}">
                             詳細を見る
                         </a>
-
                     </div>
-
                 </div>
-
             </div>
 
-            <!-- お土産 -->
+            <!-- お土産ランキング -->
             <div class="ranking-category">
-
                 <h3>お土産ランキング</h3>
 
                 <div class="ranking-list">
-
                     <div class="ranking-card"
                          th:each="product, stat : ${souvenirRanking}">
 
@@ -199,34 +179,36 @@
                         <a th:href="@{/products/{id}(id=${product.id})}">
                             詳細を見る
                         </a>
-
                     </div>
-
                 </div>
-
             </div>
 
         </div>
-
     </section>
 
     <!-- 商品カテゴリ -->
     <section class="category-section">
-
         <h2>カテゴリから探す</h2>
 
         <div class="category-list">
 
-            <!-- すべて -->
-            <a th:href="@{/region/{regionId}(regionId=${region.id})}"
+            <!--
+                「すべて」リンク。
+                URLは /region/wakkanai のように地域名で作る。
+            -->
+            <a th:href="@{/region/{regionName}(regionName=${region.urlName})} + '#regionProduct-section'"
                class="category-card"
                th:classappend="${selectedCategoryId == null} ? ' active'">
                 すべて
             </a>
 
-            <!-- enumからカテゴリ生成 -->
+            <!--
+                Category enumからカテゴリリンクを作る。
+                categoryIdはクエリパラメータとして渡す。
+                例: /region/wakkanai?categoryId=1#regionProduct-section
+            -->
             <a th:each="category : ${categories}"
-               th:href="@{/region/{regionId}(regionId=${region.id}, categoryId=${category.id})}"
+               th:href="@{/region/{regionName}(regionName=${region.urlName}, categoryId=${category.id})} + '#regionProduct-section'"
                class="category-card"
                th:classappend="${selectedCategoryId == category.id} ? ' active'"
                th:text="${category.name}">
@@ -234,7 +216,6 @@
             </a>
 
         </div>
-
     </section>
 
     <!-- 商品一覧 -->
@@ -245,6 +226,7 @@
 
         <div class="product-list">
 
+            <!-- RegionControllerから渡されたproductsを表示 -->
             <div class="product-card"
                  th:each="product : ${products}">
 
@@ -255,10 +237,12 @@
                     商品名
                 </h3>
 
+                <!-- ProductServiceでRegion enumからセットした地域名 -->
                 <p th:text="${product.regionName}">
                     地域名
                 </p>
 
+                <!-- ProductServiceでCategory enumからセットしたカテゴリ名 -->
                 <p th:text="${product.categoryName}">
                     カテゴリ名
                 </p>
@@ -275,15 +259,13 @@
             </div>
 
         </div>
-
     </section>
 
 </div>
 
-<!-- 地域説明の吹き出し -->
+<!-- 地域説明が空なら吹き出しを非表示にする -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-
         const bubble = document.querySelector(".description-bubble");
         const description = document.getElementById("regionDescription");
 
@@ -292,7 +274,6 @@
         } else {
             bubble.style.display = "none";
         }
-
     });
 </script>
 
