@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS order_details;
-DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS cart_items;
-DROP TABLE IF EXISTS reviews;
-DROP TABLE IF EXISTS products;
+--DROP TABLE IF EXISTS order_details;
+--DROP TABLE IF EXISTS orders;
+--DROP TABLE IF EXISTS cart_items;
+--DROP TABLE IF EXISTS reviews;
+--DROP TABLE IF EXISTS products;
 --DROP TABLE IF EXISTS users;
 
 CREATE TABLE IF NOT EXISTS users (
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS users (
     password_hash VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE products (
+CREATE TABLE IF NOT EXISTS products (
     id SERIAL PRIMARY KEY,
     region_id INT NOT NULL,
     category_id INT NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE products (
     image_url VARCHAR(255)
 );
 
-CREATE TABLE reviews (
+CREATE TABLE IF NOT EXISTS reviews (
     id SERIAL PRIMARY KEY,
     product_id INT NOT NULL,
     user_id INT NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE reviews (
         ON DELETE CASCADE
 );
 
-CREATE TABLE cart_items (
+CREATE TABLE IF NOT EXISTS cart_items (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     product_id INT NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE cart_items (
         ON DELETE CASCADE
 );
 
-CREATE TABLE orders (
+CREATE TABLE IF NOT EXISTS orders (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     subtotal INT NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE orders (
         ON DELETE CASCADE
 );
 
-CREATE TABLE order_details (
+CREATE TABLE IF NOT EXISTS order_details (
     id SERIAL PRIMARY KEY,
     order_id INT NOT NULL,
     product_id INT NOT NULL,
