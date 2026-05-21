@@ -46,13 +46,13 @@
     <!-- enumからProductServiceでセットされた地域名 -->
     <p>
         地域:
-        <span th:text="${product.regionName}">地域名</span>
+        <span th:text="${T(com.example.demo.enums.Region).getNameById(product.regionId)}">地域名</span>
     </p>
 
     <!-- enumからProductServiceでセットされたカテゴリ名 -->
     <p>
         カテゴリ:
-        <span th:text="${product.categoryName}">カテゴリ名</span>
+        <span th:text="${T(com.example.demo.enums.Category).getNameById(product.categoryId)}">カテゴリ名</span>
     </p>
 
     <!-- 価格 -->

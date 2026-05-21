@@ -21,10 +21,4 @@ public class Product {
 	private String imageUrl; // 商品画像
 
 	private Integer regionId; // 地域ID
-	
-	// Region enum からセットする表示用の地域名
-    private String regionName;
-
-    // Category enum からセットする表示用のカテゴリ名
-    private String categoryName;
 }
