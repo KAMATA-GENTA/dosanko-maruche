@@ -1,35 +1,302 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layouts/_layout}">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/_layout}">
 
-<head></head>
+<head>
+  <style>
+    :root {
+      --sky-main: #2f7dd3;
+      --sky-dark: #1e5fa8;
+      --sky-soft: #eff8ff;
+      --sky-border: #d7eaff;
+      --text-main: #142033;
+      --text-sub: #526173;
+      --amazon-orange: #ff9900;
+      --amazon-dark: #232f3e;
+    }
+
+    .cart-container.complete {
+      max-width: 920px;
+      margin: 48px auto 72px;
+      padding: 0 20px;
+      color: var(--text-main);
+    }
+
+    .complete-card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--sky-border);
+      border-radius: 24px;
+      box-shadow: 0 16px 36px rgba(43, 107, 173, 0.1);
+      overflow: hidden;
+    }
+
+    .complete-header {
+      padding: 34px 36px;
+      background: linear-gradient(135deg, #ffffff, #f1f9ff);
+      border-bottom: 1px solid var(--sky-border);
+      text-align: center;
+    }
+
+    .complete-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: #fff7e6;
+      color: #b35c00;
+      font-size: 14px;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    .complete-title {
+      margin: 0;
+      font-size: 34px;
+      font-weight: 900;
+      color: #132236;
+    }
+
+    .complete-sub {
+      margin: 12px 0 0;
+      color: var(--text-sub);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .game-area {
+      padding: 32px 36px;
+      display: grid;
+      gap: 24px;
+    }
+
+    .result-box {
+      border-radius: 20px;
+      padding: 28px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 900;
+      border: 2px solid transparent;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+    }
+
+    .result-box.hit {
+      background: linear-gradient(135deg, #fff7d6, #fff1b8);
+      border-color: #ffd166;
+      color: #9a5a00;
+    }
+
+    .result-box.miss {
+      background: linear-gradient(135deg, #f4f9ff, #e9f4ff);
+      border-color: var(--sky-border);
+      color: var(--sky-dark);
+    }
+
+    .order-summary {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .amazon-like-box,
+    .price-box {
+      background: #ffffff;
+      border: 1px solid var(--sky-border);
+      border-radius: 18px;
+      padding: 24px;
+    }
+
+    .amazon-like-box h2,
+    .price-box h2 {
+      margin: 0 0 16px;
+      font-size: 20px;
+      font-weight: 900;
+      color: #132236;
+    }
+
+    .amazon-like-box p {
+      margin: 8px 0;
+      color: var(--text-sub);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .status-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 14px;
+      background: #f4f9ff;
+      color: var(--sky-dark);
+      font-weight: 800;
+    }
+
+    .price-box p {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 0;
+      padding: 12px 0;
+      border-bottom: 1px solid #e5eef8;
+      color: #2c3a4d;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .price-box p:last-child {
+      border-bottom: none;
+    }
+
+    .price-box span {
+      font-weight: 900;
+    }
+
+    .price-box .total {
+      margin-top: 8px;
+      padding-top: 18px;
+      font-size: 22px;
+      color: #b12704;
+      border-top: 2px solid #e5eef8;
+    }
+
+    .action-area {
+      padding: 0 36px 34px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .purchase-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 260px;
+      padding: 15px 24px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ffd814, #f7ca00);
+      color: #111827;
+      font-size: 17px;
+      font-weight: 900;
+      text-decoration: none;
+      border: 1px solid #f0b400;
+      box-shadow: 0 10px 22px rgba(255, 153, 0, 0.22);
+      transition: 0.18s ease;
+    }
+
+    .purchase-btn:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, #f7ca00, #f0b400);
+    }
+
+    @media (max-width: 760px) {
+      .complete-title {
+        font-size: 28px;
+      }
+
+      .order-summary {
+        grid-template-columns: 1fr;
+      }
+
+      .complete-header,
+      .game-area,
+      .action-area {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      .result-box {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
 
 <body>
   <div layout:fragment="content">
 
     <div class="cart-container complete">
 
-      <h1>購入完了！</h1>
+      <div class="complete-card">
 
-      <div class="result-box hit" th:if="${result == 'hit'}">
-        🎉 当たり！送料無料になりました！
+        <div class="complete-header">
+          <div class="complete-badge">
+            🎮 送料無料チャレンジ結果
+          </div>
+
+          <h1 class="complete-title">
+            購入完了！
+          </h1>
+
+          <p class="complete-sub">
+            ご注文ありがとうございます。<br>
+            最後に、送料無料チャレンジの結果を確認しましょう。
+          </p>
+        </div>
+
+        <div class="game-area">
+
+          <div class="result-box hit" th:if="${result == 'hit'}">
+            🎉 当たり！送料無料になりました！
+          </div>
+
+          <div class="result-box miss" th:if="${result == 'miss'}">
+            😢 はずれ！送料はそのままです
+          </div>
+
+          <div class="order-summary">
+
+            <div class="amazon-like-box">
+              <h2>注文ステータス</h2>
+
+              <p>
+                注文が正常に完了しました。購入内容はマイページまたは購入履歴から確認できます。
+              </p>
+
+              <div class="status-line">
+                📦 通常2〜3営業日以内に発送予定
+              </div>
+
+              <div class="status-line">
+                ❄ どさん娘マルシェをご利用いただきありがとうございます
+              </div>
+            </div>
+
+            <div class="price-box">
+              <h2>注文金額</h2>
+
+              <p>
+                商品合計：
+                <span th:text="${subtotal} + '円'"></span>
+              </p>
+
+              <p>
+                送料：
+                <span th:text="${shippingFee} + '円'"></span>
+              </p>
+
+              <p class="total">
+                合計：
+                <span th:text="${totalPrice} + '円'"></span>
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="action-area">
+          <a th:href="@{/cart}" class="purchase-btn">
+            カートへ戻る
+          </a>
+        </div>
+
       </div>
-
-      <div class="result-box miss" th:if="${result == 'miss'}">
-        😢 はずれ！送料はそのままです
-      </div>
-
-      <div class="price-box">
-        <p>商品合計：<span th:text="${subtotal} + '円'"></span></p>
-        <p>送料：<span th:text="${shippingFee} + '円'"></span></p>
-        <p class="total">合計：<span th:text="${totalPrice} + '円'"></span></p>
-      </div>
-
-      <a th:href="@{/cart}" class="purchase-btn">
-        カートへ戻る
-      </a>
 
     </div>
+
   </div>
 </body>
 
