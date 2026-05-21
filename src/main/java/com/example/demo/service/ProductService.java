@@ -50,4 +50,12 @@ public class ProductService {
 		return productMapper.findRankingByCategoryId(categoryId);
 	}
 
+	//地域別カテゴリ別ランキング
+	public List<RankingProduct> getRankingByRegionIdAndCategoryId(
+			Integer regionId,
+			Integer categoryId) {
+
+		return productMapper.findRankingByRegionIdAndCategoryId(regionId, categoryId);
+	}
+
 }
