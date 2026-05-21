@@ -6,48 +6,38 @@
 <body>
     <!-- Nav bar -->
     <!-- hidden on small devices -->
-    <nav layout:fragment="nav" class="relative bg-neutral">
+  <nav layout:fragment="nav" class="relative" style="background: linear-gradient(to right, #00c4cc, #4d61fc, #8b3dff);">
         <div class="mx-auto hidden h-12 w-full max-w-[1200px] items-center md:flex">
-            <button @click="desktopMenuOpen = ! desktopMenuOpen"
-                class="ml-5 flex h-full w-40 cursor-pointer items-center justify-center bg-primary text-primary-content hover:bg-yellow-400">
-                <div class="flex justify-around" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="mx-1 h-6 w-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+
+            <a href="/index" class="ml-5 mr-6 flex-shrink-0">
+                <img src="/images/logo.svg" alt="company logo" class="h-8 w-auto brightness-0 invert" />
+            </a>
+
+
+
+            <div class="ml-auto flex gap-4 px-5 items-center">
+                <span th:if="${session.username != null}" class="font-light text-white">
+                    こんにちは、
+                    <a href="/my-page" class="font-bold text-yellow-400 hover:underline"
+                       th:text="${session.username} + 'さん'">usernameさん</a>
+                </span>
+
+                <a th:if="${session.username == null}" class="font-light text-white duration-100 hover:underline"
+                   href="/login">Login</a>
+                <span th:if="${session.username == null}" class="text-white">&#124;</span>
+                <a th:if="${session.username == null}" class="font-light text-white duration-100 hover:underline"
+                   href="/sign-up">Sign Up</a>
+
+                <a href="/cart" class="flex cursor-pointer flex-col items-center justify-center text-white hover:opacity-80 duration-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+                        <path fill-rule="evenodd"
+                            d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3zm-3 8.25a3 3 0 106 0v-.75a.75.75 0 011.5 0v.75a4.5 4.5 0 11-9 0v-.75a.75.75 0 011.5 0v.75z"
+                            clip-rule="evenodd" />
                     </svg>
-
-                    All categories
-                </div>
-            </button>
-
-            <div class="mx-7 flex gap-8">
-                <a class="font-light text-neutral-content duration-100  hover:underline"
-                    href="/index">Home</a>            
+                    <p class="text-xs">Cart</p>
+                </a>
             </div>
 
-			<div class="ml-auto flex gap-4 px-5 items-center">
-			  <span th:if="${session.username != null}" class="font-light text-white">
-			    こんにちは、
-			    <a href="/my-page" class="font-bold text-yellow-400 hover:underline"
-			       th:text="${session.username} + 'さん'">usernameさん</a>
-			  </span>
-
-			  <a th:if="${session.username == null}" class="font-light text-white duration-100 hover:underline"
-			     href="/login">Login</a>
-			  <span th:if="${session.username == null}" class="text-white">&#124;</span>
-			  <a th:if="${session.username == null}" class="font-light text-white duration-100 hover:underline"
-			     href="/sign-up">Sign Up</a>
-
-			  <a href="/cart" class="flex cursor-pointer flex-col items-center justify-center text-white hover:opacity-80 duration-100">
-			    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
-			      <path fill-rule="evenodd"
-			        d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3zm-3 8.25a3 3 0 106 0v-.75a.75.75 0 011.5 0v.75a4.5 4.5 0 11-9 0v-.75a.75.75 0 011.5 0v.75z"
-			        clip-rule="evenodd" />
-			    </svg>
-			    <p class="text-xs">Cart</p>
-			  </a>
-			</div>
         </div>
     </nav>
     <!-- /Nav bar -->
