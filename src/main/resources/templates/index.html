@@ -3,343 +3,178 @@
 	layout:decorate="~{layouts/_layout}">
 
 <head>
-	<link rel="stylesheet" href="/css/home.css">
-	<style>
-		body {
-			background: hsl(var(--b2));
-			color: hsl(var(--bc));
-		}
-
-		a {
-			text-decoration: none;
-		}
-
-		.header {
-			background: hsl(var(--b1));
-			border-bottom: 1px solid hsl(var(--b3));
-			box-shadow: 0 2px 8px rgba(0, 0, 0, .04);
-		}
-
-		.logo a {
-			color: hsl(var(--p));
-			font-weight: 700;
-		}
-
-		.nav a {
-			color: hsl(var(--bc));
-			transition: .2s;
-		}
-
-		.nav a:hover {
-			color: hsl(var(--p));
-		}
-
-		.header-menu a {
-			border: 1px solid hsl(var(--p));
-			color: hsl(var(--p));
-			border-radius: 8px;
-			transition: .2s;
-		}
-
-		.header-menu a:hover {
-			background: hsl(var(--p));
-			color: hsl(var(--pc));
-		}
-
-		h2 {
-			color: hsl(var(--p));
-			font-weight: 700;
-		}
-
-		.ranking-category {
-			background: hsl(var(--b1));
-			border: 1px solid hsl(var(--b3));
-			border-radius: 18px;
-			box-shadow: 0 4px 18px rgba(0, 0, 0, .04);
-		}
-
-		.ranking-category h3 {
-			color: hsl(var(--p));
-			font-weight: 700;
-		}
-
-		.ranking-card,
-		.product-card {
-			background: hsl(var(--b1));
-			border: 1px solid hsl(var(--b3));
-			border-radius: 16px;
-			box-shadow: 0 4px 16px rgba(0, 0, 0, .04);
-			transition: .2s;
-		}
-
-		.ranking-card:hover,
-		.product-card:hover {
-			transform: translateY(-2px);
-			box-shadow: 0 8px 22px rgba(0, 0, 0, .07);
-		}
-
-		.ranking-card img,
-		.product-card img {
-			object-fit: contain;
-		}
-
-		.rank {
-			background: hsl(var(--p));
-			color: hsl(var(--pc));
-			border-radius: 999px;
-			font-weight: 700;
-		}
-
-		.price {
-			color: hsl(var(--p));
-			font-weight: 800;
-		}
-
-		.ranking-card a,
-		.product-card a {
-			background: hsl(var(--p));
-			color: hsl(var(--pc));
-			border-radius: 8px;
-			transition: .2s;
-		}
-
-		.ranking-card a:hover,
-		.product-card a:hover {
-			opacity: .88;
-		}
-
-		.category-card {
-			border: 1px solid hsl(var(--p));
-			color: hsl(var(--p));
-			border-radius: 999px;
-			transition: .2s;
-		}
-
-		.category-card:hover,
-		.category-card.active {
-			background: hsl(var(--p));
-			color: hsl(var(--pc));
-		}
-	</style>
+	<title>どさん娘マルシェ</title>
+			<link rel="stylesheet" href="/css/home.css">
 </head>
 
 <body>
 	<div layout:fragment="content">
 
-		<!--		スライドショー-->
-		<div class="carousel w-full h-[66vw] mx-auto mt-5 rounded-lg">
-			<div id="slide1" class="carousel-item relative w-full">
-				<div class="swiper-slide bg-[url('/images/hokkaido-940x940.png')]">
 
-					<div>
-						<a href="region/sapporo" class="region" style="top: 60%; left: 33%;"><img
-								src="/images/region-chara/sapporo/sapporonoel1.png" alt="ノエル">札幌リンク</a>
-						<a href="otaru" class="region top-[50%] left-[50%]"><img
-								src="/images/region-chara/otaru/otarun1.png" alt="おたるん">小樽リンク</a>
-					</div>
-				</div>
-				<div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-					<a href="#slide4" class="btn btn-circle">❮</a>
-					<a href="#slide2" class="btn btn-circle">❯</a>
-				</div>
-			</div>
-			<div id="slide2" class="carousel-item relative w-full">
-				<img src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp" class="w-full" />
-				<div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-					<a href="#slide1" class="btn btn-circle">❮</a>
-					<a href="#slide3" class="btn btn-circle">❯</a>
-				</div>
-			</div>
-			<div id="slide3" class="carousel-item relative w-full">
-				<img src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp" class="w-full" />
-				<div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-					<a href="#slide2" class="btn btn-circle">❮</a>
-					<a href="#slide4" class="btn btn-circle">❯</a>
-				</div>
-			</div>
-			<div id="slide4" class="carousel-item relative w-full">
-				<img src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp" class="w-full" />
-				<div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-					<a href="#slide3" class="btn btn-circle">❮</a>
-					<a href="#slide1" class="btn btn-circle">❯</a>
-				</div>
-			</div>
-		</div>
 
-		<!-- ページネーション -->
-		<div class="swiper-pagination"></div>
+		<!-- =========================
+         洞窟背景 + 北海道マップ + キャラクター
+    ========================== -->
+		<section class="home-map-hero">
+			<div class="home-map-overlay"></div>
 
-		<!-- ランキング Ranking -->
-		<h2 class="mx-auto mb-5 max-w-[1200px] px-5">商品ランキング</h2>
-		<div class="ranking-carousel">
-			<div class="ranking-category">
-				<h3>海産物ランキング</h3>
+			<div class="home-map-inner">
+				<div class="home-map-text">
+					<p class="home-map-badge">北海道のおいしさを、地域から探す</p>
+					<h1>どさん娘マルシェ</h1>
+					<p>
+						キャラクターを選ぶと、札幌・小樽・函館・北見・帯広・稚内の地域詳細ページへ移動できます。
+					</p>
+				</div>
 
-				<div class="ranking-list">
-					<div class="ranking-card" th:each="product, stat : ${seafoodRanking}">
-						<span class="rank" th:text="${stat.index + 1} + '位'">1位</span>
-						<img th:src="${product.imageUrl}" alt="商品画像">
-						<h4 th:text="${product.productName}">商品名</h4>
-						<p th:text="${product.regionName}">地域名</p>
-						<p class="price" th:text="'¥' + ${product.price}">¥0</p>
-						<a th:href="@{/products/{id}(id=${product.id})}">詳細を見る</a>
-					</div>
+				<div class="hokkaido-map-wrap">
+					<img class="hokkaido-map" src="/images/hokkaido-940x940.png" alt="北海道地図">
+
+					<a href="/region/sapporo" class="map-character char-sapporo">
+						<img src="/images/region-chara/sapporo/sapporonoel1.png" alt="札幌 ノエル">
+						<span>札幌</span>
+					</a>
+
+					<a href="/region/otaru" class="map-character char-otaru">
+						<img src="/images/region-chara/otaru/otarun1.png" alt="小樽 おたるん">
+						<span>小樽</span>
+					</a>
+
+					<a href="/region/hakodate" class="map-character char-hakodate">
+						<img src="/images/region-chara/hakodate/hakodateakari1.png" alt="函館 アカリ">
+						<span>函館</span>
+					</a>
+
+					<a href="/region/kitami" class="map-character char-kitami">
+						<img src="/images/region-chara/kitami/kitamin1.png" alt="北見 きたみん">
+						<span>北見</span>
+					</a>
+
+					<a href="/region/obihiro" class="map-character char-obihiro">
+						<img src="/images/region-chara/obihiro/obihironeyu1.png" alt="帯広 ネユ">
+						<span>帯広</span>
+					</a>
+
+					<a href="/region/wakkanai" class="map-character char-wakkanai">
+						<img src="/images/region-chara/wakkanai/wakkanaisiori1.png" alt="稚内 しおり">
+						<span>稚内</span>
+					</a>
 				</div>
 			</div>
+		</section>
 
-			<div class="ranking-category">
-				<h3>畜産物ランキング</h3>
-
-				<div class="ranking-list">
-					<div class="ranking-card" th:each="product, stat : ${meatRanking}">
-						<span class="rank" th:text="${stat.index + 1} + '位'">1位</span>
-						<img th:src="${product.imageUrl}" alt="商品画像">
-						<h4 th:text="${product.productName}">商品名</h4>
-						<p th:text="${product.regionName}">地域名</p>
-						<p class="price" th:text="'¥' + ${product.price}">¥0</p>
-						<a th:href="@{/products/{id}(id=${product.id})}">詳細を見る</a>
-					</div>
-				</div>
+		<!-- =========================
+         ランキング
+    ========================== -->
+		<section class="home-section">
+			<div class="section-heading">
+				<p>Ranking</p>
+				<h2>カテゴリ別ランキング</h2>
 			</div>
 
-			<div class="ranking-category">
-				<h3>農産物ランキング</h3>
+			<div class="ranking-carousel">
 
-				<div class="ranking-list">
-					<div class="ranking-card" th:each="product, stat : ${vegetableRanking}">
-						<span class="rank" th:text="${stat.index + 1} + '位'">1位</span>
-						<img th:src="${product.imageUrl}" alt="商品画像">
-						<h4 th:text="${product.productName}">商品名</h4>
-						<p th:text="${product.regionName}">地域名</p>
-						<p class="price" th:text="'¥' + ${product.price}">¥0</p>
-						<a th:href="@{/products/{id}(id=${product.id})}">詳細を見る</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="ranking-category">
-				<h3>お土産ランキング</h3>
-
-				<div class="ranking-list">
-					<div class="ranking-card" th:each="product, stat : ${souvenirRanking}">
-						<span class="rank" th:text="${stat.index + 1} + '位'">1位</span>
-						<img th:src="${product.imageUrl}" alt="商品画像">
-						<h4 th:text="${product.productName}">商品名</h4>
-						<p th:text="${product.regionName}">地域名</p>
-						<p class="price" th:text="'¥' + ${product.price}">¥0</p>
-						<a th:href="@{/products/{id}(id=${product.id})}">詳細を見る</a>
-					</div>
-				</div>
-			</div>
-
-		</div>
-		<!-- /ランキング Ranking -->
-
-		<h2 class="mx-auto mb-5 max-w-[1200px] px-5">SHOP BY CATHEGORY</h2>
-
-		<!-- Cathegories -->
-	<div class="category-list">
-
-		<a href="/#product-section" class="category-card" th:classappend="${selectedCategoryId == null} ? ' active'">
-			すべて
-		</a>
-
-		<a href="/?categoryId=1#product-section" class="category-card"
-			th:classappend="${selectedCategoryId == 1} ? ' active'">
-			海産物
-		</a>
-
-		<a href="/?categoryId=3#product-section" class="category-card"
-			th:classappend="${selectedCategoryId == 3} ? ' active'">
-			畜産物
-		</a>
-
-		<a href="/?categoryId=2#product-section" class="category-card"
-			th:classappend="${selectedCategoryId == 2} ? ' active'">
-			農産物
-		</a>
-
-		<a href="/?categoryId=4#product-section" class="category-card"
-			th:classappend="${selectedCategoryId == 4} ? ' active'">
-			お土産
-		</a>
-
-	</div>
-
-		<!-- /Cathegories  -->
-
-
-		<p class="mx-auto mt-10 mb-5 max-w-[1200px] px-5">RECOMMENDED FOR YOU</p>
-
-		<!-- Recommendations -->
-		<!-- 商品一覧 -->
-		<section class="px-4 py-10">
-			<h2 class="mb-6  text-3xl font-bold text-primary">
-				商品一覧
-			</h2>
-
-			<div class="mx-auto grid max-w-[1200px] grid-cols-2 gap-3 px-5 pb-10 lg:grid-cols-4">
-
-				<div th:each="product : ${products}" class="flex flex-col">
-
-					<!-- 画像 -->
-					<div class="relative flex h-72 items-center justify-center">
-						<img th:src="${product.imageUrl}" th:alt="${product.name}"
-							class="h-full w-full object-contain" />
-
-						<!-- hover -->
-						<div
-							class="absolute inset-0 flex items-center justify-center gap-3 opacity-0 duration-150 hover:opacity-100">
-
-							<a th:href="@{/products/{id}(id=${product.id})}"
-								class="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white">
-
-								<svg fill="none" stroke="currentColor" stroke-width="1.5" class="h-4 w-4"
-									viewBox="0 0 24 24">
-
-									<path stroke-linecap="round" stroke-linejoin="round"
-										d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607z">
-									</path>
-
-								</svg>
-
-							</a>
-
+				<div class="ranking-category">
+					<h3>海産物ランキング</h3>
+					<div class="ranking-list">
+						<div class="ranking-card" th:each="product, stat : ${seafoodRanking}">
+							<span class="rank" th:text="${stat.index + 1} + '位'">1位</span>
+							<img th:src="${product.imageUrl}" alt="商品画像">
+							<h4 th:text="${product.productName}">商品名</h4>
+							<p th:text="${product.regionName}">地域名</p>
+							<p class="price" th:text="'¥' + ${product.price}">¥0</p>
+							<a th:href="@{/products/{id}(id=${product.id})}">詳細を見る</a>
 						</div>
-
 					</div>
+				</div>
 
-					<!-- 内容 -->
-					<div>
-
-						<p class="mt-2" th:text="${product.name}">
-							商品名
-						</p>
-
-						<p class="font-medium text-primary" th:text="'¥' + ${product.price}">
-							¥0
-						</p>
-
-						<p class="text-sm text-gray-500" th:text="'地域ID：' + ${product.regionId}">
-							地域
-						</p>
-
-						<div>
-							<a th:href="@{/products/{id}(id=${product.id})}">
-								<button class="my-5 h-10 w-full bg-primary text-white hover:bg-primary-dark">
-									詳細を見る
-								</button>
-							</a>
+				<div class="ranking-category">
+					<h3>畜産物ランキング</h3>
+					<div class="ranking-list">
+						<div class="ranking-card" th:each="product, stat : ${meatRanking}">
+							<span class="rank" th:text="${stat.index + 1} + '位'">1位</span>
+							<img th:src="${product.imageUrl}" alt="商品画像">
+							<h4 th:text="${product.productName}">商品名</h4>
+							<p th:text="${product.regionName}">地域名</p>
+							<p class="price" th:text="'¥' + ${product.price}">¥0</p>
+							<a th:href="@{/products/{id}(id=${product.id})}">詳細を見る</a>
 						</div>
-
 					</div>
+				</div>
 
+				<div class="ranking-category">
+					<h3>農産物ランキング</h3>
+					<div class="ranking-list">
+						<div class="ranking-card" th:each="product, stat : ${vegetableRanking}">
+							<span class="rank" th:text="${stat.index + 1} + '位'">1位</span>
+							<img th:src="${product.imageUrl}" alt="商品画像">
+							<h4 th:text="${product.productName}">商品名</h4>
+							<p th:text="${product.regionName}">地域名</p>
+							<p class="price" th:text="'¥' + ${product.price}">¥0</p>
+							<a th:href="@{/products/{id}(id=${product.id})}">詳細を見る</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="ranking-category">
+					<h3>お土産ランキング</h3>
+					<div class="ranking-list">
+						<div class="ranking-card" th:each="product, stat : ${souvenirRanking}">
+							<span class="rank" th:text="${stat.index + 1} + '位'">1位</span>
+							<img th:src="${product.imageUrl}" alt="商品画像">
+							<h4 th:text="${product.productName}">商品名</h4>
+							<p th:text="${product.regionName}">地域名</p>
+							<p class="price" th:text="'¥' + ${product.price}">¥0</p>
+							<a th:href="@{/products/{id}(id=${product.id})}">詳細を見る</a>
+						</div>
+					</div>
 				</div>
 
 			</div>
 		</section>
-		<!-- <section class="mx-auto grid max-w-[1200px] grid-cols-2 gap-3 px-5 pb-10 lg:grid-cols-4"></section> -->
-		<!-- /Recommendations -->
+
+		<!-- =========================
+         カテゴリ絞り込み
+    ========================== -->
+		<section class="home-section filter-section">
+			<div class="section-heading">
+				<p>Category</p>
+				<h2>商品をカテゴリで探す</h2>
+			</div>
+
+			<div class="category-list">
+				<a href="/#product-section" class="category-card"
+					th:classappend="${selectedCategoryId == null} ? ' active'">すべて</a>
+				<a href="/?categoryId=1#product-section" class="category-card"
+					th:classappend="${selectedCategoryId == 1} ? ' active'">海産物</a>
+				<a href="/?categoryId=3#product-section" class="category-card"
+					th:classappend="${selectedCategoryId == 3} ? ' active'">畜産物</a>
+				<a href="/?categoryId=2#product-section" class="category-card"
+					th:classappend="${selectedCategoryId == 2} ? ' active'">農産物</a>
+				<a href="/?categoryId=4#product-section" class="category-card"
+					th:classappend="${selectedCategoryId == 4} ? ' active'">お土産</a>
+			</div>
+		</section>
+
+		<!-- =========================
+         商品一覧
+    ========================== -->
+		<section id="product-section" class="home-section">
+			<div class="section-heading">
+				<p>Products</p>
+				<h2>商品一覧</h2>
+			</div>
+
+			<div class="product-list">
+				<div class="product-card" th:each="product : ${products}">
+					<img th:src="${product.imageUrl}" alt="商品画像">
+					<h3 th:text="${product.name}">商品名</h3>
+					<p class="price" th:text="'¥' + ${product.price}">¥0</p>
+					<a th:href="@{/products/{id}(id=${product.id})}">詳細を見る</a>
+				</div>
+			</div>
+		</section>
+
 	</div>
 </body>
 

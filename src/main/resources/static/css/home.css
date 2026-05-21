@@ -1,212 +1,386 @@
 /* =========================
-   共通設定
+   home / index page
 ========================= */
 
-
-a {
-    text-decoration: none;
-    color: inherit;
+* {
+	box-sizing: border-box;
 }
 
+body {
+	background: hsl(var(--b2));
+	color: hsl(var(--bc));
+}
 
-
-
+img {
+	display: block;
+	max-width: 100%;
+}
 
 /* =========================
-   Hero Section
-
-
-/* =========================
-   共通Section
+   洞窟背景 + 北海道マップ
 ========================= */
 
+.home-map-hero {
+	position: relative;
+	min-height: 760px;
+	overflow: hidden;
+	background-image: url('/images/home-cave-bg.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.home-map-overlay {
+	background:
+		radial-gradient(circle at center,
+			rgba(255, 255, 255, .03),
+			rgba(0, 0, 0, .15)),
+		linear-gradient(180deg,
+			rgba(0, 0, 0, .05),
+			rgba(0, 0, 0, .15));
+}
+
+.home-map-inner {
+	position: relative;
+	z-index: 2;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 56px 20px 70px;
+}
+
+.home-map-text {
+	max-width: 720px;
+	color: white;
+	text-shadow: 0 2px 14px rgba(0, 0, 0, .55);
+}
+
+.home-map-badge {
+	display: inline-flex;
+	align-items: center;
+	padding: 8px 14px;
+	border: 1px solid rgba(255, 255, 255, .45);
+	border-radius: 999px;
+	background: rgba(255, 255, 255, .13);
+	backdrop-filter: blur(8px);
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.home-map-text h1 {
+	margin-top: 18px;
+	font-size: clamp(36px, 6vw, 72px);
+	font-weight: 900;
+	letter-spacing: .04em;
+}
+
+.home-map-text p:not(.home-map-badge) {
+	margin-top: 12px;
+	line-height: 1.9;
+	color: rgba(255, 255, 255, .88);
+}
+
+.hokkaido-map-wrap {
+	position: relative;
+	width: min(760px, 94vw);
+	margin: 20px auto 0;
+	filter: drop-shadow(0 24px 45px rgba(0, 0, 0, .45));
+}
+
+.hokkaido-map {
+	width: 100%;
+	opacity: .96;
+}
+
+.map-character {
+	position: absolute;
+	width: clamp(70px, 10vw, 118px);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+	text-decoration: none;
+	color: hsl(var(--bc));
+	transition: transform .2s ease, filter .2s ease;
+	z-index: 3;
+}
+
+.map-character:hover {
+	transform: translateY(-8px) scale(1.05);
+	filter: drop-shadow(0 12px 18px rgba(0, 0, 0, .35));
+}
+
+.map-character img {
+	width: 100%;
+	height: auto;
+}
+
+.map-character span {
+	padding: 4px 10px;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, .9);
+	color: #1f2937;
+	font-size: 13px;
+	font-weight: 800;
+	box-shadow: 0 6px 14px rgba(0, 0, 0, .18);
+	white-space: nowrap;
+}
+
+.char-wakkanai {
+	top: 7%;
+	left: 47%;
+}
+
+.char-kitami {
+	top: 31%;
+	left: 69%;
+}
+
+.char-sapporo {
+	top: 48%;
+	left: 32%;
+}
+
+.char-otaru {
+	top: 40%;
+	left: 23%;
+}
+
+.char-obihiro {
+	top: 60%;
+	left: 58%;
+}
+
+.char-hakodate {
+	top: 73%;
+	left: 18%;
+}
+
+/* =========================
+   共通セクション
+========================= */
+
+.home-section {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 56px 20px 20px;
+}
+
+.section-heading {
+	margin-bottom: 26px;
+}
+
+.section-heading p {
+	color: hsl(var(--p));
+	font-weight: 800;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+}
+
+.section-heading h2 {
+	margin-top: 6px;
+	font-size: clamp(26px, 4vw, 38px);
+	font-weight: 900;
+}
 
 /* =========================
    ランキング
 ========================= */
 
 .ranking-carousel {
-    display: flex;
-    gap: 30px;
-
-    overflow-x: auto;
+	display: flex;
+	gap: 24px;
+	overflow-x: auto;
+	padding-bottom: 18px;
+	scroll-snap-type: x mandatory;
 }
 
 .ranking-category {
-    min-width: 900px;
+	min-width: min(920px, 92vw);
+	padding: 24px;
+	border: 1px solid hsl(var(--b3));
+	border-radius: 24px;
+	background: hsl(var(--b1));
+	box-shadow: 0 10px 28px rgba(0, 0, 0, .06);
+	scroll-snap-align: start;
 }
 
 .ranking-category h3 {
-    margin-bottom: 20px;
+	margin-bottom: 18px;
+	font-size: 22px;
+	font-weight: 900;
+	color: hsl(var(--p));
 }
 
 .ranking-list {
-    display: flex;
-    gap: 20px;
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 18px;
+}
+
+.ranking-card,
+.product-card {
+	position: relative;
+	border: 1px solid hsl(var(--b3));
+	border-radius: 20px;
+	background: hsl(var(--b1));
+	box-shadow: 0 8px 22px rgba(0, 0, 0, .05);
+	transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.ranking-card:hover,
+.product-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 14px 30px rgba(0, 0, 0, .09);
 }
 
 .ranking-card {
-    background-color: white;
-    border-radius: 10px;
-
-    width: 250px;
-
-    padding: 15px;
-
-    flex-shrink: 0;
+	padding: 18px;
 }
 
-.ranking-card img {
-    height: 180px;
-    object-fit: cover;
-
-    border-radius: 10px;
+.ranking-card img,
+.product-card img {
+	width: 100%;
+	height: 180px;
+	object-fit: contain;
+	border-radius: 16px;
+	background: hsl(var(--b2));
 }
-
-.ranking-card a {
-    display: inline-block;
-
-    margin-top: 10px;
-
-    background-color: #ff7f50;
-    color: white;
-
-    padding: 10px 15px;
-
-    border-radius: 5px;
-}
-
 
 .rank {
-    display: inline-block;
+	display: inline-flex;
+	margin-bottom: 10px;
+	padding: 6px 12px;
+	border-radius: 999px;
+	background: hsl(var(--p));
+	color: hsl(var(--pc));
+	font-weight: 900;
+}
 
-    background-color: orange;
-    color: white;
+.ranking-card h4,
+.product-card h3 {
+	margin-top: 14px;
+	font-size: 17px;
+	font-weight: 900;
+}
 
-    padding: 5px 10px;
-
-    border-radius: 5px;
-
-    margin-bottom: 10px;
+.ranking-card p,
+.product-card p {
+	margin-top: 6px;
 }
 
 .price {
-    color: crimson;
-    font-weight: bold;
-
-    margin-top: 10px;
+	color: hsl(var(--p));
+	font-weight: 900;
 }
 
+.ranking-card a,
+.product-card a {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 14px;
+	padding: 10px 16px;
+	border-radius: 12px;
+	background: hsl(var(--p));
+	color: hsl(var(--pc));
+	font-weight: 800;
+	text-decoration: none;
+}
+
+.ranking-card a:hover,
+.product-card a:hover {
+	opacity: .88;
+}
 
 /* =========================
    カテゴリ
 ========================= */
 
-.category-list {
-    display: flex;
-    gap: 20px;
+.filter-section {
+	padding-top: 40px;
+}
 
-    flex-wrap: wrap;
+.category-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
 }
 
 .category-card {
-    border: none;
-
-    background-color: #4da6ff;
-    color: white;
-
-    padding: 15px 25px;
-
-    border-radius: 8px;
-
-    cursor: pointer;
-
-    font-size: 16px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 92px;
+	padding: 12px 20px;
+	border: 1px solid hsl(var(--p));
+	border-radius: 999px;
+	color: hsl(var(--p));
+	background: hsl(var(--b1));
+	font-weight: 800;
+	text-decoration: none;
+	transition: .2s ease;
 }
 
-.category-card:hover {
-    opacity: 0.8;
-}
-
+.category-card:hover,
 .category-card.active {
-    background-color: #ff7f50;
-    color: white;
-    font-weight: bold;
+	background: hsl(var(--p));
+	color: hsl(var(--pc));
 }
-
 
 /* =========================
    商品一覧
 ========================= */
 
 .product-list {
-    display: flex;
-    flex-wrap: wrap;
-
-    gap: 20px;
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 22px;
+	padding-bottom: 60px;
 }
 
 .product-card {
-    background-color: white;
-
-    width: 250px;
-
-    border-radius: 10px;
-
-    padding: 15px;
+	padding: 18px;
 }
-
-.product-card img {
-    height: 180px;
-    object-fit: cover;
-
-    border-radius: 10px;
-}
-
-.product-card h3 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.product-card a {
-    display: inline-block;
-
-    margin-top: 10px;
-
-    background-color: #ff7f50;
-    color: white;
-
-    padding: 10px 15px;
-
-    border-radius: 5px;
-}
-
 
 /* =========================
    レスポンシブ
 ========================= */
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
+	.home-map-hero {
+		min-height: 680px;
+	}
 
-    .header {
-        flex-direction: column;
-        gap: 15px;
-    }
+	.ranking-list,
+	.product-list {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
 
-    .nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+@media screen and (max-width: 560px) {
+	.home-map-hero {
+		min-height: 620px;
+	}
 
-    .ranking-category {
-        min-width: 100%;
-    }
+	.home-map-inner {
+		padding-top: 36px;
+	}
 
-    .ranking-list {
-        flex-direction: column;
-    }
+	.map-character {
+		width: 64px;
+	}
 
-    .product-list {
-        justify-content: center;
-    }
+	.map-character span {
+		font-size: 11px;
+		padding: 3px 8px;
+	}
+
+	.ranking-category {
+		padding: 18px;
+	}
+
+	.ranking-list,
+	.product-list {
+		grid-template-columns: 1fr;
+	}
 }
