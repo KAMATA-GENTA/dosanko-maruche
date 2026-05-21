@@ -1,6 +1,10 @@
 package com.example.demo.controller;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entity.Product;
+import com.example.demo.entity.RankingProduct;
 import com.example.demo.enums.Category;
 import com.example.demo.enums.Region;
 import com.example.demo.service.CharacterService;
@@ -66,7 +71,7 @@ public class RegionController {
 		model.addAttribute("regionName", region.getUrlName());
 
 		// 商品一覧
-		model.addAttribute("products", products);
+		model.addAttribute("products", productService.findAllWithCategoryWithRegions(products));
 
 		// 選択中カテゴリ
 		model.addAttribute("selectedCategoryId", categoryId);
@@ -75,14 +80,11 @@ public class RegionController {
 		model.addAttribute("categories", Category.values());
 
 		// 地域別・カテゴリ別ランキング
-		model.addAttribute("seafoodRanking", productService.getRankingByRegionIdAndCategoryId(region.getId(), 1));
+		Map<Category, List<RankingProduct>> regionRankingMap = Arrays.stream(Category.values())
+				.collect(Collectors.toMap(Function.identity(), category -> productService
+						.getRankingByRegionIdAndCategoryId(region.getId(), category.getId())));
 
-		model.addAttribute("vegetableRanking", productService.getRankingByRegionIdAndCategoryId(region.getId(), 2));
-
-		model.addAttribute("meatRanking", productService.getRankingByRegionIdAndCategoryId(region.getId(), 3));
-
-		model.addAttribute("souvenirRanking", productService.getRankingByRegionIdAndCategoryId(region.getId(), 4));
-
+		model.addAttribute("rankingMap", regionRankingMap);
 		// キャラクター表示
 		model.addAttribute("characterImage", characterService.getCharacterImageByRegion(region));
 

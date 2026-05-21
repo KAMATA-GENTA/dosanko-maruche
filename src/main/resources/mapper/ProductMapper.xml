@@ -133,7 +133,7 @@ SELECT
     p.price,
     p.image_url AS imageUrl,
     p.region_id AS regionId,
-    COALESCE(SUM(od.quantity), 0) AS totalQuantity
+    SUM(od.quantity) AS totalQuantity
 FROM products p
 LEFT JOIN order_details od
     ON p.id = od.product_id

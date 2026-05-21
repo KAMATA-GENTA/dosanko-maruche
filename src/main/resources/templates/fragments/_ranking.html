@@ -1,0 +1,140 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head></head>
+
+<body>
+	<div layout:fragment="ranking">
+		<section class="home-section">
+
+			<div class="section-heading">
+				<h2>人気ランキング</h2>
+			</div>
+
+			<div class="carousel w-full">
+
+				<!-- ================= カテゴリループ ================= -->
+				<div th:each="entry, stat : ${rankingMap.entrySet()}" th:id="'slide' + ${stat.index}"
+					class="carousel-item relative w-full">
+
+					<div class="carousel-item relative w-full">
+						<div class="w-full flex flex-col">
+
+							<!-- ★ カテゴリ名 -->
+							<div class="text-center mb-6">
+								<h3 class="text-2xl font-bold" th:text="${entry.key.name}"></h3>
+							</div>
+
+							<!-- ===== スライド本体 ===== -->
+							<div
+								class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch px-4 py-6">
+
+								<!-- ================= 2位 ================= -->
+								<div th:if="${entry.value.size() > 1}" th:with="product=${entry.value[1]}"
+									class="group card bg-base-100 border shadow-xl overflow-hidden hover:-translate-y-2 transition-all">
+
+									<figure
+										class="relative bg-base-300 h-64 overflow-hidden flex items-center justify-center">
+										<img th:src="${product.imageUrl}"
+											class="max-w-full max-h-full object-contain" />
+
+							
+
+										<div class="absolute top-5 left-5 bg-white/90 px-5 py-2 rounded-full font-bold">
+											🥈 2位
+										</div>
+									</figure>
+
+									<div class="card-body">
+										<h4 th:text="${product.productName}"></h4>
+										<p th:text="${product.regionName}"></p>
+
+										<div class="flex justify-between mt-4">
+											<p th:text="'¥' + ${product.price}"></p>
+
+											<a class="btn btn-primary btn-sm"
+												th:href="@{/products/{id}(id=${product.id})}">
+												詳細
+											</a>
+										</div>
+									</div>
+								</div>
+								<!-- ================= 1位 ================= -->
+								<div th:if="${entry.value.size() > 0}" th:with="product=${entry.value[0]}"
+									class="card bg-base-100 border-2 border-yellow-400 shadow-2xl hover:-translate-y-2 transition-all">
+
+									<figure
+										class="relative bg-base-300 h-64 overflow-hidden flex items-center justify-center">
+										<img th:src="${product.imageUrl}"
+											class="max-w-full max-h-full object-contain" />
+
+
+
+										<div
+											class="absolute top-5 left-5 bg-yellow-400 px-6 py-2 rounded-full font-bold">
+											👑 1位
+										</div>
+									</figure>
+									<div class="card-body">
+										<h4 class="text-2xl font-bold" th:text="${product.productName}"></h4>
+										<p th:text="${product.regionName}"></p>
+
+										<div class="flex justify-between mt-4">
+											<p class="text-3xl font-bold" th:text="'¥' + ${product.price}"></p>
+
+											<a class="btn btn-primary" th:href="@{/products/{id}(id=${product.id})}">
+												詳細
+											</a>
+										</div>
+									</div>
+								</div>
+								<!-- ================= 3位 ================= -->
+								<div th:if="${entry.value.size() > 2}" th:with="product=${entry.value[2]}"
+									class="card bg-base-100 border shadow-xl hover:-translate-y-2 transition-all">
+
+									<figure
+										class="relative bg-base-300 h-64 overflow-hidden flex items-center justify-center">
+										<img th:src="${product.imageUrl}"
+											class="max-w-full max-h-full object-contain" />
+
+										<div
+											class="absolute top-5 left-5 bg-amber-600 text-white px-5 py-2 rounded-full font-bold">
+											🥉 3位
+										</div>
+									</figure>
+
+									<div class="card-body">
+										<h4 th:text="${product.productName}"></h4>
+										<p th:text="${product.regionName}"></p>
+
+										<div class="flex justify-between mt-4">
+											<p th:text="'¥' + ${product.price}"></p>
+
+											<a class="btn btn-outline" th:href="@{/products/{id}(id=${product.id})}">
+												詳細
+											</a>
+										</div>
+									</div>
+								</div>
+								<!-- ================= 矢印 ================= -->
+								<div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
+
+									<a th:href="'#slide' + ${stat.index - 1 < 0 ? rankingMap.size() - 1 : stat.index - 1}"
+										class="btn btn-circle">❮</a>
+
+									<a th:href="'#slide' + ${stat.index + 1 >= rankingMap.size() ? 0 : stat.index + 1}"
+										class="btn btn-circle">❯</a>
+
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+		</section>
+	</div>
+</body>
+
+</html>

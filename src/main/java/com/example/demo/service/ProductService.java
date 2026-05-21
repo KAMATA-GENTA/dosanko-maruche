@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.ProductWithCategoryWithRegion;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.RankingProduct;
+import com.example.demo.enums.Category;
 import com.example.demo.enums.Region;
 import com.example.demo.mapper.ProductMapper;
 
@@ -98,5 +100,38 @@ public class ProductService {
 		for (RankingProduct rankingProduct : rankingProducts) {
 			rankingProduct.setRegionName(Region.getNameById(rankingProduct.getRegionId()));
 		}
+	}
+
+	public List<ProductWithCategoryWithRegion> findAllWithCategoryWithRegions(List<Product> products) {
+
+		return products.stream().map(this::convert).toList();
+	}
+
+	private ProductWithCategoryWithRegion convert(Product product) {
+
+		ProductWithCategoryWithRegion dto = new ProductWithCategoryWithRegion();
+
+		// product情報
+		dto.setId(product.getId());
+		dto.setName(product.getName());
+		dto.setDescription(product.getDescription());
+		dto.setPrice(product.getPrice());
+		dto.setImageUrl(product.getImageUrl());
+
+		// category（enum結合）
+		Category category = Category.fromId(product.getCategoryId());
+		if (category != null) {
+			dto.setCategoryId(category.getId());
+			dto.setCategoryName(category.getName());
+		}
+
+		// region（enum結合）
+		Region region = Region.fromId(product.getRegionId());
+		if (region != null) {
+			dto.setRegionId(region.getId());
+			dto.setRegionName(region.getName());
+		}
+
+		return dto;
 	}
 }

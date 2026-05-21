@@ -1,0 +1,71 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head></head>
+
+<body>
+	<div layout:fragment="item-card">
+
+		<!-- 商品リスト -->
+		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+			<!-- カード -->
+			<div
+				class="card bg-base-100 border border-base-300 shadow-sm hover:shadow-md hover:-translate-y-1 transition relative group"
+				th:each="product : ${products}">
+
+				<!-- カード全体リンク -->
+				<a class="absolute inset-0 z-10"
+					th:href="@{/products/{id}(id=${product.id})}">
+				</a>
+
+				<!-- 画像 -->
+<figure class="aspect-[4/3] bg-base-200 overflow-hidden rounded-t-2xl flex items-center justify-center ">
+					<img th:src="${product.imageUrl}"
+						alt="商品画像"
+						class="max-w-full max-h-full object-contain transition duration-300 group-hover:scale-105" />
+
+				</figure>
+
+				<!-- 本体 -->
+				<div class="card-body p-4">
+
+					<!-- タイトル -->
+					<h3 class="card-title text-base font-bold line-clamp-2"
+						th:text="${product.name}">
+						商品名
+					</h3>
+
+					<!-- カテゴリ + 地域 -->
+					<div class="flex flex-wrap gap-2 mt-1">
+
+						<!-- カテゴリ -->
+						<div class="badge badge-primary badge-outline"
+							th:text="${product.categoryName}">
+							カテゴリ
+						</div>
+
+						<!-- 地域 -->
+						<div class="badge badge-secondary badge-outline"
+							th:text="${product.regionName}">
+							地域
+						</div>
+
+					</div>
+
+					<!-- 価格 -->
+					<p class="text-lg font-black text-accent mt-2"
+						th:text="'¥' + ${product.price}">
+						¥0
+					</p>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+</body>
+
+</html>

@@ -71,7 +71,7 @@ img {
 .description-bubble {
 	position: absolute;
 	left: 42%;
-	top: 52%;
+	top: 30%;
 	transform: translate(-50%, -50%);
 	width: 520px;
 	padding: 32px 48px;
