@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.demo.entity.Order;
 import com.example.demo.entity.OrderDetail;
+import com.example.demo.entity.RegionCount;
+import com.example.demo.enums.Region;
 import com.example.demo.mapper.UserMapper;
 
 @Controller
@@ -41,20 +43,31 @@ public class UserController {
 		addSessionAttributes(model);
 
 		List<Order> orders = userMapper.findOrdersByUserId(userId);
-
-		// 注文ごとに明細リストを取得してMapに格納
 		Map<Integer, List<OrderDetail>> orderDetailsMap = new LinkedHashMap<>();
 		for (Order order : orders) {
 			List<OrderDetail> details = userMapper.findOrderDetailsByOrderId(order.getId());
 			orderDetailsMap.put(order.getId(), details);
 		}
 
+		// 地域データの取得と名前の注入
+		List<RegionCount> regionCounts = userMapper.findRegionCountByUserId(userId);
+		for (RegionCount rc : regionCounts) {
+			for (Region r : Region.values()) {
+				// Integer同士の比較なのでシンプルに
+				if (r.getId() == rc.getRegionId()) {
+					rc.setRegionName(r.getName());
+					break;
+				}
+			}
+		}
+
 		model.addAttribute("user", userMapper.findById(userId));
 		model.addAttribute("orders", orders);
 		model.addAttribute("orderDetailsMap", orderDetailsMap);
-		model.addAttribute("regionCounts", userMapper.findRegionCountByUserId(userId));
+		model.addAttribute("regionCounts", regionCounts);
 
 		return "user/my-page";
+
 	}
 
 	// ==========================================
