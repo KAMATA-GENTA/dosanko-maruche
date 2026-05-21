@@ -12,22 +12,28 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum Region {
-
-    /*
-     * enumの定数
-     *
-     * 第1引数: DBのproducts.region_idと対応するID
-     * 第2引数: 画面に表示する地域名
-     * 第3引数: 地域説明
-     * 第4引数: 地域画像ファイル名
-     * 第5引数: 地域キャラクター
-     */
-    SAPPORO(1, "札幌", "北海道の中心都市です", "Sapporo.png", Character.SapporoChan),
-    OTARU(2, "小樽", "歴史的な石造りの倉庫群が残る「小樽運河」をはじめ、ガラス工芸品、オルゴール、そして新鮮な海鮮を楽しめる観光地です", "Otaru.png", Character.OtaruChan),
-    HAKODATE(3, "函館", "夜景と海鮮が有名です", "Hakodate.png", Character.HakodateChan),
-    KITAMI(4, "北見", "テーマパークがあります", "Kitami.png", Character.KitamiChan),
-    OBIHIRO(5, "帯広", "豚丼が有名です", "Obihiro.png", Character.ObihiroChan),
-    WAKKANAI(6, "稚内", "北海道最北の都市です", "Wakkanai.png", Character.WakkanaiChan);
+/*
+ * enumの定数
+ *
+ * 第1引数: DBのproducts.region_idと対応するID
+ * 第2引数: 画面に表示する地域名
+ * 第3引数: 地域説明
+ * 第4引数: 地域画像ファイル名
+ * 第5引数: 地域キャラクター
+ * 第6引数: テーマカラー
+ */
+    SAPPORO(1, "札幌", "北海道の中心都市です。市町村の魅力度ランキング調査でも毎年上位にランクインしていて、海鮮だけでなく、スープカレーなども有名です", "Sapporo.png",
+            Character.SapporoChan, "#dff5ff"),
+    OTARU(2, "小樽", "歴史的な石造りの倉庫群が残る「小樽運河」をはじめ、ガラス工芸品、オルゴール、そして新鮮な海鮮を楽しめる観光地です", "Otaru.png",
+            Character.OtaruChan, "#d6f0ff"),
+    HAKODATE(3, "函館", "夜景と海鮮が有名です", "Hakodate.png",
+            Character.HakodateChan, "#1b2b52"),
+    KITAMI(4, "北見", "テーマパークがあります", "Kitami.png",
+            Character.KitamiChan, "#fff1cc"),
+    OBIHIRO(5, "帯広", "豚丼が有名です", "Obihiro.png",
+            Character.ObihiroChan, "#ffe0cc"),
+    WAKKANAI(6, "稚内", "北海道最北の都市です。タコしゃぶなどが有名で、ご当地グルメとしてチャーメンも人気です", "Wakkanai.png",
+            Character.WakkanaiChan, "#d9f2ff");
 
     // DBのproducts.region_idと対応するID
     private final Integer id;
@@ -43,6 +49,8 @@ public enum Region {
 
     // 地域キャラクター
     private final Character character;
+
+	private final String backgroundColor;
 
     /**
      * 地域IDからRegion enumを探すメソッド

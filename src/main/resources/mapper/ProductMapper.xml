@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -36,7 +35,6 @@
             image_url
         FROM products
         WHERE id = #{productId}
-
     </select>
 
     <!-- 全商品取得 -->
@@ -83,18 +81,22 @@
             image_url
         FROM products
         WHERE category_id = #{categoryId}
-
     </select>
 
-    <!-- 地域＋カテゴリ検索 -->
+    <!-- 地域IDとカテゴリIDに対応する商品一覧を取得 -->
     <select id="findByRegionIdAndCategoryId"
-            resultType="com.example.demo.entity.Product">
-
-        SELECT *
+            resultMap="productMap">
+        SELECT
+            id,
+            region_id,
+            category_id,
+            product_name,
+            price,
+            description,
+            image_url
         FROM products
         WHERE region_id = #{regionId}
-        AND category_id = #{categoryId}
-
+          AND category_id = #{categoryId}
     </select>
 
     <!-- カテゴリ別ランキングTOP3取得 -->
@@ -120,7 +122,31 @@
             p.region_id
         ORDER BY totalQuantity DESC
         LIMIT 3
+    </select>
 
+    <!-- 地域別カテゴリ別ランキングTOP3取得 -->
+    <select id="findRankingByRegionIdAndCategoryId"
+            resultType="com.example.demo.entity.RankingProduct">
+        SELECT
+            p.id,
+            p.product_name AS productName,
+            p.price,
+            p.image_url AS imageUrl,
+            p.region_id AS regionId,
+            SUM(od.quantity) AS totalQuantity
+        FROM products p
+        LEFT JOIN order_details od
+            ON p.id = od.product_id
+        WHERE p.region_id = #{regionId}
+          AND p.category_id = #{categoryId}
+        GROUP BY
+            p.id,
+            p.product_name,
+            p.price,
+            p.image_url,
+            p.region_id
+        ORDER BY totalQuantity DESC
+        LIMIT 3
     </select>
 
 </mapper>

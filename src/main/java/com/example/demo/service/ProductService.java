@@ -59,6 +59,19 @@ public class ProductService {
         return rankingProducts;
     }
 
+    // 地域別カテゴリ別ランキング
+    public List<RankingProduct> getRankingByRegionIdAndCategoryId(
+        Integer regionId,
+        Integer categoryId) {
+
+        List<RankingProduct> rankingProducts =
+                productMapper.findRankingByRegionIdAndCategoryId(regionId, categoryId);
+
+        setRankingDisplayNames(rankingProducts);
+
+        return rankingProducts;
+    }
+
     // 商品一覧に地域名・カテゴリ名をセットする
     private void setDisplayNames(List<Product> products) {
         if (products == null) {
@@ -76,10 +89,7 @@ public class ProductService {
             return;
         }
 
-        // regionIdからRegion enumを探して地域名をセットする
         product.setRegionName(Region.getNameById(product.getRegionId()));
-
-        // categoryIdからCategory enumを探してカテゴリ名をセットする
         product.setCategoryName(Category.getNameById(product.getCategoryId()));
     }
 
@@ -93,4 +103,3 @@ public class ProductService {
             rankingProduct.setRegionName(Region.getNameById(rankingProduct.getRegionId()));
         }
     }
-}

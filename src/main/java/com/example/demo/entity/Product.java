@@ -17,12 +17,8 @@ public class Product {
 	private Integer price; // 価格
 
 	private Integer categoryId; // DBのカテゴリID
-	
-	private String categoryName; // enumからセットするカテゴリ名
 
 	private String imageUrl; // 商品画像
 
 	private Integer regionId; // 地域ID
-	
-	private String regionName; // enumからセットする地域名
 }

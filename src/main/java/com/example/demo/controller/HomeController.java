@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +29,17 @@ public class HomeController {
 	@GetMapping({ "/", "/index" })
 	public String home(
 			@RequestParam(required = false) Integer categoryId,
-			Model model) {
+			Model model, HttpSession session) {
+
+		String username = (String) session.getAttribute("username");
+		if (username != null) {
+			// ユーザー名が存在すれば、ログイン中としてデータを画面に渡す
+			model.addAttribute("isLoggedIn", true);
+			model.addAttribute("username", username);
+		} else {
+			// 存在しなければ未ログイン
+			model.addAttribute("isLoggedIn", false);
+		}
 
 		List<Product> products;
 
