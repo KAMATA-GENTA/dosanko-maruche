@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class RegionCount {
-	private String region;
+	private Integer regionId;
 	private Integer count;
+	private String regionName;
 }

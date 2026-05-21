@@ -50,18 +50,16 @@
   </select>
 
   <!-- 地域別購入回数を取得する -->
-  <select id="findRegionCountByUserId" parameterType="int"
-          resultType="com.example.demo.entity.RegionCount">
-    SELECT
-      CONCAT('地域', p.region_id) AS region,
-      COUNT(DISTINCT o.id)        AS count
-    FROM orders o
-    JOIN order_details od ON o.id          = od.order_id
-    JOIN products p       ON od.product_id = p.id
-    WHERE o.user_id = #{userId}
-    GROUP BY p.region_id
-    ORDER BY count DESC
-  </select>
+<select id="findRegionCountByUserId" parameterType="int"
+        resultType="com.example.demo.entity.RegionCount">
+  SELECT
+    p.region_id AS regionId,  COUNT(DISTINCT o.id) AS count
+  FROM orders o
+  JOIN order_details od ON o.id = od.order_id
+  JOIN products p       ON od.product_id = p.id
+  WHERE o.user_id = #{userId}
+  GROUP BY p.region_id
+</select>
   
   <select id="findOrderDetailsByOrderId" parameterType="int"
         resultType="com.example.demo.entity.OrderDetail">
