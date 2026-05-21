@@ -87,4 +87,20 @@ public class CartController {
 
 		return "redirect:/cart";
 	}
+
+	@PostMapping("/cart/delete")
+	public String deleteCartItem(
+			@RequestParam int cartId,
+			HttpSession session) {
+
+		Integer userId = (Integer) session.getAttribute("userId");
+
+		if (userId == null) {
+			return "redirect:/login";
+		}
+
+		cartService.deleteCartItem(cartId);
+
+		return "redirect:/cart";
+	}
 }

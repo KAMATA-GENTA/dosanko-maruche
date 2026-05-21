@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/_layout}">
 
 <head>
@@ -29,7 +30,8 @@
 				</a>
 			</div>
 
-			<div th:if="${!#lists.isEmpty(cartItems)}" class="grid gap-6 lg:grid-cols-[1fr_340px]">
+			<div th:if="${!#lists.isEmpty(cartItems)}"
+				class="grid gap-6 lg:grid-cols-[1fr_340px]">
 
 				<section class="space-y-4">
 
@@ -51,12 +53,14 @@
 								<div class="flex flex-1 items-center gap-4">
 									<div
 										class="flex h-24 w-24 shrink-0 items-center justify-center rounded-xl bg-base-200 p-2">
-										<img th:src="${item.imageUrl}" th:alt="${item.productName}"
+										<img th:src="${item.imageUrl}"
+											th:alt="${item.productName}"
 											class="h-full w-full object-contain">
 									</div>
 
 									<div>
-										<h3 class="text-lg font-bold text-base-content" th:text="${item.productName}">
+										<h3 class="text-lg font-bold text-base-content"
+											th:text="${item.productName}">
 											商品名
 										</h3>
 
@@ -68,7 +72,8 @@
 											北海道こだわりの商品
 										</p>
 
-										<p class="mt-2 font-bold text-primary" th:text="${item.price} + '円'">
+										<p class="mt-2 font-bold text-primary"
+											th:text="${item.price} + '円'">
 											0円
 										</p>
 									</div>
@@ -101,9 +106,18 @@
 
 									<div class="min-w-24 text-right">
 										<p class="text-xs text-base-content/50">小計</p>
-										<p class="text-lg font-bold text-base-content" th:text="${item.subtotal} + '円'">
+
+										<p class="text-lg font-bold text-base-content"
+											th:text="${item.subtotal} + '円'">
 											0円
 										</p>
+
+										<form th:action="@{/cart/delete}" method="post" class="mt-2">
+											<input type="hidden" name="cartId" th:value="${item.cartId}">
+											<button type="submit" class="btn btn-error btn-xs rounded-full">
+												削除
+											</button>
+										</form>
 									</div>
 
 								</div>
@@ -135,16 +149,19 @@
 
 					<div class="flex justify-between border-t border-base-300 pt-5">
 						<span class="text-lg font-bold">合計</span>
-						<span class="text-2xl font-black text-primary" th:text="${totalPrice} + '円'">
+						<span class="text-2xl font-black text-primary"
+							th:text="${totalPrice} + '円'">
 							0円
 						</span>
 					</div>
 
-					<a th:href="@{/treasure}" class="btn btn-primary mt-6 w-full rounded-full text-base font-bold">
+					<a th:href="@{/treasure}"
+						class="btn btn-primary mt-6 w-full rounded-full text-base font-bold">
 						購入へ進む
 					</a>
 
-					<a href="/" class="btn btn-outline btn-primary mt-3 w-full rounded-full">
+					<a href="/"
+						class="btn btn-outline btn-primary mt-3 w-full rounded-full">
 						買い物を続ける
 					</a>
 

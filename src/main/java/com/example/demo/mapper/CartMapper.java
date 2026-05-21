@@ -10,16 +10,12 @@ import com.example.demo.entity.CartItem;
 @Mapper
 public interface CartMapper {
 
-	List<CartItem> findByUserId(
-			@Param("userId") Integer userId);
-
-	void deleteByUserId(
-			@Param("userId") Integer userId);
-
 	void insert(
 			@Param("userId") int userId,
 			@Param("productId") int productId,
 			@Param("quantity") int quantity);
+
+	List<CartItem> findByUserId(int userId);
 
 	CartItem findByUserIdAndProductId(
 			@Param("userId") int userId,
@@ -29,7 +25,7 @@ public interface CartMapper {
 			@Param("cartId") int cartId,
 			@Param("quantity") int quantity);
 
+	void delete(int cartId);
 
-	void delete(
-			@Param("cartId") int cartId);
+	void deleteByUserId(int userId);
 }
