@@ -127,26 +127,26 @@
     <!-- 地域別カテゴリ別ランキングTOP3取得 -->
     <select id="findRankingByRegionIdAndCategoryId"
             resultType="com.example.demo.entity.RankingProduct">
-        SELECT
-            p.id,
-            p.product_name AS productName,
-            p.price,
-            p.image_url AS imageUrl,
-            p.region_id AS regionId,
-            SUM(od.quantity) AS totalQuantity
-        FROM products p
-        LEFT JOIN order_details od
-            ON p.id = od.product_id
-        WHERE p.region_id = #{regionId}
-          AND p.category_id = #{categoryId}
-        GROUP BY
-            p.id,
-            p.product_name,
-            p.price,
-            p.image_url,
-            p.region_id
-        ORDER BY totalQuantity DESC
-        LIMIT 3
+SELECT
+    p.id,
+    p.product_name AS productName,
+    p.price,
+    p.image_url AS imageUrl,
+    p.region_id AS regionId,
+    COALESCE(SUM(od.quantity), 0) AS totalQuantity
+FROM products p
+LEFT JOIN order_details od
+    ON p.id = od.product_id
+WHERE p.region_id = #{regionId}
+  AND p.category_id = #{categoryId}
+GROUP BY
+    p.id,
+    p.product_name,
+    p.price,
+    p.image_url,
+    p.region_id
+ORDER BY totalQuantity DESC
+LIMIT 3;
     </select>
 
 </mapper>
