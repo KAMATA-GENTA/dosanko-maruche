@@ -10,6 +10,7 @@ import com.example.demo.enums.Category;
 import com.example.demo.enums.Region;
 import com.example.demo.mapper.ProductMapper;
 
+
 @Service
 public class ProductService {
 
@@ -103,3 +104,4 @@ public class ProductService {
             rankingProduct.setRegionName(Region.getNameById(rankingProduct.getRegionId()));
         }
     }
+}
