@@ -360,6 +360,99 @@ body {
     font-weight: bold;
 }
 
+/*地域画像メインエリア*/
+.region-visual {
+	position: relative;
+	width: 100vw;
+	height: 620px;
+	margin-left: calc(50% - 50vw);
+	margin-bottom: 24px;
+	overflow: hidden;
+	border-radius: 0;
+}
+/*地域画像*/
+.region-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: top;
+	display: block;
+	opacity: 0.75;
+}
+/* 地域説明の吹き出し */
+.description-bubble {
+	position: absolute;
+	left: 42%;
+	top: 52%;
+	transform: translate(-50%, -50%);
+
+	width: 520px;
+	padding: 32px 48px;
+
+	background-color: rgba(255, 255, 255, 0.80);
+	border-radius: 70px;
+
+	text-align: center;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+
+	z-index: 2;
+}
+
+.description-bubble::after {
+	content: none;
+}
+
+.description-bubble p {
+	margin: 0;
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 1.8;
+	color: #4a2a12;
+}
+
+.speech-tail {
+	position: absolute;
+	right: -26px;
+	top: 58%;
+
+	width: 52px;
+	height: 34px;
+
+	background-color: rgba(255, 255, 255, 0.65);
+
+	clip-path: polygon(0 0, 100% 45%, 0 100%);
+
+	z-index: -1;
+}
+
+.description-bubble h2 {
+	margin: 0 0 14px;
+	font-size: 28px;
+	font-weight: bold;
+	color: #4a2a12;
+}
+
+.description-bubble p {
+	margin: 0;
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 1.8;
+	color: #4a2a12;
+}
+
+/* キャラクター画像 */
+.character-image {
+	position: absolute;
+	right: -5%;
+	bottom: 0;
+
+	width: 700px;
+	max-height: 100%;
+	object-fit: contain;
+
+	z-index: 3;
+}
+
 
 .regionProduct-section .product-card {
 
