@@ -36,4 +36,8 @@ public class CartDisplayItem {
 	public int getSubtotal() {
 		return product.getPrice() * cartItem.getQuantity();
 	}
+
+	public String getImageUrl() {
+		return product.getImageUrl();
+	}
 }
