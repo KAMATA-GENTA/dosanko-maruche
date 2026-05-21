@@ -61,10 +61,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/login")
-	public String login(
-			@ModelAttribute LoginForm form,
-			Model model,
-			HttpSession session) {
+	public String login(@ModelAttribute LoginForm form, Model model, HttpSession session) {
 
 		User user = userMapper.findByEmail(form.getEmail());
 
@@ -74,9 +71,8 @@ public class AuthController {
 			String stored = user.getPasswordHash();
 
 			if (stored.startsWith("$2a$") || stored.startsWith("$2b$")) {
-				isAuthenticated = passwordEncoder.matches(
-						form.getPassword(),
-						stored);
+				isAuthenticated = passwordEncoder.matches(form.getPassword(), stored);
+				System.out.println(isAuthenticated);
 			} else {
 				isAuthenticated = stored.equals(form.getPassword());
 			}

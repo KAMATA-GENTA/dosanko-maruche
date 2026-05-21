@@ -20,9 +20,9 @@ public class CharacterService {
 
 		Character character = region.getCharacter();
 
-		if (count >= 10) {
+		if (count >= 5) {
 			return character.getAdultImageUrl();
-		} else if (count >= 5) {
+		} else if (count >= 4) {
 			return character.getStudentImageUrl();
 		} else {
 			return character.getChildImageUrl();
