@@ -1,12 +1,15 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.entity.Product;
+import com.example.demo.enums.Category;
 import com.example.demo.enums.Region;
 import com.example.demo.service.CharacterService;
 import com.example.demo.service.ProductService;
@@ -15,75 +18,82 @@ import com.example.demo.service.ProductService;
 @RequestMapping("/region")
 public class RegionController {
 
-	private final ProductService productService;
-	private final CharacterService characterService;
+    private final ProductService productService;
+    private final CharacterService characterService;
 
-	public RegionController(ProductService productService, CharacterService characterService) {
-		this.productService = productService;
-		this.characterService = characterService;
-	}
+    public RegionController(ProductService productService, CharacterService characterService) {
+        this.productService = productService;
+        this.characterService = characterService;
+    }
 
-	// 地域詳細ページ
-	@GetMapping("/{regionName}")
-	public String showRegion(@PathVariable String regionName, @RequestParam(required = false) Integer categoryId,
-			Model model) {
+    /**
+     * 地域詳細ページ
+     *
+     * URLは /region/wakkanai のように地域名で受け取る。
+     * ただし、DB検索にはregion_idが必要なので、Region enumからIDを取得して使う。
+     */
+    @GetMapping("/{regionName}")
+    public String showRegion(
+            @PathVariable String regionName,
+            Integer categoryId,
+            Model model) {
 
-		Region region = getRegion(regionName);
+        // URLの地域名からRegion enumを取得する
+        Region region = Region.fromUrlName(regionName);
 
-		model.addAttribute("region", region);
-		model.addAttribute("regionName", regionName);
-		model.addAttribute("selectedCategoryId", categoryId);
+        // 存在しない地域名の場合はトップページへ戻す
+        if (region == null) {
+            return "redirect:/";
+        }
 
-		if (categoryId == null) {
-			model.addAttribute("products",
-					productService.getProductsByRegionId(region.getId()));
-		} else {
-			model.addAttribute("products",
-					productService.getProductsByRegionIdAndCategoryId(
-							region.getId(),
-							categoryId));
-		}
+        List<Product> products;
 
-		// カテゴリ別ランキング 地域ごと
-		model.addAttribute("seafoodRanking",
-				productService.getRankingByRegionIdAndCategoryId(region.getId(), 1));
+        // カテゴリ未選択の場合は、その地域の商品をすべて取得する
+        if (categoryId == null) {
+            products = productService.getProductsByRegionId(region.getId());
+        } else {
+            // カテゴリ選択時は、その地域の商品を取得してからカテゴリIDで絞り込む
+            products = productService.getProductsByRegionId(region.getId())
+                    .stream()
+                    .filter(product -> categoryId.equals(product.getCategoryId()))
+                    .toList();
+        }
 
-		model.addAttribute("vegetableRanking",
-				productService.getRankingByRegionIdAndCategoryId(region.getId(), 2));
+        // 地域ページ表示用
+        model.addAttribute("region", region);
 
-		model.addAttribute("meatRanking",
-				productService.getRankingByRegionIdAndCategoryId(region.getId(), 3));
+        // URL生成用。region.urlNameでも使えるが、HTML側で使いやすいように渡す
+        model.addAttribute("regionName", region.getUrlName());
 
-		model.addAttribute("souvenirRanking",
-				productService.getRankingByRegionIdAndCategoryId(region.getId(), 4));
+        // 商品一覧
+        model.addAttribute("products", products);
 
-		// キャラクター画像、地域idの値を渡して進化するかどうかの判定
-		model.addAttribute("characterImage", characterService.getCharacterImageByRegion(region));
-		model.addAttribute("orderDetailCount", characterService.getOrderDetailCountByRegion(region));
+        // 選択中カテゴリ
+        model.addAttribute("selectedCategoryId", categoryId);
 
-		return "region_test";
-	}
+        // Category enumからカテゴリ一覧を渡す
+        model.addAttribute("categories", Category.values());
 
-	private Region getRegion(String regionName) {
-		if (regionName.equals("sapporo")) {
-			return Region.Sapporo;
+        // 地域別・カテゴリ別ランキング
+        model.addAttribute("seafoodRanking",
+                productService.getRankingByRegionIdAndCategoryId(region.getId(), 1));
 
-		} else if (regionName.equals("hakodate")) {
-			return Region.Hakodate;
+        model.addAttribute("vegetableRanking",
+                productService.getRankingByRegionIdAndCategoryId(region.getId(), 2));
 
-		} else if (regionName.equals("wakkanai")) {
-			return Region.Wakkanai;
+        model.addAttribute("meatRanking",
+                productService.getRankingByRegionIdAndCategoryId(region.getId(), 3));
 
-		} else if (regionName.equals("kitami")) {
-			return Region.Kitami;
+        model.addAttribute("souvenirRanking",
+                productService.getRankingByRegionIdAndCategoryId(region.getId(), 4));
 
-		} else if (regionName.equals("obihiro")) {
-			return Region.Obihiro;
-		} else if (regionName.equals("otaru")) {
-			return Region.Otaru;
-		}
+        // キャラクター表示
+        model.addAttribute("characterImage",
+                characterService.getCharacterImageByRegion(region));
 
-		throw new IllegalArgumentException("存在しない地域です");
-	}
+        model.addAttribute("orderDetailCount",
+                characterService.getOrderDetailCountByRegion(region));
 
+        return "region_test";
+    }
 }
