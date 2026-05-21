@@ -150,10 +150,20 @@
 		</nav>
 
 		<div class="header-menu">
-			<a href="/login">ログイン</a>
-			<a href="/sign-up">新規登録</a>
-			<a href="/cart">カート</a>
-		</div>
+					<!-- ログインしていない場合 -->
+					<th:block th:if="${session.username == null}">
+						<a href="/login">ログイン</a>
+						<a href="/cart">カート</a>
+					</th:block>
+					
+					<!-- ログインしている場合 -->
+					<th:block th:if="${session.username != null}">
+						<span style="color: hsl(var(--p)); font-weight: bold; margin-right: 10px;">
+							ようこそ、<span th:text="${session.username}"></span>さん
+						</span>
+						<a href="/cart">カート</a>
+					</th:block>
+				</div>
 
 	</header>
 
