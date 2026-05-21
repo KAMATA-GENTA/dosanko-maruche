@@ -10,122 +10,11 @@
 <body>
 <div layout:fragment="content">
 
+    <main class="mx-auto w-full max-w-[1200px] px-5 py-10 flex-grow">
 
-    
-
-    <section class="mx-auto w-full max-w-[1200px] px-5 py-10 flex-grow">
-
-      <div class="mb-8 border-b pb-4">
-        <h1 class="text-3xl font-bold text-neutral">マイページ</h1>
-        <p class="text-gray-500 text-sm mt-1">アカウント情報・購入履歴を確認できます</p>
-      </div>
-
-      <div class="flex flex-col lg:flex-row gap-8">
-
-        <aside class="lg:w-1/4">
-
-          <div class="border rounded shadow-sm p-6 bg-white">
-            <div class="flex flex-col items-center mb-6">
-              <div class="h-20 w-20 rounded-full bg-neutral flex items-center justify-center text-white text-3xl font-bold mb-3">
-                <span th:text="${#strings.substring(user.username, 0, 1)}">U</span>
-              </div>
-              <p class="font-bold text-lg text-gray-800" th:text="${user.username}">ユーザー名</p>
-              <p class="text-sm text-gray-500" th:text="${user.email}">email@example.com</p>
-            </div>
-            <div class="border-t pt-4 space-y-3 text-sm">
-              <div>
-                <p class="text-gray-400 text-xs font-medium uppercase tracking-wide">お名前</p>
-                <p class="font-medium text-gray-800 mt-0.5" th:text="${user.username}">山田 太郎</p>
-              </div>
-              <div>
-                <p class="text-gray-400 text-xs font-medium uppercase tracking-wide">メールアドレス</p>
-                <p class="font-medium text-gray-800 mt-0.5" th:text="${user.email}">yamada@example.com</p>
-              </div>
-            </div>
-            <div class="mt-6 border-t pt-4">
-              <a href="/logout"
-                 class="block w-full text-center bg-neutral text-white py-2 rounded hover:bg-violet-800 transition-colors duration-150 text-sm font-medium">
-                ログアウト
-              </a>
-            </div>
-          </div>
-
-          <div class="border rounded shadow-sm p-6 bg-white mt-6">
-            <h2 class="text-base font-bold text-gray-700 mb-4">🗾 地域別購入回数</h2>
-            <div th:if="${not #lists.isEmpty(regionCounts)}">
-              <div th:each="rc : ${regionCounts}" class="mb-3">
-                <div class="flex justify-between text-sm mb-1">
-                  <span class="text-gray-700" th:text="${rc.region}">地域名</span>
-                  <span class="font-bold text-neutral" th:text="${rc.count} + '回'">0回</span>
-                </div>
-                <div class="w-full bg-gray-100 rounded h-2">
-                  <div class="bg-neutral h-2 rounded"
-                       th:style="'width: ' + ${rc.count * 20 > 100 ? 100 : rc.count * 20} + '%'"></div>
-                </div>
-              </div>
-            </div>
-            <p th:if="${#lists.isEmpty(regionCounts)}" class="text-sm text-gray-400">
-              購入データがありません
-            </p>
-          </div>
-
-        </aside>
-
-        <div class="lg:w-3/4">
-          <div class="border rounded shadow-sm bg-white">
-            <div class="px-6 py-4 border-b">
-              <h2 class="text-lg font-bold text-gray-700">購入履歴</h2>
-            </div>
-
-            <div th:if="${not #lists.isEmpty(orders)}">
-              <table class="w-full text-sm">
-                <thead class="bg-gray-50 text-gray-500 text-xs uppercase">
-                  <tr>
-                    <th class="px-4 py-3 text-left">注文ID</th>
-                    <th class="px-4 py-3 text-left">商品名</th>
-                    <th class="px-4 py-3 text-right">小計</th>
-                    <th class="px-4 py-3 text-right">送料</th>
-                    <th class="px-4 py-3 text-right font-bold">合計</th>
-                    <th class="px-4 py-3 text-right">注文日時</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr th:each="order, stat : ${orders}"
-                      th:class="${stat.odd} ? 'bg-white' : 'bg-gray-50'"
-                      class="border-t hover:bg-violet-50 transition-colors duration-100">
-                    <td class="px-4 py-3 text-gray-500"
-                        th:text="'#' + ${order.id}">#001</td>
-                    <td class="px-4 py-3">
-                      <span th:each="detail : ${orderDetailsMap[order.id]}"
-                            th:text="${detail.name} + ' × ' + ${detail.quantity}"
-                            class="block text-sm text-gray-800">商品名</span>
-                    </td>
-                    <td class="px-4 py-3 text-right"
-                        th:text="'¥' + ${#numbers.formatInteger(order.subtotal, 1, 'COMMA')}">¥0</td>
-                    <td class="px-4 py-3 text-right"
-                        th:text="'¥' + ${#numbers.formatInteger(order.shippingFee, 1, 'COMMA')}">¥0</td>
-                    <td class="px-4 py-3 text-right font-bold"
-                        th:text="'¥' + ${#numbers.formatInteger(order.subtotal + order.shippingFee, 1, 'COMMA')}">¥0</td>
-                    <td class="px-4 py-3 text-right text-gray-500"
-                        th:text="${#temporals.format(order.orderedAt, 'yyyy/MM/dd HH:mm')}">2024/01/01 00:00</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div th:if="${#lists.isEmpty(orders)}" class="px-6 py-16 text-center">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
-                stroke="currentColor" class="h-16 w-16 text-gray-200 mx-auto mb-4">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
-              </svg>
-              <p class="text-gray-400 text-sm">まだ購入履歴がありません</p>
-              <a href="/"
-                 class="mt-4 inline-block bg-neutral px-6 py-2 text-sm font-medium hover:bg-yellow-300 transition-colors duration-150">
-                ショッピングを始める
-              </a>
-            </div>
-          </div>
+        <div class="mb-8 border-b pb-4">
+            <h1 class="text-3xl font-bold text-base-content">マイページ</h1>
+            <p class="text-base-content/60 text-sm mt-1">アカウント情報・購入履歴を確認できます</p>
         </div>
 
         <section class="grid gap-6 lg:grid-cols-[300px_1fr]">
@@ -137,35 +26,24 @@
                         <div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-primary text-3xl font-black text-primary-content shadow-sm">
                             <span th:text="${#strings.substring(user.username, 0, 1)}">U</span>
                         </div>
-
-                        <p class="text-lg font-black text-base-content"
-                           th:text="${user.username}">
+                        <p class="text-lg font-black text-base-content" th:text="${user.username}">
                             ユーザー名
                         </p>
-
-                        <p class="mt-1 break-all text-sm text-base-content/60"
-                           th:text="${user.email}">
+                        <p class="mt-1 break-all text-sm text-base-content/60" th:text="${user.email}">
                             email@example.com
                         </p>
                     </div>
 
                     <div class="grid gap-4 pt-5">
                         <div>
-                            <p class="text-xs font-black tracking-wide text-base-content/50">
-                                お名前
-                            </p>
-                            <p class="mt-1 break-all font-bold text-base-content"
-                               th:text="${user.username}">
+                            <p class="text-xs font-black tracking-wide text-base-content/50">お名前</p>
+                            <p class="mt-1 break-all font-bold text-base-content" th:text="${user.username}">
                                 山田 太郎
                             </p>
                         </div>
-
                         <div>
-                            <p class="text-xs font-black tracking-wide text-base-content/50">
-                                メールアドレス
-                            </p>
-                            <p class="mt-1 break-all font-bold text-base-content"
-                               th:text="${user.email}">
+                            <p class="text-xs font-black tracking-wide text-base-content/50">メールアドレス</p>
+                            <p class="mt-1 break-all font-bold text-base-content" th:text="${user.email}">
                                 yamada@example.com
                             </p>
                         </div>
@@ -182,35 +60,24 @@
                     <h2 class="mb-5 text-lg font-black text-base-content">
                         地域別購入回数
                     </h2>
-
                     <div class="grid gap-4" th:if="${not #lists.isEmpty(regionCounts)}">
                         <div th:each="rc : ${regionCounts}">
                             <div class="mb-2 flex justify-between gap-3 text-sm">
-                                <span class="font-bold text-base-content"
-                                      th:text="${rc.region}">
-                                    地域名
-                                </span>
-                                <span class="font-black text-primary"
-                                      th:text="${rc.count} + '回'">
-                                    0回
-                                </span>
+                                <span class="font-bold text-base-content" th:text="${rc.regionName}">地域名</span>
+                                <span class="font-black text-primary" th:text="${rc.count} + '回'">0回</span>
                             </div>
-
                             <progress class="progress progress-primary w-full"
                                       th:value="${rc.count * 20 > 100 ? 100 : rc.count * 20}"
                                       max="100">
                             </progress>
                         </div>
                     </div>
-
-                    <p th:if="${#lists.isEmpty(regionCounts)}"
-                       class="text-sm text-base-content/60">
+                    <p th:if="${#lists.isEmpty(regionCounts)}" class="text-sm text-base-content/60">
                         購入データがありません
                     </p>
                 </div>
 
             </aside>
-
             <section class="overflow-hidden rounded-2xl border border-base-300 bg-base-100 shadow-sm">
                 <div class="flex items-center justify-between gap-4 border-b border-base-300 px-6 py-5">
                     <h2 class="text-xl font-black text-base-content">
@@ -230,14 +97,11 @@
                             <th class="text-right">注文日時</th>
                         </tr>
                         </thead>
-
                         <tbody>
                         <tr th:each="order : ${orders}">
-                            <td class="whitespace-nowrap font-bold text-base-content/60"
-                                th:text="'#' + ${order.id}">
+                            <td class="whitespace-nowrap font-bold text-base-content/60" th:text="'#' + ${order.id}">
                                 #001
                             </td>
-
                             <td>
                                 <span th:each="detail : ${orderDetailsMap[order.id]}"
                                       th:text="${detail.name} + ' × ' + ${detail.quantity}"
@@ -245,24 +109,16 @@
                                     商品名
                                 </span>
                             </td>
-
-                            <td class="text-right"
-                                th:text="'¥' + ${#numbers.formatInteger(order.subtotal, 1, 'COMMA')}">
+                            <td class="text-right" th:text="'¥' + ${#numbers.formatInteger(order.subtotal, 1, 'COMMA')}">
                                 ¥0
                             </td>
-
-                            <td class="text-right"
-                                th:text="'¥' + ${#numbers.formatInteger(order.shippingFee, 1, 'COMMA')}">
+                            <td class="text-right" th:text="'¥' + ${#numbers.formatInteger(order.shippingFee, 1, 'COMMA')}">
                                 ¥0
                             </td>
-
-                            <td class="text-right font-black text-primary"
-                                th:text="'¥' + ${#numbers.formatInteger(order.subtotal + order.shippingFee, 1, 'COMMA')}">
+                            <td class="text-right font-black text-primary" th:text="'¥' + ${#numbers.formatInteger(order.subtotal + order.shippingFee, 1, 'COMMA')}">
                                 ¥0
                             </td>
-
-                            <td class="text-right whitespace-nowrap"
-                                th:text="${#temporals.format(order.orderedAt, 'yyyy/MM/dd HH:mm')}">
+                            <td class="text-right whitespace-nowrap" th:text="${#temporals.format(order.orderedAt, 'yyyy/MM/dd HH:mm')}">
                                 2024/01/01 00:00
                             </td>
                         </tr>
@@ -274,25 +130,14 @@
                     <div class="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-base-200 text-3xl text-primary">
                         🛒
                     </div>
-
                     <p class="text-sm text-base-content/60">
                         まだ購入履歴がありません
                     </p>
-
                     <a href="/" class="btn btn-primary mt-5">
                         ショッピングを始める
                     </a>
                 </div>
             </section>
-
-        </section>
-
+            </section>
         <footer class="mt-14 border-t border-base-300 py-7 text-center text-sm text-base-content/60">
-            <p>© どさん娘マルシェ</p>
-        </footer>
-
-    </main>
-
-</div>
-</body>
-</html>
+            <p>© どさん娘マルシェ
